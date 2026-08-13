@@ -1,0 +1,64 @@
+# robots.txt for AEM Frozen Food (AL-EKHLAS MANUFACTURING SDN. BHD.)
+# Optimization for Traditional Search Engines & AI Search Agents (GEO)
+
+User-agent: *
+Allow: /
+Disallow: /api/private/
+
+# Explicitly Allow AI Search Engines and Generative Search Crawlers (GEO / Search Agents)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Diffbot
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: YouBot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+# Traditional Search Engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+User-agent: Yandex
+Allow: /
+
+# Sitemap & LLM Knowledge Files
+Sitemap: https://alekhlasfood.com/sitemap.xml
+LLM-Knowledge: https://alekhlasfood.com/llms.txt
+LLM-Full-Knowledge: https://alekhlasfood.com/llms-full.txt

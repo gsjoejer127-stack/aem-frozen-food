@@ -1,0 +1,6 @@
+{
+  "name": "AEM Frozen Food",
+  "description": "High-quality Malaysian-style frozen food, satay skewers, Chinese dessert soups, and gourmet dim sum landing page.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
