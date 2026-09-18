@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Product, Category, DeliveryRegion } from './types';
+import type { Product, Category, DeliveryRegion } from './types';
 // @ts-ignore
 import brownSugarCibaImage from './assets/images/brown_sugar_ciba_1783817158846.jpg';
 
