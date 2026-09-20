@@ -228,8 +228,18 @@ export default function App() {
     return customImages[product.id] || product.image;
   };
 
-  // Merchant Admin states
-  const [adminMode, setAdminMode] = useState<boolean>(() => {
+  // Merchant Admin states.
+  // The CMS console is only reachable via ?admin=1 so ordinary visitors never
+  // see the merchant tooling, even if a previous session left the flag on.
+  const isAdminUnlocked = useMemo(() => {
+    try {
+      return new URLSearchParams(window.location.search).get('admin') === '1';
+    } catch {
+      return false;
+    }
+  }, []);
+
+  const [adminModeStored, setAdminModeStored] = useState<boolean>(() => {
     try {
       const saved = localStorage.getItem('merchant_admin_mode');
       return saved === 'true';
@@ -238,12 +248,14 @@ export default function App() {
     }
   });
 
+  const adminMode = isAdminUnlocked && adminModeStored;
+
   const [isAdminPanelOpen, setIsAdminPanelOpen] = useState<boolean>(false);
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
 
   // Sync adminMode change
   const handleToggleAdminMode = (val: boolean) => {
-    setAdminMode(val);
+    setAdminModeStored(val);
     try {
       localStorage.setItem('merchant_admin_mode', String(val));
     } catch (e) {
@@ -3200,8 +3212,9 @@ export default function App() {
         )}
       </AnimatePresence>
 
-      {/* FLOATING CMS CONTROLLER WIDGET */}
-      <div className="fixed bottom-24 right-6 z-40 flex flex-col items-end gap-3" id="floating-cms-widget-container">
+      {/* FLOATING CMS CONTROLLER WIDGET (merchant only, via ?admin=1) */}
+      {isAdminUnlocked && (
+      <div className="fixed bottom-[9.25rem] right-4 md:bottom-24 md:right-6 z-40 flex flex-col items-end gap-3" id="floating-cms-widget-container">
         <AnimatePresence>
           {isAdminPanelOpen && (
             <motion.div
@@ -3360,6 +3373,7 @@ export default function App() {
           </div>
         </motion.div>
       </div>
+      )}
 
       {/* MOBILE STICKY BOTTOM CONVERSION BAR */}
       <div className="md:hidden fixed bottom-0 left-0 right-0 z-30 bg-slate-900 border-t border-slate-800 p-2.5 px-4 shadow-2xl flex items-center justify-between gap-2" id="mobile-bottom-conversion-bar">
@@ -3393,7 +3407,7 @@ export default function App() {
       </div>
 
       {/* FLOATING WHATSAPP BUTTON */}
-      <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 flex flex-col items-end gap-2" id="floating-whatsapp-container">
+      <div className="fixed bottom-20 right-4 md:bottom-6 md:right-6 z-40 flex flex-col items-end gap-2" id="floating-whatsapp-container">
         <motion.div
           initial={{ opacity: 0, scale: 0.8, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
