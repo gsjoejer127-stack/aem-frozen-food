@@ -55,6 +55,13 @@ import { motion, AnimatePresence } from 'motion/react';
 import { CATEGORIES, PRODUCTS, DELIVERY_REGIONS, COMPANY_CONTACT } from './data';
 import { Product, ProductVariant, CartItem, Language } from './types';
 import { DICTIONARY } from './dictionary';
+import {
+  LEGAL_DOCS,
+  LEGAL_DOC_ORDER,
+  LEGAL_ENTITY,
+  LEGAL_LAST_UPDATED,
+  LegalDocId
+} from './legal';
 import Logo from './components/Logo';
 import HalalLogo from './components/HalalLogo';
 
@@ -63,6 +70,78 @@ const WhatsAppIcon = ({ className }: { className?: string }) => (
     <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.746.953 3.71 1.458 5.704 1.459h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
   </svg>
 );
+
+const LEGAL_LANG_ORDER: Record<Language, Language[]> = {
+  zh: ['zh', 'en', 'ms'],
+  en: ['en', 'zh', 'ms'],
+  ms: ['ms', 'en', 'zh']
+};
+
+const LegalDocView = ({
+  docId,
+  lang,
+  onSelect
+}: {
+  docId: LegalDocId;
+  lang: Language;
+  onSelect: (id: LegalDocId) => void;
+}) => {
+  const doc = LEGAL_DOCS[docId];
+  const [primary, ...secondary] = LEGAL_LANG_ORDER[lang];
+
+  const toneClass = (tone?: 'warning' | 'consent') =>
+    tone === 'warning'
+      ? 'bg-amber-50/70 border-amber-500'
+      : tone === 'consent'
+      ? 'bg-emerald-50/70 border-emerald-600'
+      : 'bg-white border-slate-300';
+
+  return (
+    <div className="flex flex-col gap-5">
+      {/* Switch between the three legal documents without leaving the modal */}
+      <div className="flex flex-wrap gap-1.5 border-b border-slate-100 pb-3">
+        {LEGAL_DOC_ORDER.map((id) => (
+          <button
+            key={id}
+            type="button"
+            onClick={() => onSelect(id)}
+            className={`text-[10px] sm:text-[11px] font-extrabold uppercase tracking-wider px-3 py-1.5 rounded-[3px] border transition-colors cursor-pointer ${
+              id === docId
+                ? 'bg-brand-green text-white border-brand-green'
+                : 'bg-white text-slate-500 border-slate-200 hover:border-brand-green hover:text-brand-green'
+            }`}
+          >
+            {LEGAL_DOCS[id].label[lang]}
+          </button>
+        ))}
+      </div>
+
+      <p className="text-slate-700 text-xs leading-relaxed font-medium">{doc.intro[primary]}</p>
+
+      <div className="flex flex-col gap-4">
+        {doc.clauses.map((clause, i) => (
+          <div key={i} className={`border-l-4 pl-3.5 pr-3 py-2.5 rounded-r-[3px] ${toneClass(clause.tone)}`}>
+            <h4 className="font-extrabold text-slate-900 text-sm mb-1.5 uppercase tracking-wider">
+              {clause.heading[primary]}
+            </h4>
+            <p className="text-slate-800 font-medium text-sm leading-relaxed">{clause.body[primary]}</p>
+            {secondary.map((code) => (
+              <p key={code} className="text-slate-500 text-[11px] leading-relaxed mt-1.5">
+                {clause.body[code]}
+              </p>
+            ))}
+          </div>
+        ))}
+      </div>
+
+      <p className="text-[10px] text-slate-400 italic border-t border-slate-100 pt-3 leading-relaxed">
+        {LEGAL_ENTITY.name} ({LEGAL_ENTITY.regNo}) · {LEGAL_ENTITY.address} · {LEGAL_ENTITY.phone} · {LEGAL_ENTITY.email}
+        <br />
+        Last updated: {LEGAL_LAST_UPDATED}
+      </p>
+    </div>
+  );
+};
 
 export default function App() {
   // State
@@ -272,8 +351,8 @@ export default function App() {
     }
   }, [selectedProductDetails, adminMode]);
 
-  // State for opening Terms & Conditions, Refund Policy, or Why Choose Us modal ('terms' | 'refund' | 'why' | null)
-  const [openPolicyType, setOpenPolicyType] = useState<'terms' | 'refund' | 'why' | null>(null);
+  // State for the legal modal: 'terms' | 'refund' | 'pdpa' | 'why' | null
+  const [openPolicyType, setOpenPolicyType] = useState<LegalDocId | 'why' | null>(null);
 
   // B2B Inquiry Form State
   const [b2bCompanyName, setB2bCompanyName] = useState<string>('');
@@ -1786,6 +1865,18 @@ export default function App() {
                       />
                     </div>
 
+                    <p className="text-[10px] text-slate-500 leading-relaxed">
+                      {lang === 'zh' ? '点击提交即表示您已阅读并同意我们的' : lang === 'ms' ? 'Dengan menghantar, anda telah membaca dan bersetuju dengan ' : 'By submitting, you confirm you have read and agree to our '}
+                      <button
+                        type="button"
+                        onClick={() => setOpenPolicyType('terms')}
+                        className="underline underline-offset-2 font-bold text-brand-green hover:text-emerald-700 cursor-pointer"
+                      >
+                        {lang === 'zh' ? '条款与细则、退款政策及 PDPA 个人资料保护声明' : lang === 'ms' ? 'Terma, Polisi Bayaran Balik & Notis PDPA' : 'Terms, Refund Policy & PDPA Notice'}
+                      </button>
+                      {lang === 'zh' ? '，并同意我们就此询价与您进行后续联系。' : lang === 'ms' ? ', dan bersetuju kami menghubungi anda untuk susulan.' : ', and consent to us contacting you for follow up.'}
+                    </p>
+
                     <button
                       type="submit"
                       className="w-full bg-[#25D366] hover:bg-[#20ba59] active:scale-[0.99] text-white font-extrabold text-xs uppercase tracking-wider py-3.5 px-6 rounded-[3px] shadow-md transition-all cursor-pointer flex items-center justify-center gap-2"
@@ -1836,6 +1927,13 @@ export default function App() {
                 >
                   <ShieldAlert className="h-4.5 w-4.5 text-brand-green shrink-0" />
                   <span>Refund & Return Policy 退款与退货政策</span>
+                </button>
+                <button
+                  onClick={() => setOpenPolicyType('pdpa')}
+                  className="hover:text-brand-green transition-colors flex items-center gap-2 cursor-pointer text-left text-sm sm:text-base font-medium text-slate-300 hover:text-white py-0.5"
+                >
+                  <ShieldCheck className="h-4.5 w-4.5 text-brand-green shrink-0" />
+                  <span>PDPA Notice &amp; Consent 个人资料保护声明</span>
                 </button>
               </div>
             </div>
@@ -1971,18 +2069,11 @@ export default function App() {
             <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-slate-400">
               <button
                 onClick={() => setOpenPolicyType('terms')}
-                className="hover:text-brand-green transition-colors flex items-center gap-1 cursor-pointer font-semibold"
+                className="hover:text-brand-green transition-colors flex items-center gap-1.5 cursor-pointer font-bold underline underline-offset-2 decoration-slate-600"
+                aria-label="Terms and Conditions, Refund Policy and PDPA Notice"
               >
                 <FileText className="h-3 w-3 text-brand-green" />
-                <span>Terms & Conditions 条款与细节</span>
-              </button>
-              <span className="text-slate-700 hidden sm:inline">•</span>
-              <button
-                onClick={() => setOpenPolicyType('refund')}
-                className="hover:text-brand-green transition-colors flex items-center gap-1 cursor-pointer font-semibold"
-              >
-                <ShieldAlert className="h-3 w-3 text-brand-green" />
-                <span>Refund & Return Policy 退款与退货政策</span>
+                <span>T&amp;C Apply</span>
               </button>
               <span className="text-slate-700 hidden sm:inline">•</span>
               <span>Made with ❤️ in Malaysia</span>
@@ -2785,9 +2876,7 @@ export default function App() {
                     <h3 className="font-sans font-black text-base sm:text-lg text-slate-950 leading-tight">
                       {openPolicyType === 'why'
                         ? (lang === 'zh' ? '为什么选择 AEM FOOD？' : lang === 'ms' ? 'Kenapa Pilih AEM FOOD?' : 'Why Choose AEM FOOD?')
-                        : openPolicyType === 'terms'
-                        ? (lang === 'zh' ? '条款与细节' : lang === 'ms' ? 'Terma & Syarat' : 'Terms & Conditions')
-                        : (lang === 'zh' ? '退款与退货政策' : lang === 'ms' ? 'Polisi Bayaran Balik & Pemulangan' : 'Refund & Return Policy')
+                        : LEGAL_DOCS[openPolicyType].label[lang]
                       }
                     </h3>
                     <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
@@ -2972,226 +3061,8 @@ export default function App() {
                       </div>
                     </div>
                   </div>
-                ) : openPolicyType === 'terms' ? (
-                  // Terms & Conditions list
-                  <div className="space-y-6">
-                    {/* General */}
-                    <div className="border-l-4 border-slate-300 pl-3.5 py-1">
-                      <h4 className="font-extrabold text-slate-900 text-sm mb-1 uppercase tracking-wider flex items-center gap-1.5">
-                        <span>1. General / 一般条款 / Umum</span>
-                      </h4>
-                      <p className="text-slate-800 font-medium">在本店购物，即表示您同意本条款与细则。</p>
-                      <p className="text-slate-500 italic text-xs mt-0.5">By purchasing from our store, you agree to these Terms & Conditions.</p>
-                      <p className="text-slate-650 text-xs mt-0.5">Dengan membeli dari kedai kami, anda bersetuju dengan Terma & Syarat ini.</p>
-                    </div>
-
-                    {/* Product Info */}
-                    <div className="border-l-4 border-slate-300 pl-3.5 py-1">
-                      <h4 className="font-extrabold text-slate-900 text-sm mb-1 uppercase tracking-wider">
-                        2. Product Information / 产品信息 / Maklumat Produk
-                      </h4>
-                      <p className="text-slate-800 font-medium">所有产品描述及图片仅供参考，实际产品可能因生产及包装差异而略有不同。</p>
-                      <p className="text-slate-500 italic text-xs mt-0.5">All product descriptions and images are for reference only. Actual product may vary slightly due to production and packaging differences.</p>
-                      <p className="text-slate-650 text-xs mt-0.5">Semua penerangan dan imej produk adalah untuk rujukan sahaja. Produk sebenar mungkin berbeza sedikit kerana perbezaan pengeluaran dan pembungkusan.</p>
-                    </div>
-
-                    {/* Pricing */}
-                    <div className="border-l-4 border-slate-300 pl-3.5 py-1">
-                      <h4 className="font-extrabold text-slate-900 text-sm mb-1 uppercase tracking-wider">
-                        3. Pricing / 价格 / Harga
-                      </h4>
-                      <p className="text-slate-800 font-medium">价格如有变动，恕不另行通知。价格变动前已确认的订单不受影响。</p>
-                      <p className="text-slate-500 italic text-xs mt-0.5">Prices are subject to change without prior notice. Orders confirmed before price changes will not be affected.</p>
-                      <p className="text-slate-650 text-xs mt-0.5">Harga tertakluk kepada perubahan tanpa notis. Pesanan yang disahkan sebelum perubahan harga tidak akan terjejas.</p>
-                    </div>
-
-                    {/* Payment */}
-                    <div className="border-l-4 border-slate-300 pl-3.5 py-1">
-                      <h4 className="font-extrabold text-slate-900 text-sm mb-1 uppercase tracking-wider">
-                        4. Payment / 付款 / Pembayaran
-                      </h4>
-                      <p className="text-slate-800 font-medium">订单需全额付款后才会处理。本店仅接受平台提供的付款方式。</p>
-                      <p className="text-slate-500 italic text-xs mt-0.5">Payment must be made in full before order processing. We accept payment methods available on the platform.</p>
-                      <p className="text-slate-650 text-xs mt-0.5">Pembayaran mesti dibuat sepenuhnya sebelum pemprosesan pesanan. Kami hanya menerima kaedah pembayaran yang disediakan oleh platform.</p>
-                    </div>
-
-                    {/* Delivery */}
-                    <div className="border-l-4 border-slate-300 pl-3.5 py-1">
-                      <h4 className="font-extrabold text-slate-900 text-sm mb-1 uppercase tracking-wider">
-                        5. Delivery / 发货与配送 / Penghantaran
-                      </h4>
-                      <p className="text-slate-800 font-medium">发货时间仅供参考，实际可能因物流或天气因素有所变动。本店不对第三方快递延误承担责任。</p>
-                      <p className="text-slate-500 italic text-xs mt-0.5">Delivery timelines are estimates and may vary due to logistics or weather conditions. We are not liable for delays caused by third-party couriers.</p>
-                      <p className="text-slate-650 text-xs mt-0.5">Anggaran masa penghantaran adalah untuk rujukan dan mungkin berbeza akibat faktor logistik atau cuaca. Kami tidak bertanggungjawab atas kelewatan oleh kurier pihak ketiga.</p>
-                    </div>
-
-                    {/* Food Safety */}
-                    <div className="border-l-4 border-slate-300 pl-3.5 py-1">
-                      <h4 className="font-extrabold text-slate-900 text-sm mb-1 uppercase tracking-wider">
-                        6. Food Safety & Storage / 食品安全与储存 / Keselamatan & Penyimpanan Makanan
-                      </h4>
-                      <p className="text-slate-800 font-medium">产品须按照包装说明储存。本店不对因储存不当造成的损坏负责。</p>
-                      <p className="text-slate-500 italic text-xs mt-0.5">Products must be stored according to the instructions on the packaging. We are not responsible for damage caused by improper storage.</p>
-                      <p className="text-slate-650 text-xs mt-0.5">Produk mesti disimpan mengikut arahan pada bungkusan. Kami tidak bertanggungjawab atas kerosakan akibat penyimpanan yang tidak betul.</p>
-                    </div>
-
-                    {/* Return & Refund Link */}
-                    <div className="border-l-4 border-slate-300 pl-3.5 py-1">
-                      <h4 className="font-extrabold text-slate-900 text-sm mb-1 uppercase tracking-wider">
-                        7. Return & Refund / 退换与退款 / Pemulangan & Bayaran Balik
-                      </h4>
-                      <p className="text-slate-800 font-medium">退换与退款详情请参阅《退款与退货政策》。</p>
-                      <p className="text-slate-500 italic text-xs mt-0.5">Please refer to our Refund & Return Policy for details.</p>
-                      <p className="text-slate-650 text-xs mt-0.5">Sila rujuk Polisi Bayaran Balik & Pemulangan kami untuk butiran lanjut.</p>
-                    </div>
-
-                    {/* Limitation */}
-                    <div className="border-l-4 border-slate-300 pl-3.5 py-1">
-                      <h4 className="font-extrabold text-slate-900 text-sm mb-1 uppercase tracking-wider">
-                        8. Limitation of Liability / 责任限制 / Had Tanggungan
-                      </h4>
-                      <p className="text-slate-800 font-medium">本店不对因使用本产品而引起的任何间接、附带或后续损失承担责任。</p>
-                      <p className="text-slate-500 italic text-xs mt-0.5">We are not liable for any indirect, incidental, or consequential damages arising from the use of our products.</p>
-                      <p className="text-slate-650 text-xs mt-0.5">Kami tidak bertanggungjawab terhadap sebarang kerugian tidak langsung, sampingan, atau susulan akibat penggunaan produk kami.</p>
-                    </div>
-
-                    {/* Health Disclaimer */}
-                    <div className="border-l-4 border-slate-300 pl-3.5 py-1">
-                      <h4 className="font-extrabold text-slate-900 text-sm mb-1 uppercase tracking-wider">
-                        9. Health Disclaimer / 健康免责声明 / Penafian Kesihatan
-                      </h4>
-                      <p className="text-slate-800 font-medium">我们的产品不能替代任何药物或医疗治疗。如有健康问题，请先咨询专业医生。</p>
-                      <p className="text-slate-500 italic text-xs mt-0.5">Our product is not a substitute for any medication or medical treatment. If you have any health issues, please consult a qualified doctor first.</p>
-                      <p className="text-slate-650 text-xs mt-0.5">Produk kami tidak boleh menggantikan sebarang ubat atau rawatan perubatan. Jika anda mempunyai masalah kesihatan, sila rujuk doktor bertauliah terlebih dahulu.</p>
-                    </div>
-
-                    {/* Final Rights */}
-                    <div className="border-l-4 border-brand-green pl-3.5 py-1 bg-slate-50 p-3 rounded-[3px] border-r border-y border-slate-200">
-                      <h4 className="font-extrabold text-slate-900 text-sm mb-1 uppercase tracking-wider">
-                        10. Final Rights / 最终解释权 / Hak Muktamad
-                      </h4>
-                      <p className="text-brand-green font-extrabold">本店保留在不提前通知的情况下随时修改本条款与细则的权利。</p>
-                      <p className="text-slate-500 italic text-xs mt-0.5">We reserve the right to amend these Terms & Conditions at any time without prior notice.</p>
-                      <p className="text-slate-650 text-xs mt-0.5">Kami berhak untuk meminda Terma & Syarat ini pada bila-bila masa tanpa notis terlebih dahulu.</p>
-                    </div>
-                  </div>
                 ) : (
-                  // Refund & Return Policy list
-                  <div className="space-y-6 text-left">
-                    {/* General applicability */}
-                    <div className="border-b border-slate-100 pb-4">
-                      <p className="text-slate-800 font-extrabold text-base">本政策适用于本店销售的所有产品。</p>
-                      <p className="text-slate-500 italic text-xs mt-1">This policy applies to all products sold in our store.</p>
-                      <p className="text-slate-650 text-xs mt-1">Polisi ini terpakai untuk semua produk di kedai kami.</p>
-                    </div>
-
-                    {/* Special Note (Food products) */}
-                    <div className="bg-amber-50/70 border-l-4 border-amber-500 p-4 rounded-[3px] flex gap-3">
-                      <AlertCircle className="h-5 w-5 text-amber-600 shrink-0 mt-0.5" />
-                      <div className="flex flex-col gap-1.5">
-                        <span className="font-extrabold text-amber-900 text-xs tracking-wider uppercase">
-                          ⚠️ Special Note for Food Products / 食品类特殊说明 / Nota Khas untuk Produk Makanan
-                        </span>
-                        <p className="text-amber-950 font-extrabold text-sm leading-relaxed">
-                          基于食品安全与卫生原因，除非产品在交付时存在质量问题，否则一经售出恕不退换或退款。
-                        </p>
-                        <p className="text-amber-800 italic text-xs leading-relaxed">
-                          Due to food safety and hygiene reasons, no returns or refunds will be accepted unless the product is defective upon delivery.
-                        </p>
-                        <p className="text-amber-900 text-xs leading-relaxed">
-                          Atas sebab keselamatan dan kebersihan makanan, tiada pemulangan atau bayaran balik dibenarkan kecuali produk rosak semasa penerimaan.
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* Eligible for Replacement */}
-                    <div className="bg-emerald-50/50 border border-emerald-100 p-4 rounded-[4px] flex gap-3">
-                      <Check className="h-5 w-5 text-emerald-600 shrink-0 mt-1 stroke-[3]" />
-                      <div className="flex flex-col gap-1.5">
-                        <span className="font-extrabold text-emerald-900 text-xs tracking-wider uppercase flex items-center gap-1.5">
-                          ✅ Eligible for Replacement / 可更换的情况 / Layak untuk Penggantian
-                        </span>
-                        <p className="text-emerald-950 font-bold text-sm">
-                          （须同时符合以下条件）收到货时包装出现明显且严重的肿胀、破损或变质；收货后 7 个工作日内联系本店客服并提供完整证据（详见“要求”）；产品及外包装需保留至客服确认。
-                        </p>
-                        <p className="text-slate-600 italic text-xs">
-                          (All conditions must be met) Packaging shows obvious and severe swelling, damage, or spoilage upon receipt; contact our customer service within 7 working days with complete evidence (see "Requirements"); product and packaging must be retained until verification is complete.
-                        </p>
-                        <p className="text-slate-605 text-xs">
-                          (Semua syarat mesti dipenuhi) Bungkusan menunjukkan pengembangan teruk, kerosakan, atau basi semasa penerimaan; hubungi khidmat pelanggan dalam tempoh 7 hari bekerja dengan bukti lengkap (rujuk "Keperluan"); produk dan bungkusan mesti disimpan sehingga pengesahan selesai.
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* Requirements */}
-                    <div className="border-l-4 border-slate-300 pl-3.5 py-1">
-                      <h4 className="font-extrabold text-slate-900 text-sm mb-1.5 uppercase tracking-wider">
-                        📷 Requirements / 要求 / Keperluan :
-                      </h4>
-                      <p className="text-slate-800 font-medium">须提供外箱、产品包装、产品本身的清晰照片；所有照片需包含物流面单且未被涂改；不接受模糊、裁剪或重复的照片。</p>
-                      <p className="text-slate-500 italic text-xs mt-1">Must provide clear photos of the shipping carton, product packaging, and the product itself; all photos must include the shipping label without alterations; blurry, cropped, or duplicate photos will not be accepted.</p>
-                      <p className="text-slate-650 text-xs mt-1">Mesti menyediakan gambar jelas kotak penghantaran, bungkusan produk, dan produk itu sendiri; semua gambar mesti mengandungi label penghantaran tanpa sebarang ubah suai; gambar kabur, dipotong, atau berulang tidak akan diterima.</p>
-                    </div>
-
-                    {/* Logistics Risk */}
-                    <div className="border-l-4 border-slate-300 pl-3.5 py-1">
-                      <h4 className="font-extrabold text-slate-900 text-sm mb-1.5 uppercase tracking-wider">
-                        🚚 Logistics Risk Statement / 物流风险声明 / Pernyataan Risiko Logistik
-                      </h4>
-                      <p className="text-slate-800 font-medium">因物流运输造成的轻微外观压痕或褶皱，只要不影响食用安全，不视为质量问题；因天气或运输延误导致的保质期缩短，不属于退换原因。</p>
-                      <p className="text-slate-500 italic text-xs mt-1">Minor dents or creases in packaging caused during shipping that do not affect product safety are not considered defects; shortened shelf life due to weather or delivery delays is not a valid reason for return/replacement.</p>
-                      <p className="text-slate-650 text-xs mt-1">Kecacatan kecil pada bungkusan seperti kemek atau lipatan yang tidak menjejaskan keselamatan makanan tidak dianggap sebagai masalah kualiti; pengurangan tarikh luput akibat cuaca atau kelewatan penghantaran bukan alasan sah untuk pemulangan/penggantian.</p>
-                    </div>
-
-                    {/* Buyer Responsibility */}
-                    <div className="border-l-4 border-slate-300 pl-3.5 py-1">
-                      <h4 className="font-extrabold text-slate-900 text-sm mb-1.5 uppercase tracking-wider">
-                        👤 Buyer Responsibility / 买家责任 / Tanggungjawab Pembeli
-                      </h4>
-                      <p className="text-slate-800 font-medium">买家有责任在收货时立即检查货物并拍照留存；未及时检查并在规定时限内反馈的问题，将视为买家已确认收货无误。</p>
-                      <p className="text-slate-500 italic text-xs mt-1">Buyers are responsible for checking goods immediately upon receipt and taking photos as proof; failure to inspect and report within the stated timeframe will be deemed acceptance of the goods in good condition.</p>
-                      <p className="text-slate-650 text-xs mt-1">Pembeli bertanggungjawab untuk memeriksa barang sebaik sahaja diterima dan mengambil gambar sebagai bukti; kegagalan memeriksa dan melaporkan dalam tempoh yang ditetapkan akan dianggap sebagai penerimaan barang dalam keadaan baik.</p>
-                    </div>
-
-                    {/* Replacement Arrangement */}
-                    <div className="border-l-4 border-slate-300 pl-3.5 py-1">
-                      <h4 className="font-extrabold text-slate-900 text-sm mb-1.5 uppercase tracking-wider">
-                        🔄 Replacement Arrangement / 更换安排 / Pengaturan Penggantian
-                      </h4>
-                      <p className="text-slate-800 font-medium">经核实属实后，本店将在 7 个工作日内安排同款产品更换（不提供现金退款）；更换仅限一次，不可重复申请。</p>
-                      <p className="text-slate-500 italic text-xs mt-1">Once verified, a replacement of the same product will be arranged within 7 working days (no cash refund); each replacement request can only be made once.</p>
-                      <p className="text-slate-650 text-xs mt-1">Setelah disahkan, penggantian produk yang sama akan dibuat dalam tempoh 7 hari bekerja (tiada bayaran balik tunai); setiap permohonan penggantian hanya dibenarkan sekali.</p>
-                    </div>
-
-                    {/* Not Accepted */}
-                    <div className="bg-rose-50/70 border-l-4 border-rose-500 p-4 rounded-[3px] flex gap-3">
-                      <span className="text-rose-600 shrink-0 font-black text-base mt-0.5">✕</span>
-                      <div className="flex flex-col gap-1.5">
-                        <span className="font-extrabold text-rose-900 text-xs tracking-wider uppercase">
-                          ❌ Not Accepted / 不予受理的情况 / Tidak Diterima
-                        </span>
-                        <p className="text-rose-950 font-bold text-sm">
-                          买错、口味不合、临时不想要；因买家储存不当造成的产品损坏或变质；证据不全、逾期申请或不符合以上条件。
-                        </p>
-                        <p className="text-slate-600 italic text-xs">
-                          Incorrect purchase, change of mind, taste preference; damage or spoilage caused by improper storage; incomplete evidence, late requests, or failure to meet conditions.
-                        </p>
-                        <p className="text-slate-605 text-xs">
-                          Pembelian tersalah, perubahan fikiran, rasa tidak sesuai; kerosakan atau basi akibat penyimpanan yang tidak betul oleh pembeli; bukti tidak lengkap, permintaan lewat, atau tidak memenuhi syarat di atas.
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* Final Rights */}
-                    <div className="border-t border-slate-100 pt-4 flex flex-col gap-1.5 bg-slate-50 p-3.5 rounded-[3px] border border-slate-200">
-                      <span className="font-extrabold text-slate-900 text-xs tracking-wider uppercase">
-                        ⚖️ Final Rights / 最终解释权 / Hak Muktamad
-                      </span>
-                      <p className="text-slate-950 font-black">本政策的最终解释权归本店所有。</p>
-                      <p className="text-slate-500 italic text-xs">This policy is subject to our final interpretation.</p>
-                      <p className="text-slate-650 text-xs">Polisi ini tertakluk kepada tafsiran muktamad pihak kedai kami.</p>
-                    </div>
-                  </div>
+                  <LegalDocView docId={openPolicyType} lang={lang} onSelect={setOpenPolicyType} />
                 )}
               </div>
 
