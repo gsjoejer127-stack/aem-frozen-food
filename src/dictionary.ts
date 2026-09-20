@@ -22,7 +22,7 @@ export const DICTIONARY = {
     heroDescZh: 'Specialised in Halal Chinese food, frozen products and ready-to-cook solutions.',
     ctaBrowse: 'Browse Wholesale Catalog',
     ctaBuildOrder: 'Build Bulk Purchase Order',
-    halalCertified: 'JAKIM Halal & MeSTI Certified Sterile Manufacturing Facility',
+    halalCertified: 'HALAL CERTIFIED',
 
     // Highlights
     badge1Title: 'Advanced -45% Flash-Freezing Technology',
@@ -79,12 +79,13 @@ export const DICTIONARY = {
     subtotal: 'Subtotal',
     deliveryFee: 'Cold Truck Delivery',
     freeDelivery: 'FREE',
+    estimatedTotal: 'Estimated Total',
     selectRegion: 'Select Delivery Region:',
     checkoutTitle: 'Sender Details (Optional)',
     senderName: 'Your Name / Shop Name',
     senderAddress: 'Delivery Address',
-    sendWhatsApp: 'Send Order via WhatsApp Now',
-    whatsappDisclaimer: 'This will format your order details and direct you to WhatsApp to finalize delivery details with our sales executive.',
+    sendWhatsApp: 'Contact Sales on WhatsApp',
+    whatsappDisclaimer: 'No payment is taken on this website. Your selection is formatted into a message and sent to our sales team on WhatsApp, who will confirm stock, final pricing, delivery and payment arrangements with you.',
     freeDeliveryProgress: 'Add {amount} more for FREE shipping!',
     unlockedFreeDelivery: 'Congratulations! You unlocked FREE shipping!',
 
@@ -108,7 +109,6 @@ export const DICTIONARY = {
     workingDays: 'Mon - Sat: 9:00 AM - 6:00 PM',
     closedDays: 'Sunday & Public Holidays: Closed',
     copyRights: '© 2026 AL-EKHLAS MANUFACTURING SDN.BHD. All rights reserved.',
-    salesDisclaimer: 'Sales operating hours: Monday to Saturday. Note: Prices and specifications shown on this site are indicative; the quotation confirmed by our sales team is final.'
   },
   zh: {
     // Nav
@@ -126,7 +126,7 @@ export const DICTIONARY = {
     heroDescZh: 'Specialised in Halal Chinese food, frozen products and ready-to-cook solutions.',
     ctaBrowse: '浏览批发产品目录',
     ctaBuildOrder: '大量采购 Bulk Purchase',
-    halalCertified: 'JAKIM Halal 清真认证',
+    halalCertified: 'HALAL CERTIFIED',
 
     // Highlights
     badge1Title: '先进的-45% 急速冷冻锁鲜技术',
@@ -183,12 +183,13 @@ export const DICTIONARY = {
     subtotal: '商品小计',
     deliveryFee: '冷链物流运费',
     freeDelivery: '免运费',
+    estimatedTotal: '预估总额',
     selectRegion: '选择您的收货区域:',
     checkoutTitle: '订购人信息（选填）',
     senderName: '姓名 / 店名 / 档口名',
     senderAddress: '详细收货地址',
-    sendWhatsApp: '立即发送订单至 WhatsApp 订购',
-    whatsappDisclaimer: '点击后将自动为您排版订单，并跳转至 WhatsApp 与我们的销售经理确认送货详情。',
+    sendWhatsApp: '联系客服 WhatsApp 确认',
+    whatsappDisclaimer: '本网站不收取任何款项。点击后将自动为您排版所选清单并跳转至 WhatsApp，由我们的销售团队与您确认库存、最终价格、配送及付款安排。',
     freeDeliveryProgress: '再添加 RM {amount} 即可享受免费冷链专送！',
     unlockedFreeDelivery: '太棒了！您已成功解锁免费冷链配送服务！',
 
@@ -212,7 +213,6 @@ export const DICTIONARY = {
     workingDays: '周一至周六: 上午 9:00 - 下午 6:00',
     closedDays: '星期日及公共假期: 休息',
     copyRights: '© 2026 AL-EKHLAS MANUFACTURING SDN.BHD. 保留所有权利。',
-    salesDisclaimer: '销售服务时间：周一至周六。注：本站所列价格与产品规格仅供参考，实际以我们销售团队确认的正式报价单为准。'
   },
   ms: {
     // Nav
@@ -230,7 +230,7 @@ export const DICTIONARY = {
     heroDescZh: 'Specialised in Halal Chinese food, frozen products and ready-to-cook solutions.',
     ctaBrowse: 'Lihat Katalog Pemborongan',
     ctaBuildOrder: 'Bina Pesanan Pembelian Borong',
-    halalCertified: 'Kilang Pembuatan Steril Diperakui Halal JAKIM & MeSTI KKM',
+    halalCertified: 'HALAL CERTIFIED',
 
     // Highlights
     badge1Title: 'Teknologi Sejuk Beku Pantas -45%',
@@ -287,12 +287,13 @@ export const DICTIONARY = {
     subtotal: 'Jumlah Kecil',
     deliveryFee: 'Penghantaran Lori Sejuk',
     freeDelivery: 'PERCUMA',
+    estimatedTotal: 'Anggaran Jumlah',
     selectRegion: 'Pilih Kawasan Penghantaran:',
     checkoutTitle: 'Butiran Pengirim (Pilihan)',
     senderName: 'Nama Anda / Nama Kedai',
     senderAddress: 'Alamat Penghantaran',
-    sendWhatsApp: 'Hantar Pesanan ke WhatsApp Sekarang',
-    whatsappDisclaimer: 'Tindakan ini akan menyusun pesanan anda secara automatik dan membuka aplikasi WhatsApp untuk pengesahan bersama wakil jualan kami.',
+    sendWhatsApp: 'Hubungi Jualan di WhatsApp',
+    whatsappDisclaimer: 'Laman web ini tidak menerima sebarang bayaran. Pilihan anda akan disusun menjadi mesej dan dihantar kepada pasukan jualan kami di WhatsApp, yang akan mengesahkan stok, harga akhir, penghantaran dan pengaturan pembayaran dengan anda.',
     freeDeliveryProgress: 'Tambah RM {amount} lagi untuk penghantaran PERCUMA!',
     unlockedFreeDelivery: 'Tahniah! Anda layak untuk penghantaran lori sejuk PERCUMA!',
 
@@ -316,6 +317,5 @@ export const DICTIONARY = {
     workingDays: 'Isnin - Sabtu: 9:00 PG - 6:00 PTG',
     closedDays: 'Ahad & Cuti Umum: Tutup',
     copyRights: '© 2026 AL-EKHLAS MANUFACTURING SDN.BHD. Hak cipta terpelihara.',
-    salesDisclaimer: 'Waktu operasi jualan: Isnin hingga Sabtu. Nota: Harga dan spesifikasi yang dipaparkan di laman ini adalah rujukan sahaja; sebut harga rasmi yang disahkan oleh pihak jualan kami adalah muktamad.'
   }
 };

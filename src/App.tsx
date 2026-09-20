@@ -609,11 +609,11 @@ export default function App() {
     message += `🚚 *Penghantaran / 运费:* ${
       deliveryFee === 0 ? 'PERCUMA / 免运费' : `RM${deliveryFee.toFixed(2)}`
     }\n`;
-    message += `💰 *JUMLAH KESELURUHAN / 总付款额:* *RM${totalAmount.toFixed(2)}*\n\n`;
+    message += `💰 *ANGGARAN JUMLAH / 预估总额:* *RM${totalAmount.toFixed(2)}*\n\n`;
 
     message += `==============================\n`;
-    message += `⚠️ _Sila sahkan ketersediaan stok & tarikh penghantaran bersama wakil jualan kami._\n`;
-    message += `_请与我们的客服主管确认库存和配送日期。谢谢！_`;
+    message += `⚠️ _Harga adalah anggaran. Sila sahkan stok, harga akhir & pembayaran bersama wakil jualan kami._\n`;
+    message += `_以上为预估金额，请与我们的客服确认库存、最终价格与付款方式。谢谢！_`;
 
     const encodedText = encodeURIComponent(message);
     const cleanPhone = COMPANY_CONTACT.phone.replace(/[^0-9]/g, '');
@@ -964,7 +964,7 @@ export default function App() {
                   referrerPolicy="no-referrer"
                 />
                 <div className="absolute top-4 right-4 bg-slate-900/90 text-amber-400 font-extrabold text-[10px] px-3 py-1 rounded-[2px] backdrop-blur-xs border border-amber-400/30 uppercase tracking-widest shadow-lg">
-                  100% JAKIM HALAL
+                  HALAL CERTIFIED
                 </div>
               </div>
 
@@ -1027,9 +1027,6 @@ export default function App() {
                     <span className="text-emerald-100 text-[10px]">{lang === 'zh' ? '在线选购预估' : 'Self Purchase Builder'}</span>
                   </button>
                 </div>
-                <p className="text-[10px] text-slate-400 italic font-normal leading-tight mt-1 text-left">
-                  {t.salesDisclaimer}
-                </p>
               </div>
             </div>
 
@@ -1865,18 +1862,6 @@ export default function App() {
                       />
                     </div>
 
-                    <p className="text-[10px] text-slate-500 leading-relaxed">
-                      {lang === 'zh' ? '点击提交即表示您已阅读并同意我们的' : lang === 'ms' ? 'Dengan menghantar, anda telah membaca dan bersetuju dengan ' : 'By submitting, you confirm you have read and agree to our '}
-                      <button
-                        type="button"
-                        onClick={() => setOpenPolicyType('terms')}
-                        className="underline underline-offset-2 font-bold text-brand-green hover:text-emerald-700 cursor-pointer"
-                      >
-                        {lang === 'zh' ? '条款与细则、退款政策及 PDPA 个人资料保护声明' : lang === 'ms' ? 'Terma, Polisi Bayaran Balik & Notis PDPA' : 'Terms, Refund Policy & PDPA Notice'}
-                      </button>
-                      {lang === 'zh' ? '，并同意我们就此询价与您进行后续联系。' : lang === 'ms' ? ', dan bersetuju kami menghubungi anda untuk susulan.' : ', and consent to us contacting you for follow up.'}
-                    </p>
-
                     <button
                       type="submit"
                       className="w-full bg-[#25D366] hover:bg-[#20ba59] active:scale-[0.99] text-white font-extrabold text-xs uppercase tracking-wider py-3.5 px-6 rounded-[3px] shadow-md transition-all cursor-pointer flex items-center justify-center gap-2"
@@ -1884,8 +1869,20 @@ export default function App() {
                       <WhatsAppIcon className="h-5 w-5 animate-pulse" />
                       {lang === 'zh' ? '发送大量采购 Bulk Purchase 合作意向至销售部 WhatsApp' : 'Send Bulk Purchase Inquiry to Sales WhatsApp'}
                     </button>
-                    <p className="text-[10px] text-slate-400 italic text-center mt-2 font-normal leading-relaxed">
-                      {t.salesDisclaimer}
+                    <p className="text-[10px] text-slate-400 text-center mt-2 font-normal leading-relaxed">
+                      <button
+                        type="button"
+                        onClick={() => setOpenPolicyType('terms')}
+                        className="font-bold text-brand-green underline underline-offset-2 hover:text-emerald-700 cursor-pointer"
+                      >
+                        T&amp;C Apply
+                      </button>
+                      <span className="mx-1.5 text-slate-300">·</span>
+                      {lang === 'zh'
+                        ? '点击提交即表示您同意我们的条款、退款政策及 PDPA 声明。'
+                        : lang === 'ms'
+                        ? 'Dengan menghantar, anda bersetuju dengan Terma, Polisi Bayaran Balik & Notis PDPA kami.'
+                        : 'By submitting, you agree to our Terms, Refund Policy & PDPA Notice.'}
                     </p>
                   </>
                 )}
@@ -2051,10 +2048,6 @@ export default function App() {
                   </div>
                 </div>
 
-                {/* AI & Sales Disclaimer Card */}
-                <div className="p-3 bg-slate-900/80 border border-slate-800 rounded-[4px] text-[11px] italic text-slate-400 font-sans leading-relaxed text-left mt-1">
-                  <p>{t.salesDisclaimer}</p>
-                </div>
               </div>
             </div>
 
@@ -2064,7 +2057,6 @@ export default function App() {
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-[11px] text-slate-500 border-t border-white/5 pt-5 mt-4">
             <div className="flex flex-col gap-1 text-left">
               <p>{t.copyRights}</p>
-              <p className="text-[10px] text-slate-400 italic">{t.salesDisclaimer}</p>
             </div>
             <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-slate-400">
               <button
@@ -2370,7 +2362,7 @@ export default function App() {
                       </div>
                       <div className="border-t border-slate-200 my-1" />
                       <div className="flex justify-between items-center text-slate-900 font-extrabold">
-                        <span className="text-sm">{lang === 'zh' ? '应付款总计' : 'Grand Total'}</span>
+                        <span className="text-sm">{t.estimatedTotal}</span>
                         <span className="text-xl font-black text-brand-green font-mono">RM {totalAmount.toFixed(2)}</span>
                       </div>
                     </div>
@@ -2387,9 +2379,6 @@ export default function App() {
                     </button>
                     <p className="text-[10px] text-slate-400 text-center leading-normal">
                       {t.whatsappDisclaimer}
-                    </p>
-                    <p className="text-[10px] text-slate-400 italic text-center leading-normal border-t border-slate-200/60 pt-2">
-                      {t.salesDisclaimer}
                     </p>
                   </div>
                 )}

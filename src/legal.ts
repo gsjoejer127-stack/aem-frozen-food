@@ -63,17 +63,17 @@ const TERMS: LegalDoc = {
     {
       heading: { en: '1. No Offer, No Guarantee', zh: '1. 非要约，不构成保证', ms: '1. Bukan Tawaran, Tiada Jaminan' },
       body: {
-        zh: '本网站所载价格、规格、图片、库存及交期均为参考资料，不构成要约或保证。合约仅在本公司以书面（含 WhatsApp）确认订单后成立。口头内容不具约束力。',
-        en: 'Prices, specifications, images, stock and lead times on this website are reference information only. They are not an offer and not a guarantee. A contract arises only when the Company confirms the order in writing, including by WhatsApp. Oral statements do not bind the Company.',
-        ms: 'Harga, spesifikasi, imej, stok dan tempoh penghantaran di laman web ini adalah maklumat rujukan sahaja. Ia bukan tawaran dan bukan jaminan. Kontrak hanya wujud apabila Syarikat mengesahkan pesanan secara bertulis, termasuk melalui WhatsApp. Kenyataan lisan tidak mengikat Syarikat.'
+        zh: '本网站所载价格、规格、图片、库存及交期均为参考资料，不构成要约或保证。本网站之选购清单功能仅用于生成询价讯息，不构成订单。合约仅在本公司以书面（含 WhatsApp）确认订单后成立。口头内容不具约束力。',
+        en: 'Prices, specifications, images, stock and lead times on this website are reference information only. They are not an offer and not a guarantee. The selection list on this website generates an enquiry message and is not an order. A contract arises only when the Company confirms the order in writing, including by WhatsApp. Oral statements do not bind the Company.',
+        ms: 'Harga, spesifikasi, imej, stok dan tempoh penghantaran di laman web ini adalah maklumat rujukan sahaja. Ia bukan tawaran dan bukan jaminan. Senarai pilihan di laman web ini menjana mesej pertanyaan dan bukan pesanan. Kontrak hanya wujud apabila Syarikat mengesahkan pesanan secara bertulis, termasuk melalui WhatsApp. Kenyataan lisan tidak mengikat Syarikat.'
       }
     },
     {
       heading: { en: '2. Prices and Payment', zh: '2. 价格与付款', ms: '2. Harga dan Pembayaran' },
       body: {
-        zh: '价格以马币计算，未含 SST 及其他政府税费，并可随时调整。除非本公司另行书面批准账期，否则须于出货前全额付清。逾期款项本公司有权计息并暂停出货。货款全数结清前，货物所有权仍属本公司。',
-        en: 'Prices are in Ringgit Malaysia, exclude SST and other government charges, and may change at any time. Payment is due in full before dispatch unless the Company approves a credit term in writing. The Company may charge interest on overdue sums and suspend further dispatch. Ownership of the goods stays with the Company until payment is received in full.',
-        ms: 'Harga dalam Ringgit Malaysia, tidak termasuk SST dan caj kerajaan lain, dan boleh berubah pada bila-bila masa. Bayaran penuh perlu dibuat sebelum penghantaran melainkan Syarikat meluluskan terma kredit secara bertulis. Syarikat boleh mengenakan faedah ke atas jumlah tertunggak dan menggantung penghantaran. Pemilikan barangan kekal dengan Syarikat sehingga bayaran diterima sepenuhnya.'
+        zh: '本网站不收取任何款项，亦不提供任何在线支付方式。价格以马币计算，未含 SST 及其他政府税费，并可随时调整。最终价格、付款方式与付款时间，一律由本公司销售团队于确认订单时另行议定。除非本公司另行书面批准账期，否则须于出货前全额付清；逾期款项本公司有权计息并暂停出货。货款全数结清前，货物所有权仍属本公司。',
+        en: 'This website takes no payment and offers no online payment facility of any kind. Prices are in Ringgit Malaysia, exclude SST and other government charges, and may change at any time. Final pricing, the method of payment and the time for payment are agreed separately with the Company sales team when the order is confirmed. Unless the Company approves a credit term in writing, payment is due in full before dispatch; the Company may charge interest on overdue sums and suspend further dispatch. Ownership of the goods stays with the Company until payment is received in full.',
+        ms: 'Laman web ini tidak menerima sebarang bayaran dan tidak menyediakan apa-apa kemudahan pembayaran dalam talian. Harga dalam Ringgit Malaysia, tidak termasuk SST dan caj kerajaan lain, dan boleh berubah pada bila-bila masa. Harga akhir, kaedah pembayaran dan masa pembayaran dipersetujui secara berasingan dengan pasukan jualan Syarikat semasa pesanan disahkan. Melainkan Syarikat meluluskan terma kredit secara bertulis, bayaran penuh perlu dibuat sebelum penghantaran; Syarikat boleh mengenakan faedah ke atas jumlah tertunggak dan menggantung penghantaran. Pemilikan barangan kekal dengan Syarikat sehingga bayaran diterima sepenuhnya.'
       }
     },
     {
@@ -230,9 +230,9 @@ const REFUND: LegalDoc = {
       heading: { en: '5. Remedy Is at the Discretion of the Company', zh: '5. 补救方式由本公司决定', ms: '5. Remedi Mengikut Budi Bicara Syarikat' },
       tone: 'warning',
       body: {
-        zh: '索偿如获受理，本公司可选择于下次配送时补货、开立扣账凭证（credit note）或退还货款，选择权在本公司。本公司不承诺任何特定之补救方式、金额或处理时限。退款（如有）仅退至原付款管道。',
-        en: 'Where a claim is accepted, the Company may at its option replace the goods on a subsequent delivery, issue a credit note, or refund the amount paid. The choice rests with the Company. The Company gives no undertaking as to any particular remedy, amount or processing time. Any refund is made to the original payment channel only.',
-        ms: 'Apabila tuntutan diterima, Syarikat boleh mengikut pilihannya menggantikan barangan pada penghantaran berikutnya, mengeluarkan nota kredit, atau membayar balik jumlah yang dibayar. Pilihan terletak pada Syarikat. Syarikat tidak memberi sebarang jaminan mengenai remedi, jumlah atau tempoh pemprosesan tertentu. Sebarang bayaran balik dibuat ke saluran pembayaran asal sahaja.'
+        zh: '索偿如获受理，本公司可选择于下次配送时补货、开立扣账凭证（credit note）或退还货款，选择权在本公司。本公司不承诺任何特定之补救方式、金额或处理时限。退款方式与安排由本公司与买方另行确认。',
+        en: 'Where a claim is accepted, the Company may at its option replace the goods on a subsequent delivery, issue a credit note, or refund the amount paid. The choice rests with the Company. The Company gives no undertaking as to any particular remedy, amount or processing time. The method and arrangement of any refund is confirmed separately between the Company and the Buyer.',
+        ms: 'Apabila tuntutan diterima, Syarikat boleh mengikut pilihannya menggantikan barangan pada penghantaran berikutnya, mengeluarkan nota kredit, atau membayar balik jumlah yang dibayar. Pilihan terletak pada Syarikat. Syarikat tidak memberi sebarang jaminan mengenai remedi, jumlah atau tempoh pemprosesan tertentu. Kaedah dan pengaturan sebarang bayaran balik disahkan secara berasingan antara Syarikat dan Pembeli.'
       }
     },
     {
