@@ -6,3 +6,7 @@ coverage/
 *.log
 .env*
 !.env.example
+
+# Local business documents (quotations, invoices) - contain bank and customer details,
+# must never be pushed to this public repository.
+quotations/
