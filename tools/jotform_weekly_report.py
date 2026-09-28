@@ -45,6 +45,7 @@ MATERIAL = [
 ]
 PRODUCT = [
     (r"kepak", "鸡翅串"), (r"pedal", "鸡胗串"),
+    (r"sate\s*ayam\s*mala|麻辣鸡肉串", "麻辣鸡肉串"),
     (r"sate\s*ayam|鸡肉串", "鸡肉串"),
     (r"sate\s*daging\s*mala|麻辣牛肉串", "麻辣牛肉串"),
     (r"sate\s*daging\s*nenas", "黄梨牛肉串"),
@@ -56,7 +57,9 @@ PRODUCT = [
     (r"mala\s*bbq", "麻辣烧烤"), (r"^bbq$", "烧烤"),
     (r"gula\s*merah", "椰糖糯米糕"), (r"pulut\s*goreng|kpg", "炸糯米糕"),
     (r"claypot|clay\s*pot", "砂锅鸡"), (r"chicken\s*wing", "鸡翅"),
-    (r"cincang", "茄子鸡碎"),
+    (r"cincang|terung", "茄子鸡"),
+    (r"ayam\s*goreng", "炸鸡"),
+    (r"minyak\s*bawang", "蒜油"),
 ]
 PURPOSE = [
     (r"satay|sate(?!\s*\w)", "沙爹 Satay"),
@@ -241,7 +244,7 @@ def build(data, out_pdf, out_txt=None):
             + [f"  {a}  {fmt(v[1])} kg" for a, v in pur]
     if issues:
         lines += ["", f"需核对 {len(issues)} 项："] + [f"  {a} {b}  {c}  {d}  — {e}" for a, b, c, d, e in issues]
-    lines += ["", "明细见附件 PDF。", "", "AEM Frozen Food"]
+    lines += ["", "完整汇总（含出库物料、用途、生产产出）见附件 PDF。", "", "AEM Frozen Food"]
     body = "\n".join(lines)
     if out_txt: open(out_txt, "w", encoding="utf-8").write(body)
     return body
