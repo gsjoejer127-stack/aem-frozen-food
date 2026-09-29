@@ -201,7 +201,8 @@ AI 文件只写了沙爹、饺子、糖水、点心四类。实际目录里**完
 |---|---|---|
 | 自绘的官方清真标志 + `MS 1500` + 证书号 `1 233-08/2025` | 整个组件删除（原本只 import 未渲染） | `src/components/HalalLogo.tsx`（已删）、`src/App.tsx` |
 | 两处 `HALAL CERTIFIED` 角标 | 删除 | `src/App.tsx` |
-| `Halal Certified` / `Certified OEM Halal` 文案 | 删除，改为事实陈述 `No Pork, No Lard` | `src/dictionary.ts`、`index.html` |
+| `Halal Certified` / `Certified OEM Halal` 文案 | 删除 | `src/dictionary.ts`、`index.html` |
+| `No Pork, No Lard` / 「猪肉与猪油不入厂」 | 删除（原为认证宣称的替代文案，经指示一并移除） | `src/dictionary.ts`、`public/llms*.txt` |
 | `Halal-Friendly Sourcing` | 改为 `Selected Ingredients` / 「严选原料」 | `src/dictionary.ts`（en/zh/ms） |
 | `100%` + 「绝无添加防腐剂」首页数据 | 改为 `50+` 自有产品款式（可验证） | `src/dictionary.ts`（en/zh/ms） |
 | `-45%` 急速冷冻技术（温度写成百分比） | 删除数字，保留「急速冷冻锁鲜技术」 | `src/dictionary.ts`（en/zh/ms） |

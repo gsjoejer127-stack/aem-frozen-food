@@ -18,7 +18,7 @@ export const DICTIONARY = {
     // Hero
     heroTitle: '清真中国冷冻食品',
     heroSub: 'Halal Chinese Food Specialist',
-    heroDesc: 'Authentic Flavours • No Pork, No Lard • Factory Direct',
+    heroDesc: 'Authentic Flavours • Factory Direct • Cold Chain',
     heroDescZh: 'Specialised in Halal Chinese food, frozen products and ready-to-cook solutions.',
     ctaBrowse: 'Browse Wholesale Catalog',
     ctaBuildOrder: 'Build Bulk Purchase Order',
@@ -29,7 +29,7 @@ export const DICTIONARY = {
     badge2Title: 'Authentic Local Recipes',
     badge2Desc: 'Expertly seasoned Sate, traditional Chinese Tong Sui dessert soups, and savory meat broths.',
     badge3Title: 'Selected Ingredients',
-    badge3Desc: 'No pork and no lard enters the plant. Ingredients are inspected on receipt.',
+    badge3Desc: 'Ingredients are inspected on receipt and traced by batch.',
 
     // Story
     storyTitle: 'Our Heritage & Quality',
@@ -106,7 +106,7 @@ export const DICTIONARY = {
     // Hero
     heroTitle: '清真中国冷冻食品',
     heroSub: 'Halal Chinese Food Specialist',
-    heroDesc: 'Authentic Flavours • No Pork, No Lard • Factory Direct',
+    heroDesc: 'Authentic Flavours • Factory Direct • Cold Chain',
     heroDescZh: 'Specialised in Halal Chinese food, frozen products and ready-to-cook solutions.',
     ctaBrowse: '浏览批发产品目录',
     ctaBuildOrder: '大量采购 Bulk Purchase',
@@ -117,7 +117,7 @@ export const DICTIONARY = {
     badge2Title: '融合大马经典风味',
     badge2Desc: '涵盖秘制烧烤沙爹串、滋补炖汤、经典港台甜品糖水等本土至爱。',
     badge3Title: '严选原料',
-    badge3Desc: '猪肉与猪油不入厂，原料到货逐批查验。',
+    badge3Desc: '原料到货逐批查验，生产批次可追溯。',
 
     // Story
     storyTitle: '我们的品牌传承与品质',
@@ -194,7 +194,7 @@ export const DICTIONARY = {
     // Hero
     heroTitle: '清真中国冷冻食品',
     heroSub: 'Halal Chinese Food Specialist',
-    heroDesc: 'Authentic Flavours • No Pork, No Lard • Factory Direct',
+    heroDesc: 'Authentic Flavours • Factory Direct • Cold Chain',
     heroDescZh: 'Specialised in Halal Chinese food, frozen products and ready-to-cook solutions.',
     ctaBrowse: 'Lihat Katalog Pemborongan',
     ctaBuildOrder: 'Bina Pesanan Pembelian Borong',
@@ -205,7 +205,7 @@ export const DICTIONARY = {
     badge2Title: 'Resipi Tempatan Autentik',
     badge2Desc: 'Sate daging lembut, pencuci mulut Tong Sui tradisional Cina, dan sup herba yang menyegarkan.',
     badge3Title: 'Ramuan Terpilih',
-    badge3Desc: 'Tiada daging babi dan lemak babi memasuki kilang. Bahan diperiksa semasa penerimaan.',
+    badge3Desc: 'Bahan diperiksa semasa penerimaan dan dijejaki mengikut kelompok.',
 
     // Story
     storyTitle: 'Warisan & Kualiti Kami',
