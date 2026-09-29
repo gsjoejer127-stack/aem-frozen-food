@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<title>月结单 Penyata Bulanan — AEM Frozen Food</title>
+<style id="pagerule">@page { size: A4 landscape; margin: 8mm; }</style>
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --line: #9a9a9a;
+    --soft: #e2e2e2;
+    --brand: #8c1d18;
+    --muted: #6b6b6b;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 16px;
+    background: #f4f4f2;
+    color: var(--ink);
+    font-family: "Noto Sans", "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", Arial, sans-serif;
+    font-size: 12px;
+  }
+
+  /* ---------- toolbar (screen only) ---------- */
+  .toolbar {
+    max-width: 1100px; margin: 0 auto 14px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
+  }
+  .toolbar button {
+    font: inherit; padding: 8px 14px; border: 1px solid var(--line); border-radius: 6px;
+    background: #fff; cursor: pointer;
+  }
+  .toolbar button.on { background: var(--brand); color: #fff; border-color: var(--brand); }
+  .toolbar .hint { color: var(--muted); font-size: 11px; }
+
+  /* ---------- sheet ---------- */
+  .sheet {
+    max-width: 1100px; margin: 0 auto; background: #fff; padding: 18px 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,.08);
+  }
+  .head { display: flex; justify-content: space-between; gap: 16px; border-bottom: 2px solid var(--brand); padding-bottom: 8px; }
+  .co-name { font-size: 15px; font-weight: 700; letter-spacing: .2px; }
+  .co-sub { font-size: 11px; color: var(--muted); line-height: 1.5; }
+  .doc-title { text-align: right; }
+  .doc-title .zh { font-size: 20px; font-weight: 700; color: var(--brand); line-height: 1.1; }
+  .doc-title .ms { font-size: 11px; letter-spacing: 1.5px; color: var(--muted); text-transform: uppercase; }
+
+  .meta { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px 18px; margin: 10px 0 12px; }
+  .meta .f { display: flex; align-items: baseline; gap: 6px; }
+  .meta .lb { font-size: 10px; color: var(--muted); white-space: nowrap; }
+  .meta .vl { flex: 1; border-bottom: 1px solid var(--soft); min-height: 17px; padding: 0 2px; }
+
+  table { width: 100%; border-collapse: collapse; }
+  th, td { border: 1px solid var(--line); padding: 3px 4px; vertical-align: middle; }
+  thead th { background: #f0eeea; font-size: 10px; font-weight: 600; line-height: 1.3; }
+  thead th .ms { display: block; font-weight: 400; color: var(--muted); font-size: 9px; }
+  tbody td { height: 21px; font-size: 11px; }
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+  .ctr { text-align: center; }
+  tfoot td { background: #faf9f7; font-weight: 700; font-size: 11px; }
+
+  /* editable cells */
+  [contenteditable] { outline: none; min-height: 14px; }
+  [contenteditable]:focus { background: #fff8d9; }
+  [contenteditable]:empty:before { content: attr(data-ph); color: #c8c8c8; font-weight: 400; }
+  .goods-head [contenteditable] { display: block; min-height: 26px; }
+
+  /* ---------- bottom blocks ---------- */
+  .bottom { display: flex; gap: 16px; margin-top: 12px; align-items: flex-start; }
+  .notes { flex: 1; }
+  .notes .cap { font-size: 10px; color: var(--muted); margin-bottom: 4px; }
+  .notes .box { border: 1px solid var(--soft); min-height: 68px; padding: 5px 6px; font-size: 11px; }
+  .settle { width: 330px; }
+  .settle table { table-layout: fixed; }
+  .settle table td:first-child { width: 205px; }
+  .settle table td { font-size: 11px; height: 22px; overflow: hidden; }
+  .settle .lb { background: #faf9f7; }
+  .settle .lb .ms { display: block; font-size: 9px; color: var(--muted); }
+  .settle .due td { background: #f6e9e8; font-weight: 700; font-size: 13px; }
+
+  .signs { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 26px; }
+  .signs .s { border-top: 1px solid var(--ink); padding-top: 4px; font-size: 10px; color: var(--muted); }
+  .foot { margin-top: 10px; font-size: 9px; color: var(--muted); display: flex; justify-content: space-between; }
+
+  .layout-b .sheet, .layout-a .sheet { }
+  #tableB, #tableA { display: none; }
+  .layout-a #tableA { display: table; }
+  .layout-b #tableB { display: table; }
+
+  @media print {
+    body { background: #fff; padding: 0; font-size: 11px; }
+    .toolbar { display: none !important; }
+    .sheet { box-shadow: none; max-width: none; padding: 0; }
+    [contenteditable]:empty:before { content: ""; }
+  }
+</style>
+</head>
+<body class="layout-a">
+
+<div class="toolbar">
+  <button id="btnA" class="on">格式 A · 10 栏货品表</button>
+  <button id="btnB">格式 B · 逐项明细</button>
+  <button id="btnPrint">🖨 打印 / Cetak</button>
+  <button id="btnClear">清空 / Kosongkan</button>
+  <span class="hint">直接在格子里打字会自动加总；打两份 — 一份给客人，一份自己存。资料只存在这台手机／电脑。</span>
+</div>
+
+<div class="sheet">
+
+  <div class="head">
+    <div>
+      <div class="co-name">AL-EKHLAS MANUFACTURING SDN. BHD.</div>
+      <div class="co-sub">
+        AEM Frozen Food · 真心食品 &nbsp;|&nbsp; 202401022253 (1568102-T)<br />
+        No 27, Jalan P4/5, Bandar Teknologi Kajang, 43500 Semenyih, Selangor<br />
+        +6014-941 3545 &nbsp;·&nbsp; alekhlas.sales@gmail.com
+      </div>
+    </div>
+    <div class="doc-title">
+      <div class="zh">月 结 单</div>
+      <div class="ms">Penyata Bulanan</div>
+    </div>
+  </div>
+
+  <div class="meta">
+    <div class="f"><span class="lb">客户 / Pelanggan</span><span class="vl" contenteditable></span></div>
+    <div class="f"><span class="lb">电话 / Telefon</span><span class="vl" contenteditable></span></div>
+    <div class="f"><span class="lb">月份 / Bulan</span><span class="vl" contenteditable></span></div>
+    <div class="f"><span class="lb">单号 / No. Penyata</span><span class="vl" contenteditable></span></div>
+    <div class="f" style="grid-column: span 2"><span class="lb">地址 / Alamat</span><span class="vl" contenteditable></span></div>
+    <div class="f"><span class="lb">出单日期 / Tarikh</span><span class="vl" contenteditable></span></div>
+    <div class="f"><span class="lb">付款期限 / Tempoh Bayaran</span><span class="vl" contenteditable></span></div>
+  </div>
+
+  <!-- ============ 格式 A：货品横排，10 栏 ============ -->
+  <table id="tableA">
+    <thead>
+      <tr class="goods-head">
+        <th style="width:62px">日期<span class="ms">Tarikh</span></th>
+        <th style="width:66px">单号<span class="ms">No. DO</span></th>
+        <th><span contenteditable data-ph="货品 1"></span></th>
+        <th><span contenteditable data-ph="货品 2"></span></th>
+        <th><span contenteditable data-ph="货品 3"></span></th>
+        <th><span contenteditable data-ph="货品 4"></span></th>
+        <th><span contenteditable data-ph="货品 5"></span></th>
+        <th><span contenteditable data-ph="货品 6"></span></th>
+        <th><span contenteditable data-ph="货品 7"></span></th>
+        <th><span contenteditable data-ph="货品 8"></span></th>
+        <th><span contenteditable data-ph="货品 9"></span></th>
+        <th><span contenteditable data-ph="货品 10"></span></th>
+        <th style="width:82px">金额 RM<span class="ms">Jumlah</span></th>
+      </tr>
+    </thead>
+    <tbody id="bodyA"></tbody>
+    <tfoot>
+      <tr>
+        <td colspan="12" style="text-align:right">本月货款合计 / Jumlah Belian Bulan Ini &nbsp;&nbsp;RM</td>
+        <td class="num" id="sumA">0.00</td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <!-- ============ 格式 B：逐项明细 ============ -->
+  <table id="tableB">
+    <thead>
+      <tr>
+        <th style="width:66px">日期<span class="ms">Tarikh</span></th>
+        <th style="width:80px">单号<span class="ms">No. DO</span></th>
+        <th>货品名称<span class="ms">Nama Barang</span></th>
+        <th style="width:66px">数量<span class="ms">Kuantiti</span></th>
+        <th style="width:60px">单位<span class="ms">Unit</span></th>
+        <th style="width:80px">单价 RM<span class="ms">Harga Seunit</span></th>
+        <th style="width:92px">金额 RM<span class="ms">Jumlah</span></th>
+      </tr>
+    </thead>
+    <tbody id="bodyB"></tbody>
+    <tfoot>
+      <tr>
+        <td colspan="6" style="text-align:right">本月货款合计 / Jumlah Belian Bulan Ini &nbsp;&nbsp;RM</td>
+        <td class="num" id="sumB">0.00</td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <div class="bottom">
+    <div class="notes">
+      <div class="cap">备注 / Catatan &nbsp;(退货、赠品、运费、口头折扣都写这里)</div>
+      <div class="box" contenteditable></div>
+      <div class="cap" style="margin-top:8px">
+        付款方式 / Cara Bayaran：银行转帐 Pindahan Bank &nbsp;—&nbsp;
+        <span contenteditable data-ph="银行 / 户名 / 帐号" style="border-bottom:1px solid var(--soft); display:inline-block; min-width:240px"></span><br />
+        付款后请 WhatsApp 收据到 +6014-941 3545 / Sila WhatsApp resit selepas bayaran.
+      </div>
+    </div>
+
+    <div class="settle">
+      <table>
+        <tr><td class="lb">上期结欠<span class="ms">Baki bulan lepas</span></td><td class="num" contenteditable data-money data-ph="0.00"></td></tr>
+        <tr><td class="lb">本月货款<span class="ms">Belian bulan ini</span></td><td class="num" id="thisMonth">0.00</td></tr>
+        <tr><td class="lb">本月已付<span class="ms">Bayaran diterima</span></td><td class="num" contenteditable data-money data-ph="0.00"></td></tr>
+        <tr><td class="lb">退货 / 折扣<span class="ms">Pulangan / Diskaun</span></td><td class="num" contenteditable data-money data-ph="0.00"></td></tr>
+        <tr class="due"><td>应付总额<span class="ms" style="display:block;font-size:8px;font-weight:400;letter-spacing:0">JUMLAH PERLU DIBAYAR</span></td><td class="num" id="due">0.00</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="signs">
+    <div class="s">本公司代表 / Wakil Syarikat &nbsp;&nbsp;(AEM Frozen Food)</div>
+    <div class="s">客户确认签名 &amp; 盖章 / Tandatangan &amp; Cop Pelanggan</div>
+  </div>
+
+  <div class="foot">
+    <span>第一联 客户存 Salinan Pelanggan &nbsp;·&nbsp; 第二联 本店存 Salinan Syarikat</span>
+    <span>如 7 天内未提出异议，视为确认无误 / Dianggap betul jika tiada bantahan dalam 7 hari.</span>
+  </div>
+
+</div>
+
+<script>
+(function () {
+  var ROWS_A = 15, ROWS_B = 20, KEY = 'aem-statement-v1';
+
+  function cell(cls, ph) {
+    return '<td class="' + cls + '" contenteditable' + (ph ? ' data-ph="' + ph + '"' : '') + '></td>';
+  }
+
+  // build grid layout A: date, DO, 10 goods columns, amount
+  var a = '';
+  for (var i = 0; i < ROWS_A; i++) {
+    a += '<tr>' + cell('ctr') + cell('ctr');
+    for (var g = 0; g < 10; g++) a += cell('num');
+    a += '<td class="num" contenteditable data-money data-rowsum></td></tr>';
+  }
+  document.getElementById('bodyA').innerHTML = a;
+
+  // build itemised layout B
+  var b = '';
+  for (var j = 0; j < ROWS_B; j++) {
+    b += '<tr>' + cell('ctr') + cell('ctr') + cell('') + cell('num') + cell('ctr') +
+         '<td class="num" contenteditable data-price></td>' +
+         '<td class="num" contenteditable data-money data-rowsum></td></tr>';
+  }
+  document.getElementById('bodyB').innerHTML = b;
+
+  function toNum(el) {
+    var v = (el.textContent || '').replace(/[^0-9.\-]/g, '');
+    var n = parseFloat(v);
+    return isNaN(n) ? 0 : n;
+  }
+  function fmt(n) {
+    return n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
+
+  // layout B: qty x unit price -> amount, unless the amount was typed by hand
+  function autoRowsB() {
+    var rows = document.querySelectorAll('#bodyB tr');
+    for (var i = 0; i < rows.length; i++) {
+      var td = rows[i].children;
+      var qty = toNum(td[3]), price = toNum(td[5]), amt = td[6];
+      if (amt === document.activeElement) continue;
+      if (qty && price) amt.textContent = fmt(qty * price);
+      else if (!amt.dataset.manual) { if (!qty && !price) amt.textContent = ''; }
+    }
+  }
+
+  function sumOf(sel) {
+    var t = 0, c = document.querySelectorAll(sel);
+    for (var i = 0; i < c.length; i++) t += toNum(c[i]);
+    return t;
+  }
+
+  function recalc() {
+    autoRowsB();
+    var sa = sumOf('#bodyA [data-rowsum]'), sb = sumOf('#bodyB [data-rowsum]');
+    document.getElementById('sumA').textContent = fmt(sa);
+    document.getElementById('sumB').textContent = fmt(sb);
+
+    var month = document.body.classList.contains('layout-a') ? sa : sb;
+    document.getElementById('thisMonth').textContent = fmt(month);
+
+    var m = document.querySelectorAll('.settle [data-money]'); // prev, paid, returns
+    var prev = toNum(m[0]), paid = toNum(m[1]), ret = toNum(m[2]);
+    document.getElementById('due').textContent = fmt(prev + month - paid - ret);
+    save();
+  }
+
+  // ---- persistence: every editable cell, in document order ----
+  function editables() { return document.querySelectorAll('[contenteditable]'); }
+  function save() {
+    try {
+      var e = editables(), out = [];
+      for (var i = 0; i < e.length; i++) out.push(e[i].innerHTML);
+      localStorage.setItem(KEY, JSON.stringify(out));
+    } catch (err) {}
+  }
+  function load() {
+    try {
+      var raw = localStorage.getItem(KEY);
+      if (!raw) return;
+      var v = JSON.parse(raw), e = editables();
+      for (var i = 0; i < e.length && i < v.length; i++) e[i].innerHTML = v[i];
+    } catch (err) {}
+  }
+
+  document.addEventListener('input', function (ev) {
+    if (ev.target.hasAttribute && ev.target.hasAttribute('data-rowsum')) ev.target.dataset.manual = '1';
+    recalc();
+  });
+  // keep cells plain text on paste
+  document.addEventListener('paste', function (ev) {
+    if (!ev.target.isContentEditable) return;
+    ev.preventDefault();
+    var t = (ev.clipboardData || window.clipboardData).getData('text');
+    document.execCommand('insertText', false, t.replace(/\s+/g, ' '));
+  });
+
+  function setLayout(which) {
+    document.body.className = 'layout-' + which;
+    document.getElementById('btnA').classList.toggle('on', which === 'a');
+    document.getElementById('btnB').classList.toggle('on', which === 'b');
+    // 13 columns needs landscape; the itemised sheet fits portrait
+    document.getElementById('pagerule').textContent =
+      '@page { size: A4 ' + (which === 'a' ? 'landscape' : 'portrait') + '; margin: 8mm; }';
+    try { localStorage.setItem(KEY + '-layout', which); } catch (e) {}
+    recalc();
+  }
+
+  document.getElementById('btnA').onclick = function () { setLayout('a'); };
+  document.getElementById('btnB').onclick = function () { setLayout('b'); };
+  document.getElementById('btnPrint').onclick = function () { window.print(); };
+  document.getElementById('btnClear').onclick = function () {
+    if (!confirm('清空整张单？Kosongkan semua?')) return;
+    var e = editables();
+    for (var i = 0; i < e.length; i++) e[i].innerHTML = '';
+    try { localStorage.removeItem(KEY); } catch (err) {}
+    recalc();
+  };
+
+  load();
+  var saved = 'a';
+  try { saved = localStorage.getItem(KEY + '-layout') || 'a'; } catch (e) {}
+  setLayout(saved);
+})();
+</script>
+</body>
+</html>
