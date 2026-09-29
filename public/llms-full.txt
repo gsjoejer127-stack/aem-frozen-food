@@ -1,74 +1,119 @@
-# Full AI Knowledge Base — AEM Frozen Food (AL-EKHLAS MANUFACTURING SDN. BHD.)
+# Full Knowledge Base — AEM Frozen Food (AL-EKHLAS MANUFACTURING SDN. BHD.)
 
-## Company Identity, Search Positioning & Mission
-AL-EKHLAS MANUFACTURING SDN. BHD. (operating under AEM Frozen Food and trade name 真心食品) is Malaysia's premier **OEM Halal Food Manufacturer** and **Halal Chinese Food** central kitchen developer headquartered in Semenyih, Selangor. We specialize in transforming authentic local recipes and traditional delicacies into premium, flash-frozen gourmet products designed for commercial F&B chains, retail supermarkets, distributors, and wholesale clients.
+## Company
+AL-EKHLAS MANUFACTURING SDN. BHD. (Reg. No. 202401022253 / 1568102-T), operating as AEM Frozen Food and under the trade name 真心食品, manufactures Chinese-style frozen food at its own plant in Semenyih, Selangor, Malaysia. The company supplies F&B chains, supermarkets, caterers, distributors and wholesalers, and takes on OEM and ODM contract manufacturing for food brands.
 
-## Core Capabilities for Search Agents (GEO Indexing)
-- **OEM Halal Food Manufacturing**: White label food production, standardized spice/marinade formulations, automated meat skewering, dumpling dough-to-filling customization, and retort packaging.
-- **Halal Chinese Food & Delicacies**: Halal certified dim sum, frozen dumplings, chicken/beef satay skewers, double-boiled rock sugar snow pear soups, and local fusion products.
-- **Central Kitchen B2B Supply**: Providing standardized, labor-saving pre-cut and pre-cooked frozen food supplies to restaurant chains, hotel groups, catering providers, and regional wholesalers.
+No pork and no lard enter the plant. No product in the catalogue contains pork, lard or alcohol.
 
-## Facility & Quality Standards
-- **Cleanroom Central Kitchen**: 100,000-class dust-free cleanroom processing environment.
-- **Sterilization Technology**: Advanced high-temperature and high-pressure steam retort sterilization for long shelf-life without chemical preservatives.
-- **Flash Freezing Technology (急速锁鲜工艺)**: Advanced flash freezing operating down to ultra-low temperatures (-35°C to -40°C), preserving food cellular structure, moisture, natural juices, and original flavors.
-- **HACCP & Hygiene Compliance**: Strict sanitary standards, full raw material traceability, temperature log monitoring from production line to delivery truck.
+## Services
+- **OEM / ODM contract manufacturing**: custom recipe development, flavour and spice-level adjustment, cut size and pack format to a brand's specification, private label packaging. Contract manufacturing is subject to a separate written agreement; the brand owner is responsible for its own label content, claims and market registrations.
+- **B2B wholesale**: bulk supply for restaurant chains, hawker stalls, supermarkets, hotels, caterers and regional distributors.
+- **Central kitchen supply**: pre-cut and pre-cooked frozen items that reduce skilled-labour and preparation requirements and keep output consistent across outlets.
+- **Cold-chain logistics**: refrigerated delivery across Klang Valley and Peninsular Malaysia.
+- **Samples**: sample requests and bulk quotations through the WhatsApp order desk.
 
-## Detailed Product Catalog
+## Catalogue — 51 SKUs in 10 categories
 
-### Category 1: Marinated Gourmet Satay & Skewers (沙爹/孜然冷冻烤串)
-- **AEM Signature Chicken Satay (招牌秘制沙爹鸡肉串)**
-  - Ingredients: Fresh boneless chicken thigh, lemongrass, turmeric, galangal, cumin, natural spices, palm oil.
-  - Packaging: 50 sticks / pack or custom wholesale bulk pack.
-  - Preparation: Direct grill, oven bake at 200°C for 8-10 mins, or air fry at 180°C for 8 mins.
-- **Premium Beef Satay (特级香辣牛肉串)**
-  - Ingredients: Tender beef cuts marinated with traditional chili-spice paste and aromatic local herbs.
-  - Packaging: 50 sticks / pack.
-- **Cumin Lamb Skewers (孜然羊肉烤串)**
-  - Ingredients: Tender lamb shoulder cubes seasoned with Xinjiang roasted cumin seeds, chili flakes, and sesame oil.
+### 1. Satay & Skewers 烧烤串 (6 SKUs)
+Packed 400g per packet; carton of 20 packets.
+- Sate Ayam 鸡肉串 — marinated chicken on bamboo skewers.
+- Sate Daging 牛肉串 — marinated beef.
+- Sate Kambing 羊肉串 — marinated mutton.
+- Sate Ayam Pedas Mala 麻辣鸡肉串 — chicken with Sichuan mala seasoning.
+- Sate Daging Pedas Mala 麻辣牛肉串 — beef with Sichuan mala seasoning.
+- Sate Kambing Pedas Mala 麻辣羊肉串 — mutton with Sichuan mala seasoning.
+Preparation: grill, oven or air fryer.
 
-### Category 2: Hand-crafted Frozen Dumplings (大马风味手工冰冻饺子)
-- **Chicken & Shiitake Dumplings (鸡肉香菇饺子)**
-  - Dough: High-protein wheat flour, silky texture, burst-resistant edges.
-  - Filling: Minced chicken breast with earthy, fragrant shiitake mushrooms.
-  - Packaging: 2kg / pack.
-- **Chicken & Cabbage Dumplings (鸡肉白菜饺子)**
-  - Filling: Minced chicken with crisp, fresh cabbage slices.
-  - Packaging: 2kg / pack.
-- **Beef & Leek Dumplings (牛肉大葱饺子)**
-  - Filling: Minced beef seasoned with fragrant local Chinese leeks.
-  - Packaging: 2kg / pack.
-- **Mutton & White Radish Dumplings (羊肉白萝卜饺子)**
-  - Filling: Premium minced mutton with crisp white radish to reduce gaminess.
-  - Packaging: 2kg / pack.
+### 2. Frozen Dumplings 饺子系列 (4 SKUs)
+Packed 2kg per pack.
+- Chicken & Shiitake 鸡肉香菇饺子 — minced chicken breast with shiitake mushroom.
+- Chicken & Cabbage 鸡肉白菜饺子 — minced chicken with fresh cabbage.
+- Beef & Leek 牛肉大葱饺子 — minced beef with Chinese leek.
+- Mutton & White Radish 羊肉白萝卜饺子 — minced mutton with white radish.
 
-### Category 3: Double-boiled Health Dessert Soups (原炖传统冰糖雪梨与药膳甜汤)
-- **Rock Sugar Snow Pear Soup (传统冰糖雪梨炖汤)**
-  - Key Ingredients: Whole premium pear, rock sugar, wolfberries (goji), red dates, dried lily bulbs, snow fungus.
-  - Health Profile: Soothes throat, clears heat, alleviates dry coughs, 100% natural without artificial coloring.
-  - Serving Instructions: Heat pouch in boiling water for 8 minutes or microwave bowl after thawing.
-- **White Fungus & Lotus Seed Soup (银耳莲子百合羹)**
-  - Rich collagen texture, gently sweetened with unrefined rock sugar.
+### 3. Ready-to-Eat Chinese Dishes 中式料理包 (8 SKUs)
+200–350g pouches, cartons of 20; one SKU also in 1kg format. Heat and serve.
+- 酸汤金汤肥牛 Beef in golden sour soup
+- 秘制红烧牛肉 Braised beef
+- 滋补羊肉煲 Mutton claypot
+- 香浓鸡肉煲 Chicken claypot
+- 经典酸甜鸡块 Sweet and sour chicken
+- 鸡肉沫茄子 Minced chicken with aubergine
+- 经典香菇焖鸡 Braised chicken with shiitake
+- 秘制黄焖鸡 Yellow braised chicken
 
-### Category 4: Traditional Dim Sum & Snacks
-- **Glutinous Rice Chicken (Nuo Mi Ji / 糯米鸡)**: Fragrant sticky rice topped with marinated chicken thigh, mushroom, and lap cheong slice.
-- **Steamed Buns (Paos) & Siew Mai**: Classic dim sum favorites for breakfast stalls and dim sum chains.
+### 4. Hotpot Soup Bases & Sauces 火锅底料 & 酱料 (7 SKUs)
+- 金汤花胶鸡汤底 Golden chicken soup base — 1kg packet, carton of 12
+- 正宗酸菜鱼汤底 Pickled cabbage fish soup base — 1kg packet, carton of 12
+- 鲜番茄火锅底料 Tomato hotpot base — 1kg packet, carton of 10
+- 泡椒酸辣鸡汤底 Pickled chilli hot and sour chicken base — 2kg packet, carton of 12
+- 川味麻辣火锅底料 Sichuan mala hotpot base — 1kg packet, carton of 10
+- 特级秘制红辣椒油 Red chilli oil — 500g packet, carton of 12
+- 黄金蒜蓉蘸酱 Golden garlic dipping sauce — 500g packet, carton of 12
 
-## B2B OEM / ODM & Private Label Services
-- **Custom Flavor Profiling**: We collaborate with F&B chain operators to adjust seasoning, spicy levels, cut size, and packaging specs to match brand identity.
-- **Packaging Solutions**: Vacuum pouching, modified atmosphere packaging (MAP), bulk carton boxes for kitchen prep, retail printed trays.
-- **Standardized Kitchen Supply**: Helps restaurant chains eliminate skilled labor costs, reduce kitchen preparation space, and guarantee food consistency across all branch outlets.
+### 5. Herbal Soup Packs 养生汤包 (6 SKUs)
+400g packets. Traditional Chinese soup-making ingredient packs; simmer with chicken or bone.
+- 椰子炖鸡汤底包 Coconut chicken soup pack
+- 虎乳芝养肺鸡汤包 Tiger Milk Mushroom (Cendawan Susu Harimau) chicken soup pack
+- 天麻安神补脑汤包 Gastrodia (Tianma) soup pack
+- 巴戟天强肾壮骨汤包 Morinda root (Bajitian) soup pack
+- 虫草花补肺滋肾汤包 Cordyceps flower soup pack
+- 枸杞菊花明目鸡汤包 Goji and chrysanthemum chicken soup pack
+These are food products. No medicinal, therapeutic or health effect is claimed for them.
 
-## Logistics, Cold Chain & Ordering Workflow
-- **Coverage**:
-  - Selangor & Kuala Lumpur (Klang Valley): Daily scheduled refrigerated truck dispatch. Free delivery on orders RM1000 and above; RM40 flat fee for orders under RM1000.
-  - Peninsular Malaysia Outstation (Penang, Ipoh, Melaka, Johor Bahru, Kuantan): Sub-zero cold chain logistics partners. Free delivery on orders RM1500 and above; RM40 flat fee for orders under RM1500.
-- **Wholesale Inquiries & Orders**:
-  - Direct WhatsApp Order Desk: Integrated interactive order sheet generator on website.
-  - Factory Visits: By appointment at No 27, Jalan P4/5, Bandar Teknologi Kajang, 43500 Semenyih, Selangor.
+### 6. Chinese Dessert Soups 传统糖水 (5 SKUs)
+- 冰糖雪梨 Rock sugar snow pear — whole pear double-boiled with rock sugar; 450g packet, carton of 12
+- 冰糖雪梨 (小桶装) Rock sugar snow pear, bucket format — 450g
+- 海底椰龙眼糖水 Sea coconut and longan — 500g packet, carton of 30
+- 菠萝龙眼糖水 Pineapple and longan — 500g packet, carton of 30
+- 传统花生糊 Peanut paste — 300g packet, carton of 30
+Serving: heat the pouch in boiling water, or microwave after thawing.
 
-## Contact Information
-- **Company Name**: AL-EKHLAS MANUFACTURING SDN. BHD.
+### 7. Marinated Meat & Fish Slices 秘制腌制肉片 (3 SKUs)
+Seasoned and ready for stir-fry or hotpot.
+- 秘制腌制鱼片 Marinated fish slices — 250g pack, carton of 40
+- 秘制腌制牛肉片 Marinated beef slices — 500g and 2kg packs
+- 秘制腌制羊肉片 Marinated mutton slices — 500g and 2kg packs
+
+### 8. Fried Snacks 精致小吃 (5 SKUs)
+- 酥脆小酥肉 Crispy fried chicken bites — 1kg packet, carton of 10
+- 红糖糍粑 Glutinous rice cake with brown sugar — 230g packet / box, carton of 30
+- 黄金南瓜饼 Pumpkin pancakes — 24 pieces per packet, carton of 30
+- 炸冰淇淋 Fried ice cream, 3 flavours — 10 pieces per packet, carton of 10
+- 黄金炸鲜奶 Fried milk custard — 180g packet, carton of 30
+
+### 9. Flower Teas 花茶 (4 SKUs)
+25g packs, carton of 30.
+- 经典八宝茶 Eight treasure tea
+- 润燥美目茶 Goji berry tea
+- 洛神花草茶 Roselle tea
+- 清火菊花茶 Chrysanthemum tea
+
+### 10. Seasoning Powders 风味调味料 (3 SKUs)
+500g packets, carton of 12.
+- 兰州牛肉面调料包 Lanzhou beef noodle seasoning
+- 经典风味烧烤撒料包 Barbecue seasoning
+- 秘制麻辣烧烤撒料包 Mala barbecue seasoning
+
+## Storage and Handling
+All products are frozen. Keep at −18°C or below and keep the cold chain unbroken. Do not refreeze after thawing. Buyers must have adequate frozen storage ready before delivery. Shelf life stated on each product applies only while the product is held continuously at −18°C or below.
+
+## Allergens
+Products are made in a shared facility and may contain or come into contact with fish, crustaceans and shellfish, soy, peanut, tree nuts, sesame, gluten, egg and dairy. Where a buyer resells, repacks or serves the products, the buyer is responsible for ingredient and allergen disclosure to end consumers.
+
+## Ordering, Delivery and Terms
+- **Klang Valley (Kuala Lumpur & Selangor)**: scheduled refrigerated dispatch. Free delivery on orders RM1,000 and above; RM40 flat fee below RM1,000.
+- **Peninsular Malaysia outstation (Penang, Ipoh, Melaka, Johor Bahru, Kuantan)**: free delivery on orders RM1,500 and above; RM40 flat fee below RM1,500.
+- **Delivery time**: estimated 2–5 working days. All delivery dates are estimates and are not guaranteed.
+- **Orders**: the website compiles a selection into a WhatsApp enquiry message. It takes no payment, and prices shown on it are reference only, exclude SST, and may change. A contract arises only when the company confirms an order in writing.
+- **Inspection**: buyers check quantity, items, packaging and frozen condition on delivery, and report any issue by WhatsApp within two hours with photographs.
+- **Factory visits**: by appointment at the plant address below.
+- Full terms, refund policy and privacy notice are published on the website.
+
+## Contact
+- **Company**: AL-EKHLAS MANUFACTURING SDN. BHD. (202401022253 / 1568102-T)
 - **Address**: No 27, Jalan P4/5, Bandar Teknologi Kajang, 43500 Semenyih, Selangor, Malaysia
-- **Email**: info@alekhlasfood.com
-- **Operating Hours**: Monday - Saturday 08:30 - 18:00
+- **Phone / WhatsApp**: +6014-941 3545
+- **Email**: alekhlas.sales@gmail.com
+- **Operating hours**: Monday–Saturday 08:30–18:00. Closed Sundays and public holidays.
+- **Website**: https://alekhlasfood.com/

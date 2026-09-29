@@ -177,8 +177,8 @@ export const PRODUCTS: Product[] = [
     category: 'dessert-soup',
     barcode: '9553183093709',
     image: 'https://images.unsplash.com/photo-1541832676-9b763b0239ab?auto=format&fit=crop&w=600&q=80',
-    description: 'Sweet, soothing pear nectar double-boiled with rock sugar to soothe the throat and cool the body.',
-    descriptionZh: '雪梨温润，加冰糖悉心慢炖，清甜滋润，清热润肺。',
+    description: 'Whole pear double-boiled with rock sugar until sweet and clear. Ready to heat and serve.',
+    descriptionZh: '整颗雪梨配冰糖慢火炖煮，汤清味甜，加热即可享用。',
     featured: true,
     variants: [
       { id: 'pgb-pkt', size: '450g * Pkt', price: 6.00, type: 'pkt' },
@@ -494,8 +494,8 @@ export const PRODUCTS: Product[] = [
     category: 'sauce',
     barcode: '9551738298371',
     image: 'https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=600&q=80',
-    description: 'Luxurious Golden Chicken soup base packed with collagen from hours of slow simmering marrow bone broth.',
-    descriptionZh: '精选老母鸡慢熬数小时，汤色金黄亮泽，胶原蛋白满满，鲜美浓醇。',
+    description: 'Golden chicken soup base simmered for hours with marrow bone broth for a rich, full-bodied stock.',
+    descriptionZh: '精选老母鸡与筒骨慢熬数小时，汤色金黄亮泽，口感鲜美浓醇。',
     variants: [
       { id: 'ska-pkt', size: '1kg * Pkt', price: 36.00, type: 'pkt' },
       { id: 'ska-ctn', size: '1kg * 12Pkt * Ctn', price: 430.00, type: 'ctn' }
@@ -652,8 +652,8 @@ export const PRODUCTS: Product[] = [
     category: 'tea',
     barcode: '9551045275638',
     image: 'https://images.unsplash.com/photo-1597481499750-3e6b22637e12?auto=format&fit=crop&w=600&q=80',
-    description: 'Nourishing botanical blend designed to soothe eyes and hydrate the body. Loaded with premium goji berries.',
-    descriptionZh: '特调配方，明目润燥，茶汤澄澈甜润，手机族、电脑族必备。',
+    description: 'Botanical blend built on premium goji berries. Clear, lightly sweet cup.',
+    descriptionZh: '特调配方，选用饱满枸杞，茶汤澄澈，入口清甜。',
     variants: [
       { id: 'twb-pkt', size: '25g * pck', price: 4.00, type: 'pck' },
       { id: 'twb-ctn', size: '30pck * ctn', price: 120.00, type: 'ctn' }
@@ -680,8 +680,8 @@ export const PRODUCTS: Product[] = [
     category: 'tea',
     barcode: '9551045275669',
     image: 'https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=600&q=80',
-    description: 'Refreshing aromatic tea made from selected golden chrysanthemum flowers. Clears summer heat.',
-    descriptionZh: '精选金丝黄菊，清香悠长，清热解毒，夏日防暑常备。',
+    description: 'Refreshing aromatic tea made from selected golden chrysanthemum flowers.',
+    descriptionZh: '精选金丝黄菊，清香悠长，茶汤清亮甘润。',
     variants: [
       { id: 'tbk-pkt', size: '25g * pck', price: 4.00, type: 'pck' },
       { id: 'tbk-ctn', size: '30pck * ctn', price: 120.00, type: 'ctn' }
@@ -709,8 +709,8 @@ export const PRODUCTS: Product[] = [
     category: 'herbal-soup',
     barcode: '9551738298548',
     image: 'https://images.unsplash.com/photo-1547928500-4722f55cd91e?auto=format&fit=crop&w=600&q=80',
-    description: 'Precious Tiger Milk Mushroom (Cendawan Susu Harimau) boiled to boost lung health and immunity.',
-    descriptionZh: '大马国宝级药材“虎乳芝”特配高汤包，润肺止咳，提升免疫力。',
+    description: 'Soup pack built on Tiger Milk Mushroom (Cendawan Susu Harimau), a prized Malaysian ingredient.',
+    descriptionZh: '选用大马名贵食材「虎乳芝」配伍的高汤包，汤感醇厚回甘。',
     featured: true,
     variants: [
       { id: 'scs-pkt', size: '400g * Pkt', price: 8.50, type: 'pkt' }
@@ -723,7 +723,7 @@ export const PRODUCTS: Product[] = [
     category: 'herbal-soup',
     barcode: '9551738298425',
     image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=600&q=80',
-    description: 'A traditional herbal blend highlighting Gastrodia (Tianma) to soothe headaches, improve sleep and focus.',
+    description: 'A traditional herbal blend highlighting Gastrodia (Tianma), long used in Chinese home cooking.',
     descriptionZh: '精配天麻中草药，宁神安脑，缓解头痛头晕，清心醒脑。',
     variants: [
       { id: 'srt-pkt', size: '400g * Pkt', price: 8.50, type: 'pkt' }
@@ -736,8 +736,8 @@ export const PRODUCTS: Product[] = [
     category: 'herbal-soup',
     barcode: '9551738298494',
     image: 'https://images.unsplash.com/photo-1541696432-82c6da8ce7bf?auto=format&fit=crop&w=600&q=80',
-    description: 'Nourishing soup base highlighting Morinda Root (Bajitian) to strengthen lower back, joints and energy.',
-    descriptionZh: '巴戟天经典药膳包，强筋骨、壮腰膝，消除疲劳，增强体力。',
+    description: 'Soup base highlighting Morinda Root (Bajitian), a classic ingredient in traditional soup making.',
+    descriptionZh: '巴戟天配伍经典汤料包，慢炖后汤味甘醇厚实。',
     variants: [
       { id: 'srb-pkt', size: '400g * Pkt', price: 8.50, type: 'pkt' }
     ]
@@ -749,8 +749,8 @@ export const PRODUCTS: Product[] = [
     category: 'herbal-soup',
     barcode: '9551738298456',
     image: 'https://images.unsplash.com/photo-1547928500-4722f55cd91e?auto=format&fit=crop&w=600&q=80',
-    description: 'Vibrant golden cordyceps flowers matched with supporting herbs to nurture kidney and respiratory functions.',
-    descriptionZh: '精选金黄虫草花，色泽诱人，滋阴润肺，益肾养颜。',
+    description: 'Vibrant golden cordyceps flowers matched with supporting herbs for a fragrant, savoury stock.',
+    descriptionZh: '精选金黄虫草花配伍汤料，色泽诱人，汤味清鲜。',
     variants: [
       { id: 'src-pkt', size: '400g * Pkt', price: 8.50, type: 'pkt' }
     ]
@@ -762,8 +762,8 @@ export const PRODUCTS: Product[] = [
     category: 'herbal-soup',
     barcode: '9551738298616',
     image: 'https://images.unsplash.com/photo-1600271886742-f049cd451bba?auto=format&fit=crop&w=600&q=80',
-    description: 'Eye-care specialty herbal soup pack. Golden sweet wolfberry and crisp cooling chrysanthemum flavor.',
-    descriptionZh: '清火明目特调，枸杞蜜香加小黄菊清凉，汤感清爽微甘。',
+    description: 'Herbal soup pack of sweet golden wolfberry and crisp chrysanthemum. Light, gently sweet stock.',
+    descriptionZh: '枸杞蜜香搭配小黄菊，汤感清爽微甘。',
     variants: [
       { id: 'sag-pkt', size: '400g * Pkt', price: 8.50, type: 'pkt' }
     ]

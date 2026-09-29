@@ -63,7 +63,6 @@ import {
   LegalDocId
 } from './legal';
 import Logo from './components/Logo';
-import HalalLogo from './components/HalalLogo';
 
 const WhatsAppIcon = ({ className }: { className?: string }) => (
   <svg viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
@@ -176,19 +175,19 @@ export default function App() {
       document.title = 'AEM Frozen Food | OEM Halal Food & 清真中华美食研发制造工厂 (Malaysia)';
       const metaDesc = document.querySelector('meta[name="description"]');
       if (metaDesc) {
-        metaDesc.setAttribute('content', 'AL-EKHLAS MANUFACTURING SDN BHD (AEM Frozen Food / 真心食品) - 马来西亚雪兰莪 Semenyih 顶级 OEM Halal food 清真速冻食品与清真中华美食（Halal Chinese food）研发制造厂，主打清真沙爹烤串、手工水饺、清真点心与冰糖雪梨炖汤。');
+        metaDesc.setAttribute('content', 'AL-EKHLAS MANUFACTURING SDN BHD (AEM Frozen Food / 真心食品) - 马来西亚雪兰莪 Semenyih OEM Halal food 清真速冻食品与清真中华美食（Halal Chinese food）研发制造厂，主打清真沙爹烤串、手工水饺、中式料理包与冰糖雪梨炖汤。');
       }
     } else if (lang === 'en') {
-      document.title = 'AEM Frozen Food | Premier OEM Halal Food Manufacturer & Halal Chinese Food Malaysia';
+      document.title = 'AEM Frozen Food | OEM Halal Food Manufacturer & Halal Chinese Food Malaysia';
       const metaDesc = document.querySelector('meta[name="description"]');
       if (metaDesc) {
-        metaDesc.setAttribute('content', 'AL-EKHLAS MANUFACTURING SDN BHD (AEM Frozen Food) - Premier OEM Halal Food Manufacturer & Halal Chinese Food supplier based in Semenyih, Selangor, Malaysia. Specialist in frozen satay skewers, halal dim sum, dumplings, and dessert soups.');
+        metaDesc.setAttribute('content', 'AL-EKHLAS MANUFACTURING SDN BHD (AEM Frozen Food) - OEM Halal Food Manufacturer & Halal Chinese Food supplier based in Semenyih, Selangor, Malaysia. Specialist in frozen satay skewers, dumplings, ready-to-eat dishes and dessert soups.');
       }
     } else if (lang === 'ms') {
       document.title = 'AEM Frozen Food | Pengeluar OEM Halal Food & Makanan Cina Halal Malaysia';
       const metaDesc = document.querySelector('meta[name="description"]');
       if (metaDesc) {
-        metaDesc.setAttribute('content', 'AL-EKHLAS MANUFACTURING SDN BHD (AEM Frozen Food) berpusat di Semenyih, Selangor. Pakar kilang OEM Halal food, makanan Cina Halal (dumpling, dim sum), sate sejuk beku, dan pembekal rantaian restoran B2B.');
+        metaDesc.setAttribute('content', 'AL-EKHLAS MANUFACTURING SDN BHD (AEM Frozen Food) berpusat di Semenyih, Selangor. Pakar kilang OEM Halal food, makanan Cina Halal (dumpling), sate sejuk beku, dan pembekal rantaian restoran B2B.');
       }
     }
   }, [lang]);
@@ -884,12 +883,6 @@ export default function App() {
             
             {/* Left Content Column */}
             <div className="lg:col-span-7 flex flex-col gap-6 text-center lg:text-left" id="hero-content">
-              {/* Trust Badge */}
-              <div className="inline-flex items-center gap-2 bg-emerald-50 text-brand-green font-extrabold text-[10px] tracking-wider uppercase px-4 py-2 rounded-[4px] border border-emerald-100 self-center lg:self-start shadow-sm">
-                <span className="w-2 h-2 bg-brand-green rounded-full animate-ping" />
-                {t.halalCertified}
-              </div>
-
               {/* Title with editorial design */}
               <h1 className="font-sans font-black text-4xl sm:text-5xl lg:text-6xl text-slate-900 leading-none tracking-tighter">
                 {t.heroTitle} <br className="hidden sm:inline" />
@@ -959,13 +952,10 @@ export default function App() {
               <div className="relative bg-white border border-slate-200 p-2 rounded-[4px] overflow-hidden shadow-md group">
                 <img
                   src="https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&w=800&q=80"
-                  alt="AEM Halal Chinese Frozen Food & Dim Sum"
+                  alt="AEM Frozen Food — frozen dumplings, satay skewers and ready-to-eat dishes"
                   className="w-full h-56 sm:h-64 object-cover rounded-[2px] shadow-inner transition-transform group-hover:scale-105 duration-500"
                   referrerPolicy="no-referrer"
                 />
-                <div className="absolute top-4 right-4 bg-slate-900/90 text-amber-400 font-extrabold text-[10px] px-3 py-1 rounded-[2px] backdrop-blur-xs border border-amber-400/30 uppercase tracking-widest shadow-lg">
-                  HALAL CERTIFIED
-                </div>
               </div>
 
               {/* Instant B2B Conversion Card */}
@@ -1447,8 +1437,8 @@ export default function App() {
                             category: selectedCategory === 'all' || selectedCategory === 'favorites' ? 'satay' : selectedCategory,
                             barcode: '955' + Math.floor(1000000000 + Math.random() * 9000000000),
                             image: '',
-                            description: 'Premium raw ingredients produced under rigorous quality management.',
-                            descriptionZh: '精选上等原材料，在严格的质量控制和无尘环境中生产制造。',
+                            description: 'Describe the product here.',
+                            descriptionZh: '请填写产品描述。',
                             variants: [
                               { id: 'v1', size: 'Standard / 规格', price: 10, type: 'pkt' }
                             ]
@@ -2967,10 +2957,10 @@ export default function App() {
                           </span>
                           <p className="text-slate-600 text-xs leading-relaxed font-medium">
                             {lang === 'zh' 
-                              ? '位于雪兰莪士毛月（Semenyih）的十万级无尘洁净中央大厨房，配备先进的高温高压灭菌及急速冷冻技术。' 
+                              ? '位于雪兰莪士毛月（Semenyih）的自有中央厨房，生产全程温控，出品稳定。' 
                               : lang === 'ms' 
-                              ? 'Dapur pusat bilik bersih teknologi tinggi kami di Semenyih, Selangor dilengkapi dengan pensterilan suhu tinggi dan teknologi pembekuan pantas.' 
-                              : 'Our high-tech cleanroom central kitchen in Semenyih, Selangor is equipped with advanced high-temperature sterilization and flash-freezing technology.'}
+                              ? 'Dapur pusat milik sendiri di Semenyih, Selangor, dengan kawalan suhu sepanjang proses pengeluaran.' 
+                              : 'Our own central kitchen in Semenyih, Selangor, with temperature control throughout production.'}
                           </p>
                         </div>
                       </div>
@@ -2982,14 +2972,14 @@ export default function App() {
                         </div>
                         <div className="flex flex-col gap-1">
                           <span className="font-extrabold text-slate-950 text-sm">
-                            {lang === 'zh' ? '超过 100+ 款产品选择' : lang === 'ms' ? 'Pilihan Lebih Daripada 100+ Produk' : '100+ Product Selections'}
+                            {lang === 'zh' ? '50+ 款自有产品' : lang === 'ms' ? '50+ Produk Sendiri' : '50+ In-House Products'}
                           </span>
                           <p className="text-slate-600 text-xs leading-relaxed font-medium">
                             {lang === 'zh' 
-                              ? '从点心、汤底、酱料到各类即食特色小吃，丰富的产品线全方位满足不同餐饮场景。' 
+                              ? '从中式料理包、火锅汤底、酱料到各类即食小吃，产品线覆盖不同餐饮场景。' 
                               : lang === 'ms' 
-                              ? 'Daripada dim sum, pes sup, sos hingga ke pelbagai snek sedia dimakan, katalog kami yang luas memenuhi keperluan semua senario katering.' 
-                              : 'From dim sum, soup bases, and sauces to various ready-to-eat local delicacies, our extensive catalog satisfies all culinary scenes.'}
+                              ? 'Daripada hidangan sedia makan, pes sup panas, sos hingga snek, katalog kami memenuhi pelbagai senario katering.' 
+                              : 'From ready-to-eat dishes and hotpot soup bases to sauces and snacks, our catalog covers a wide range of foodservice needs.'}
                           </p>
                         </div>
                       </div>

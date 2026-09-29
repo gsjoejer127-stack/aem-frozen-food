@@ -1,6 +1,8 @@
 {
   "name": "AEM Frozen Food",
-  "description": "High-quality Malaysian-style frozen food, satay skewers, Chinese dessert soups, and gourmet dim sum landing page.",
+  "description": "Malaysian-style frozen food: satay skewers, hand-made dumplings, ready-to-eat dishes, hotpot soup bases and Chinese dessert soups. B2B catalogue and enquiry site.",
   "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
 }

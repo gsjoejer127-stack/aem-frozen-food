@@ -1,7 +1,7 @@
 # 对外宣称合规审计 / Public Claims Audit
 
 **对象**：AL-EKHLAS MANUFACTURING SDN. BHD.（AEM Frozen Food / 真心食品）网站与 AI 索引文件
-**审计日期**：2026-09-29
+**审计日期**：2026-09-29 · **处理状态：已执行删除（2026-09-29）**
 **范围**：`index.html`、`src/App.tsx`、`src/dictionary.ts`、`src/data.ts`、`src/components/HalalLogo.tsx`、`public/llms.txt`、`public/llms-full.txt`、`public/sitemap.xml`、`public/robots.txt`、`metadata.json`
 **性质**：事实核对与风险标注，**非法律意见**，未经马来西亚执业律师或清真顾问审核。
 
@@ -19,7 +19,11 @@
 
 ### 1. 自绘的清真标识 + 证书号 `1 233-08/2025`
 
-**证据**：`src/components/HalalLogo.tsx` — 整个组件是用 SVG **手工重绘**的马来西亚官方清真标志：外圈 `★ MALAYSIA ★` 与 `ماليزيا`（第 47、54 行）、八角星内 `HALAL`（第 122 行）、下方 `MS 1500`（第 137 行）与 `1 233-08/2025`（第 150 行）。该组件显示在首页（`src/App.tsx:890`），另有独立的 `HALAL CERTIFIED` 角标（`src/App.tsx:967`）。
+**证据**：`src/components/HalalLogo.tsx` — 整个组件是用 SVG **手工重绘**的马来西亚官方清真标志：外圈 `★ MALAYSIA ★` 与 `ماليزيا`、八角星内 `HALAL`、下方 `MS 1500` 与证书号 `1 233-08/2025`。
+
+**更正**：该组件**只被 import、从未渲染**，即未上线显示；首页上线的是文字角标 `HALAL CERTIFIED`（原 `src/App.tsx:890`、`:967`）。审计初稿称其显示于首页，有误。
+
+**已处理**：整个 `HalalLogo.tsx` 已删除，两处 `HALAL CERTIFIED` 角标已移除。
 
 **为什么是最高风险**：
 
@@ -184,3 +188,53 @@ AI 文件只写了沙爹、饺子、糖水、点心四类。实际目录里**完
 | 6（随后） | 重新部署 + Search Console 提交重新抓取（AI 索引需数周更新） | — |
 
 第 2 项（药效宣称）不依赖任何回答，随时可以动手 —— 说一声我就改。
+
+---
+
+## 四、执行记录（2026-09-29）
+
+按「全部有问题的直接删」执行。所有改动已通过 `npm run build` 验证。
+
+### 已删除
+
+| 项目 | 处理 | 文件 |
+|---|---|---|
+| 自绘的官方清真标志 + `MS 1500` + 证书号 `1 233-08/2025` | 整个组件删除（原本只 import 未渲染） | `src/components/HalalLogo.tsx`（已删）、`src/App.tsx` |
+| 两处 `HALAL CERTIFIED` 角标 | 删除 | `src/App.tsx` |
+| `Halal Certified` / `Certified OEM Halal` 文案 | 删除，改为事实陈述 `No Pork, No Lard` | `src/dictionary.ts`、`index.html` |
+| `Halal-Friendly Sourcing` | 改为 `Selected Ingredients` / 「严选原料」 | `src/dictionary.ts`（en/zh/ms） |
+| `100%` + 「绝无添加防腐剂」首页数据 | 改为 `50+` 自有产品款式（可验证） | `src/dictionary.ts`（en/zh/ms） |
+| `-45%` 急速冷冻技术（温度写成百分比） | 删除数字，保留「急速冷冻锁鲜技术」 | `src/dictionary.ts`（en/zh/ms） |
+| 十万级无尘洁净室 / cleanroom | 全部删除（网站 + FAQ 结构化数据 + AI 文件） | `src/App.tsx`、`index.html`、`public/llms*.txt` |
+| HACCP / retort / MAP 认证暗示 | 从 AI 文件删除 | `public/llms-full.txt` |
+| `Premier` / `Leading` / `top-tier` / 「顶级」 | 全部删除 | `index.html`、`src/App.tsx`、`public/llms*.txt` |
+| 8 处药效宣称（提升免疫力、明目、补脑、强肾、清热解毒、胶原蛋白等） | 描述文案改写为讲配料与口感 | `src/data.ts` |
+| 银耳「富含胶原蛋白」（事实错误） | 随该产品条目一并删除 | `public/llms-full.txt` |
+| 糯米鸡（含腊肠）、包子、烧卖、点心类目、银耳莲子百合羹、红枣桂圆滋补汤、花生蘸酱 | 全部删除 | `public/llms*.txt`、`index.html` |
+| 失效的促销文案（划线价 RM89、会员专享 10%） | 删除（原本就是未被引用的死字符串） | `src/dictionary.ts`（en/zh/ms） |
+| `100+ 款产品选择` | 改为 `50+`（实际 51） | `src/App.tsx` |
+| 新增产品模板里的「无尘环境」默认描述 | 改为空白提示语 | `src/App.tsx` |
+
+### 已补正
+
+- `public/llms.txt` 与 `public/llms-full.txt` **按 `src/data.ts` 完全重写**：51 个 SKU、10 个品类、包装规格、配送门槛、过敏原声明、储存条件全部据实列出。此前缺失的 36 个 SKU（中式料理包 8、火锅底料酱料 7、养生汤包 6、小吃 5、花茶 4、腌制肉片 3、调味粉 3）已全部补上。
+- 邮箱统一为 `alekhlas.sales@gmail.com`（与 `src/legal.ts` 一致），营业时间统一为 `08:30–18:00`（与结构化数据一致）。
+- `metadata.json` 描述改为与实际目录相符。
+- 养生汤包条目加注：`These are food products. No medicinal, therapeutic or health effect is claimed for them.`
+
+### 未删除 —— 需要你决定的一项
+
+**6 个 SKU 的中文品名本身含功能词**：润燥美目茶、清火菊花茶、虎乳芝**养肺**鸡汤包、天麻**安神补脑**汤包、巴戟天**强肾壮骨**汤包、虫草花**补肺滋肾**汤包、枸杞菊花**明目**鸡汤包。
+
+没有动的理由：这些是**印在实物包装上的品名**。只改网站不改包装，会造成「网站名 ≠ 客户收到的产品名」—— 正是这次在修的那类矛盾；而法规风险主要落在**标签**上，改网站并不降低它。
+
+建议：下次包装改版时把功能词从品名里拿掉（如「虎乳芝鸡汤包」「天麻汤包」「枸杞菊花鸡汤包」），在此之前**文案中不再重复这些功能词**（已做到）。这一步涉及印刷成本，由你决定时机。
+
+### 仍然悬而未决 —— 清真认证
+
+删除了所有**认证宣称**（标志、证书号、`CERTIFIED` 字样），但保留了**业务描述**（`OEM Halal Food Manufacturer`、`Halal Chinese Food Specialist`），因为那是贵司的主营定位。
+
+**这一步需要你确认：**
+
+- **证书有效** → 把官方图档、证书号与认证范围给我，我按合规方式加回去（标注编号、范围、有效期）。
+- **证书无效／过期／范围不全** → 网站上「halal」这个词本身也要一并撤下，改为纯事实表述（猪肉与猪油不入厂）。这一步我没有擅自做，因为等于关掉你的主要卖点，必须由你决定。
