@@ -204,7 +204,7 @@ AI 文件只写了沙爹、饺子、糖水、点心四类。实际目录里**完
 | `Halal Certified` / `Certified OEM Halal` 文案 | 删除 | `src/dictionary.ts`、`index.html` |
 | `No Pork, No Lard` / 「猪肉与猪油不入厂」 | 删除（原为认证宣称的替代文案，经指示一并移除） | `src/dictionary.ts`、`public/llms*.txt` |
 | `Halal-Friendly Sourcing` | 改为 `Selected Ingredients` / 「严选原料」 | `src/dictionary.ts`（en/zh/ms） |
-| `100%` + 「绝无添加防腐剂」首页数据 | 改为 `50+` 自有产品款式（可验证） | `src/dictionary.ts`（en/zh/ms） |
+| `100%` + 「绝无添加防腐剂」首页数据 | 整块删除（其替代文案 `50+ 自有产品款式` 经指示亦一并删除） | `src/dictionary.ts`（en/zh/ms） |
 | `-45%` 急速冷冻技术（温度写成百分比） | 删除数字，保留「急速冷冻锁鲜技术」 | `src/dictionary.ts`（en/zh/ms） |
 | 十万级无尘洁净室 / cleanroom | 全部删除（网站 + FAQ 结构化数据 + AI 文件） | `src/App.tsx`、`index.html`、`public/llms*.txt` |
 | HACCP / retort / MAP 认证暗示 | 从 AI 文件删除 | `public/llms-full.txt` |
@@ -213,7 +213,7 @@ AI 文件只写了沙爹、饺子、糖水、点心四类。实际目录里**完
 | 银耳「富含胶原蛋白」（事实错误） | 随该产品条目一并删除 | `public/llms-full.txt` |
 | 糯米鸡（含腊肠）、包子、烧卖、点心类目、银耳莲子百合羹、红枣桂圆滋补汤、花生蘸酱 | 全部删除 | `public/llms*.txt`、`index.html` |
 | 失效的促销文案（划线价 RM89、会员专享 10%） | 删除（原本就是未被引用的死字符串） | `src/dictionary.ts`（en/zh/ms） |
-| `100+ 款产品选择` | 改为 `50+`（实际 51） | `src/App.tsx` |
+| `100+ 款产品选择` | 删除数字，改为「完整自有产品线」 | `src/App.tsx` |
 | 新增产品模板里的「无尘环境」默认描述 | 改为空白提示语 | `src/App.tsx` |
 
 ### 已补正

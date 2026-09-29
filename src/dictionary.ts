@@ -41,8 +41,6 @@ export const DICTIONARY = {
     storyP4: 'On your journey to building a successful F&B chain, we are absolutely your most stable supply chain partner!',
 
     // Stats
-    stat1Val: '50+',
-    stat1Lbl: 'In-House Products',
     stat2Val: '10',
     stat2Lbl: 'Product Categories',
     stat3Val: 'RM1000',
@@ -129,8 +127,6 @@ export const DICTIONARY = {
     storyP4: '助力您的餐饮品牌规模化腾飞，成为您最稳定靠谱的供应链后盾！',
 
     // Stats
-    stat1Val: '50+',
-    stat1Lbl: '自有产品款式',
     stat2Val: '10',
     stat2Lbl: '产品品类',
     stat3Val: 'RM1000',
@@ -217,8 +213,6 @@ export const DICTIONARY = {
     storyP4: 'Dalam perjalanan anda membina rangkaian F&B yang berjaya, kami pastinya rakan rantaian bekalan anda yang paling stabil!',
 
     // Stats
-    stat1Val: '50+',
-    stat1Lbl: 'Produk Sendiri',
     stat2Val: '10',
     stat2Lbl: 'Kategori Produk',
     stat3Val: 'RM1000',

@@ -2972,7 +2972,7 @@ export default function App() {
                         </div>
                         <div className="flex flex-col gap-1">
                           <span className="font-extrabold text-slate-950 text-sm">
-                            {lang === 'zh' ? '50+ 款自有产品' : lang === 'ms' ? '50+ Produk Sendiri' : '50+ In-House Products'}
+                            {lang === 'zh' ? '完整自有产品线' : lang === 'ms' ? 'Rangkaian Produk Sendiri' : 'Full In-House Product Range'}
                           </span>
                           <p className="text-slate-600 text-xs leading-relaxed font-medium">
                             {lang === 'zh' 
