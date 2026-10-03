@@ -55,6 +55,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { CATEGORIES, PRODUCTS, DELIVERY_REGIONS, COMPANY_CONTACT } from './data';
 import { Product, ProductVariant, CartItem, Language } from './types';
 import { DICTIONARY } from './dictionary';
+import { notifyAemLead } from './utils/leadNotify';
 import {
   LEGAL_DOCS,
   LEGAL_DOC_ORDER,
@@ -396,6 +397,16 @@ export default function App() {
       msg += `• *具体需求 / Details:* ${b2bMessage}\n`;
     }
     msg += `\n✉️ _Sent from AEM B2B Portal_`;
+
+    notifyAemLead({
+      companyName: b2bCompanyName,
+      contactName: b2bContactName,
+      phone: b2bPhone,
+      businessType: businessTypeLabels[b2bBusinessType] || b2bBusinessType,
+      interest: interestLabels[b2bInterest] || b2bInterest,
+      message: b2bMessage,
+      lang,
+    });
 
     const cleanPhone = COMPANY_CONTACT.phone.replace(/[^0-9]/g, '');
     const url = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(msg)}`;
