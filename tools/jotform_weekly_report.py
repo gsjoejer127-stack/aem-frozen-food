@@ -38,6 +38,8 @@ MATERIAL = [
     (r"minyak|miyak|食用油|soya\s*bean\s*oil", "食用油"),
     (r"^gula|白糖|^sugar", "糖"),
     (r"sichuan|mala\s*soup|麻辣汤", "麻辣汤底"),
+    (r"sup\s*tomato|tomato\s*soup|番茄汤", "番茄汤底"),
+    (r"bread\s*crumb|serbuk\s*roti|面包糠", "面包糠"),
     (r"sesame", "麻油"),
     (r"木薯|tepung\s*ubi", "木薯粉"),
     (r"sayur|telur|veg", "蔬菜鸡蛋"),
