@@ -81,9 +81,18 @@ function setup() {
   ss.getSheetByName(SHEET.RAW_MOVES).getRange('E:E').setNumberFormat('@');
 
   var products = ss.getSheetByName(SHEET.PRODUCTS);
-  if (products.getLastRow() === 1 && typeof SEED_PRODUCTS !== 'undefined') {
-    var rows = SEED_PRODUCTS.map(function (r) { return r.concat([true, '']); });
-    products.getRange(2, 1, rows.length, rows[0].length).setValues(rows);
+  if (typeof SEED_PRODUCTS !== 'undefined') {
+    // Add seed SKUs the sheet doesn't have yet (first run, or products added
+    // to Seed.gs later). Existing rows are never touched; to hide a product,
+    // set 启用 to FALSE rather than deleting the row, or setup brings it back.
+    var have = {};
+    if (products.getLastRow() > 1) {
+      products.getRange(2, 1, products.getLastRow() - 1, 1).getValues()
+        .forEach(function (r) { have[String(r[0]).trim()] = true; });
+    }
+    var rows = SEED_PRODUCTS.filter(function (r) { return !have[r[0]]; })
+      .map(function (r) { return r.concat([true, '']); });
+    if (rows.length) products.getRange(products.getLastRow() + 1, 1, rows.length, rows[0].length).setValues(rows);
   }
   seedAliases_(products);
   pendingSheet_();

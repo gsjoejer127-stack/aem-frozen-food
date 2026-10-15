@@ -110,7 +110,8 @@ test('product names match on name, 中文名 or alias, ignoring case and spacing
   assert.deepEqual(L.matchProduct(INDEX, '  SATE   Daging  mala '), { sku: 'sate-daging-mala' });
   assert.deepEqual(L.matchProduct(INDEX, '麻辣羊肉串'), { sku: 'sate-kambing-mala' });
   assert.deepEqual(L.matchProduct(INDEX, 'Kuih pulut goreng'), { sku: 'snack-kuih-pulut-gula-merah' });
-  assert.match(L.matchProduct(INDEX, 'Sate Ayam Kepak').reason, /别名/);
+  assert.deepEqual(L.matchProduct(INDEX, 'Sate Ayam Kepak'), { sku: 'sate-ayam-kepak' });
+  assert.match(L.matchProduct(INDEX, 'Sate Ikan Bakar').reason, /别名/);
   assert.match(L.matchProduct(INDEX, '').reason, /为空/);
 });
 
@@ -173,11 +174,11 @@ test('packing records that need a human are held back with a reason', () => {
   assert.match(L.packingToStockIn({ ...base, date: '9/10/26' }, INDEX, 10).reason, /相差 -4/);
 });
 
-test('real week of packing logs: every record books or gets a reason', () => {
+test('real week of packing logs: every record maps to a product', () => {
   const week = JSON.parse(fs.readFileSync(path.join(__dirname, '..', '..', 'tools', 'sample_week.json'), 'utf8'));
   const out = week.packing.map((r, i) => L.packingToStockIn(
     { id: String(i), createdAt: r.time, product: r.product, packs: r.packs, date: r.prod_date }, INDEX, 10));
   const held = out.filter((o) => o.reason).map((o) => o.reason);
   assert.equal(out.length, 25);
-  assert.ok(held.every((r) => /Kepak|Pedal|Marinated|diperap/i.test(r)), held.join('\n'));
+  assert.deepEqual(held, []);
 });

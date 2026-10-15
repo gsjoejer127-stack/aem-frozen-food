@@ -140,16 +140,16 @@ test('a real week syncs all three forms; problems go to pending, not into stock'
   configure(env);
   const r = env.ctx.syncJotform();
 
-  // Production: everything but the two products not in the catalogue yet.
-  assert.deepEqual(JSON.parse(JSON.stringify(r.packing)), { booked: 22, pending: 3, retried: 0, skipped: 0 });
+  // Production: every record books.
+  assert.deepEqual(JSON.parse(JSON.stringify(r.packing)), { booked: 25, pending: 0, retried: 0, skipped: 0 });
   const batches = rows(env.sheets.Batches);
-  assert.equal(batches.length, 22);
+  assert.equal(batches.length, 25);
+  assert.equal(batches.filter((b) => b[1] === 'sate-ayam-kepak').length, 2);
+  assert.equal(batches.filter((b) => b[1] === 'sate-pedal-ayam').length, 1);
   const beef = batches.filter((b) => b[1] === 'diperap-daging');
   assert.equal(beef.length, 3, 'marinated beef now maps to diperap-daging');
   const sa = batches.find((b) => b[2] === 'SA051026');
   assert.deepEqual([sa[1], sa[3], sa[4]], ['sate-ayam-classic', '2027-10-06', 49]);
-  const held = rows(env.sheets['Jotform待处理']).map((p) => p[2]).sort();
-  assert.deepEqual(held, ['Sate Ayam Kepak', 'Sate Ayam Kepak', 'Sate Pedal Ayam']);
 
   // Raw materials: every intake and issue line books; balance = in - out.
   assert.equal(r.intake.booked, WEEK.intake.length);
@@ -170,6 +170,10 @@ test('a real week syncs all three forms; problems go to pending, not into stock'
 test('running again books nothing twice; fixing an alias books the held rows', () => {
   const env = makeEnv(RESPONSES);
   configure(env);
+  // Hide two products so their records are held, as an unknown product would be.
+  const products = env.sheets.Products.data;
+  const kepak = products.find((r) => r[0] === 'sate-ayam-kepak');
+  products.filter((r) => r[0] === 'sate-ayam-kepak' || r[0] === 'sate-pedal-ayam').forEach((r) => { r[9] = false; });
   env.ctx.syncJotform();
   const again = env.ctx.syncJotform();
   assert.equal(again.packing.booked, 0);
@@ -178,8 +182,8 @@ test('running again books nothing twice; fixing an alias books the held rows', (
   assert.equal(rows(env.sheets.Batches).length, 22);
   assert.equal(rows(env.sheets['Jotform待处理']).length, 3);
 
-  // Add the missing product, as the owner would in the sheet.
-  env.sheets.Products.data.push(['sate-ayam-kepak', 'Sate Ayam Kepak', '鸡翅串', '烧烤串', '', 'pkt', '1kg * Pkt', '', 0, true, '']);
+  // Turn one back on, as the owner would in the sheet.
+  kepak[9] = true;
   const fixed = env.ctx.syncJotform();
   assert.equal(fixed.packing.retried, 2);
   assert.equal(rows(env.sheets.Batches).length, 24);

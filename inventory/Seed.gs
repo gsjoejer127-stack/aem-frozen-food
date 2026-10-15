@@ -1,7 +1,8 @@
 /**
- * Initial product list, generated from the website catalog (src/data.ts).
- * Only used by setup() when the Products sheet is empty. After that the
- * Products sheet is the source of truth - edit products there, not here.
+ * Initial product list, generated from the website catalog (src/data.ts),
+ * plus factory products not on the website yet. setup() adds any SKU here
+ * that the Products sheet doesn't have; it never changes existing rows.
+ * The Products sheet is the source of truth - edit products there, not here.
  *
  * Columns: SKU, Name, 中文名, Category, Barcode, Base unit, Pack size,
  *          Units per carton, Reorder level
@@ -13,6 +14,9 @@ var SEED_PRODUCTS = [
   ["sate-daging-classic","Sate Daging","牛肉串","烧烤串","9554134279623","pkt","400g * Pkt",20,0],
   ["sate-kambing-classic","Sate Kambing","羊肉串","烧烤串","9554939379627","pkt","400g * Pkt",20,0],
   ["sate-ayam-classic","Sate Ayam","鸡肉串","烧烤串","9554131379623","pkt","400g * Pkt",20,0],
+  // Made in the factory but not on the website yet. 1 pkt = 10 sticks, 2 wings per stick.
+  ["sate-ayam-kepak","Sate Ayam Kepak","鸡翅串","烧烤串","","pkt","10支 * Pkt (1支2个鸡翅)","",0],
+  ["sate-pedal-ayam","Sate Pedal Ayam","鸡胗串","烧烤串","","pkt","400g * Pkt (20支)","",0],
   ["soup-pir-gula-batu","Air Pir Gula Batu","冰糖雪梨","传统糖水","9553183093709","pkt","450g * Pkt",12,0],
   ["soup-pir-gula-batu-bucket","Air Pir Gula Batu (With Bucket)","冰糖雪梨 (小桶装)","传统糖水","9553183093709","pkt","450g * Pkt",12,0],
   ["soup-kelapa-laut-longan","Air Kelapa Laut & Longan Manis","海底椰龙眼糖水","传统糖水","9553183093716","pkt","500g * Pkt",30,0],
@@ -75,6 +79,8 @@ var SEED_ALIASES = {
   'snack-kuih-pulut-gula-merah': 'Kuih Pulut Goreng | KPG | 炸糯米糕 | 椰糖糯米糕 | Kuih Pulut Gula Merah',
   'rte-ayam-cincang-terung': 'Ayam Cincang Terung',
   'rte-daging-masak-merah': 'Masak Merah | 红烧牛肉',
+  'sate-ayam-kepak': 'Sate Kepak | Kepak | Chicken Wing Satay',
+  'sate-pedal-ayam': 'Sate Pedal | Pedal Ayam | Gizzard Satay',
   'diperap-daging': 'Marinated Beef | Daging diperap marinated beef | BBQ Marinated Beef | 腌制牛肉'
 };
 
