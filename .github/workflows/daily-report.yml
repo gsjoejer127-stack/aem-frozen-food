@@ -1,0 +1,45 @@
+name: Daily Report (WhatsApp)
+
+on:
+  schedule:
+    # 09:55 UTC = 17:55 Malaysia time. GitHub usually starts scheduled jobs a few
+    # minutes late, so the message lands around 6pm.
+    - cron: '55 9 * * *'
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'send = send WhatsApp report; probe = check Biztory API shape (no data values logged)'
+        type: choice
+        options: [send, probe]
+        default: send
+
+permissions:
+  contents: read
+
+concurrency:
+  group: daily-report
+  cancel-in-progress: false
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      BIZTORY_TOKEN: ${{ secrets.BIZTORY_TOKEN }}
+      BIZTORY_BASE_URL: ${{ vars.BIZTORY_BASE_URL }}
+      BIZTORY_PATH_INVOICES: ${{ vars.BIZTORY_PATH_INVOICES }}
+      BIZTORY_PATH_PAYMENTS: ${{ vars.BIZTORY_PATH_PAYMENTS }}
+      BIZTORY_PATH_CREDIT_NOTES: ${{ vars.BIZTORY_PATH_CREDIT_NOTES }}
+      WHATSAPP_PHONE: ${{ secrets.WHATSAPP_PHONE }}
+      CALLMEBOT_APIKEY: ${{ secrets.CALLMEBOT_APIKEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Probe Biztory API
+        if: inputs.mode == 'probe'
+        run: node scripts/daily-report/probe.mjs
+      - name: Send daily report
+        if: inputs.mode != 'probe'
+        run: node scripts/daily-report/index.mjs
