@@ -43,7 +43,7 @@ var SEED_PRODUCTS = [
   ["sauce-minyak-cili","Minyak Cili Merah","特级秘制红辣椒油","火锅底料 & 酱料","9556789876875","pkt","500g * Pkt",12,0],
   ["sauce-sos-bawang-putih","Sos Bawang Putih","黄金蒜蓉蘸酱","火锅底料 & 酱料","9556789876868","pkt","500g * Pkt",12,0],
   ["diperap-isi-ikan","Isi Ikan Diperap","秘制腌制鱼片","秘制腌制肉片","9556321012303","pck","250g * pck",40,0],
-  ["diperap-daging","Daging Diperap","秘制腌制牛肉片","秘制腌制肉片","9556321012334","pck","500g * pck","",0],
+  ["diperap-daging","Daging Diperap","秘制腌制牛肉片","秘制腌制肉片","9556321012334","pck","2kg * pck","",0],
   ["diperap-kambing","Kambing Diperap","秘制腌制羊肉片","秘制腌制肉片","9556321012327","pck","500g * pck","",0],
   ["tea-ba-bao","Daun Teh Ba Bao","经典八宝茶","花茶","9551045275607","pck","25g * pck",30,0],
   ["tea-wolfberry","Daun Teh Wolfberry","润燥美目茶","花茶","9551045275638","pck","25g * pck",30,0],
@@ -74,5 +74,33 @@ var SEED_ALIASES = {
   'snack-ayam-goreng-krispi': 'Ayam Goreng Crispy | Ayam Goreng',
   'snack-kuih-pulut-gula-merah': 'Kuih Pulut Goreng | KPG | 炸糯米糕 | 椰糖糯米糕 | Kuih Pulut Gula Merah',
   'rte-ayam-cincang-terung': 'Ayam Cincang Terung',
-  'rte-daging-masak-merah': 'Masak Merah | 红烧牛肉'
+  'rte-daging-masak-merah': 'Masak Merah | 红烧牛肉',
+  'diperap-daging': 'Marinated Beef | Daging diperap marinated beef | BBQ Marinated Beef | 腌制牛肉'
 };
+
+/**
+ * Raw materials, tracked as a kg balance only (no batches, no expiry).
+ * Aliases written /like this/ are patterns, ported from the weekly report's
+ * name grouping (tools/jotform_weekly_report.py MATERIAL), so the messy names
+ * in the intake and issue forms match from day one.
+ * Columns: Code, Name, Aliases, Reorder kg
+ */
+var SEED_RAW_MATERIALS = [
+  ['beef-67', '牛肉 67', '/^67\\s*beef/ | /67号?\\s*牛肉/ | /beef\\s*67/ | /cube\\s*roll/', 0],
+  ['beef-45', '牛肉 45', '/^45\\s*beef/ | /^4\\s*5\\s*beef/ | /beef\\s*45/ | /rump/', 0],
+  ['chicken-leg', '鸡腿肉', '/^ayam\\s*bl/ | /无骨鸡腿/ | Ayam', 0],
+  ['chicken-gizzard', '鸡胗', '/gizz?ard/ | /鸡胗/', 0],
+  ['chicken-wing', '鸡翅', '/chicken\\s*wing/ | /鸡翅/ | /kepak/ | /mid\\s*joint/', 0],
+  ['chicken-mince', '鸡碎肉', '/minced\\s*chicken/ | /chicken\\s*fillet/ | /鸡碎/', 0],
+  ['mutton', '羊肉', '/kab[ai]?m?[bg]/ | /kambing/ | /mutton/ | /羊肉/', 0],
+  ['glutinous-flour', '糯米粉', '/tepung\\s*pulut/ | /糯米粉/', 0],
+  ['cooking-oil', '食用油', '/minyak/ | /miyak/ | /食用油/ | /soya\\s*bean\\s*oil/', 0],
+  ['sugar', '糖', '/^gula/ | /白糖/ | /^sugar/', 0],
+  ['soup-mala', '麻辣汤底', '/sichuan/ | /mala\\s*soup/ | /麻辣汤/', 0],
+  ['soup-tomato', '番茄汤底', '/sup\\s*tomato/ | /tomato\\s*soup/ | /番茄汤/', 0],
+  ['breadcrumb', '面包糠', '/bread\\s*crumb/ | /serbuk\\s*roti/ | /面包糠/', 0],
+  ['sesame-oil', '麻油', '/sesame/', 0],
+  ['tapioca-flour', '木薯粉', '/木薯/ | /tepung\\s*ubi/', 0],
+  ['veg-egg', '蔬菜鸡蛋', '/sayur/ | /telur/ | /veg/', 0],
+  ['seasoning', '调味料', '/盐/ | /味精/ | /鸡精/ | /鲜味/ | /胡椒/ | /辣椒/ | /孜然/ | /花椒/ | /芝麻/ | /花生/ | /黄豆/ | /软化剂/ | /撒粉/ | /tepung\\s*uli/', 0]
+];

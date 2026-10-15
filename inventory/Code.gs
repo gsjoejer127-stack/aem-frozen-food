@@ -6,12 +6,15 @@
  *   Batches    - one row per received batch, with expiry and remaining qty
  *   Movements  - append-only log of every IN / OUT / ADJUST
  *   Settings   - key/value settings
+ *   RawMaterials / RawMoves - raw materials as a kg balance (no batches);
+ *                the balance is the sum of RawMoves, cached in RawMaterials
  *
  * Access control = Sheet sharing. The web app runs as the user opening it,
  * so only people the Sheet is shared with (as Editor) can use it.
  */
 
-var SHEET = { PRODUCTS: 'Products', BATCHES: 'Batches', MOVES: 'Movements', SETTINGS: 'Settings' };
+var SHEET = { PRODUCTS: 'Products', BATCHES: 'Batches', MOVES: 'Movements', SETTINGS: 'Settings',
+  RAW: 'RawMaterials', RAW_MOVES: 'RawMoves' };
 
 var HEADERS = {
   Products: ['SKU', 'Name', '中文名', 'Category 类别', 'Barcode 条码', 'Unit 单位', 'Pack size 规格',
@@ -19,13 +22,18 @@ var HEADERS = {
   Batches: ['Batch ID', 'SKU', 'Lot no 批号', 'Expiry 有效期', 'Qty in 入库数量', 'Remaining 剩余',
     'Location 位置', 'Received 入库时间', 'Supplier 供应商'],
   Movements: ['Time 时间', 'Type 类型', 'SKU', 'Batch ID', 'Qty 数量', 'Ref 单据/客户', 'User 操作人', 'Note 备注'],
-  Settings: ['Key', 'Value', 'Description 说明']
+  Settings: ['Key', 'Value', 'Description 说明'],
+  RawMaterials: ['Code 编码', 'Name 名称', 'Aliases 别名', 'Reorder kg 安全库存', 'Active 启用', 'Balance kg 结余'],
+  RawMoves: ['Date 日期', 'Type 类型', 'Code 编码', 'Kg', 'Ref 单据', 'Party 供应商/用途', 'User 操作人', 'Note 备注',
+    'Booked 记账时间']
 };
 
 var DEFAULT_SETTINGS = [
   ['expiryWarnDays', 30, '提前多少天提醒即将过期 Days before expiry to warn'],
   ['locations', 'Freezer A, Freezer B, Chiller', '仓位列表，逗号分隔 Comma-separated storage locations'],
-  ['jotformSyncFrom', '', 'Jotform 生产入库从哪天开始同步 (yyyy-MM-dd)，填期初盘点之后那天；空着就不同步']
+  ['jotformSyncFrom', '', 'Jotform 生产入库从哪天开始同步 (yyyy-MM-dd)，填期初盘点之后那天；空着就不同步'],
+  ['rawSyncFrom', '', 'Jotform 原材料入库/领用从哪天开始同步 (yyyy-MM-dd)，填原料期初盘点之后那天；空着就不同步'],
+  ['rawMaxIssueKg', 500, '单笔领用超过多少 kg 先放待处理核对 Hold issues above this many kg']
 ];
 
 // ---------- Web app ----------
@@ -41,7 +49,7 @@ function onOpen() {
   SpreadsheetApp.getUi().createMenu('库存 Inventory')
     .addItem('初始化 / 修复表格 Setup', 'setup')
     .addSeparator()
-    .addItem('立即同步 Jotform 生产入库 Sync now', 'syncJotformPacking')
+    .addItem('立即同步 Jotform Sync now', 'syncJotform')
     .addItem('开启每日自动同步 Install daily sync', 'installJotformTrigger')
     .addToUi();
 }
@@ -69,6 +77,8 @@ function setup() {
   ss.getSheetByName(SHEET.PRODUCTS).getRange('E:E').setNumberFormat('@');
   ss.getSheetByName(SHEET.BATCHES).getRange('A:D').setNumberFormat('@');
   ss.getSheetByName(SHEET.MOVES).getRange('C:D').setNumberFormat('@');
+  ss.getSheetByName(SHEET.RAW_MOVES).getRange('A:A').setNumberFormat('@');
+  ss.getSheetByName(SHEET.RAW_MOVES).getRange('E:E').setNumberFormat('@');
 
   var products = ss.getSheetByName(SHEET.PRODUCTS);
   if (products.getLastRow() === 1 && typeof SEED_PRODUCTS !== 'undefined') {
@@ -77,6 +87,13 @@ function setup() {
   }
   seedAliases_(products);
   pendingSheet_();
+
+  var raw = ss.getSheetByName(SHEET.RAW);
+  if (raw.getLastRow() === 1 && typeof SEED_RAW_MATERIALS !== 'undefined') {
+    var rawRows = SEED_RAW_MATERIALS.map(function (r) { return r.concat([true, 0]); });
+    raw.getRange(2, 1, rawRows.length, rawRows[0].length).setValues(rawRows);
+  }
+  rawPendingSheet_();
 
   var settings = ss.getSheetByName(SHEET.SETTINGS);
   var existing = readSettings_();
@@ -238,6 +255,65 @@ function apiAdjust(form) {
     logMoves_([[now_(), 'ADJUST', b.sku, b.batchId, delta, '', user_(), note]]);
     return { delta: delta };
   });
+}
+
+// ---------- Raw materials (kg balance) ----------
+
+function apiRawSummary() {
+  var bal = rawBalances(readRawMoves_());
+  var last = {};
+  readRawMoves_().forEach(function (m) { if (!last[m.code] || m.date > last[m.code]) last[m.code] = m.date; });
+  return readRawMaterials_().map(function (m) {
+    var b = bal[m.code] || 0;
+    return { code: m.code, name: m.name, balance: b, reorderKg: m.reorderKg, lastMove: last[m.code] || '',
+      low: m.reorderKg > 0 && b <= m.reorderKg, negative: b < 0 };
+  });
+}
+
+/** Stocktake for one raw material. form: {code, counted, note} */
+function apiRawCount(form) {
+  return withLock_(function () {
+    var m = readRawMaterials_().filter(function (x) { return x.code === form.code; })[0];
+    if (!m) throw new Error('找不到原料 Raw material not found: ' + form.code);
+    var delta = rawCountDelta(rawBalances(readRawMoves_())[m.code] || 0, form.counted);
+    if (delta !== 0) {
+      appendRawMoves_([{ date: today_(), type: 'ADJUST', code: m.code, kg: delta, ref: '', party: '',
+        note: ['盘点', form.note].filter(String).join(' - ') }], user_());
+    }
+    refreshRawBalances_();
+    return { delta: delta };
+  });
+}
+
+function readRawMaterials_() {
+  return dataRows_(SHEET.RAW)
+    .filter(function (r) { return r[0] && r[4] !== false && String(r[4]).toUpperCase() !== 'FALSE'; })
+    .map(function (r) {
+      return { code: String(r[0]).trim(), name: String(r[1]), aliases: String(r[2] || ''), reorderKg: Number(r[3]) || 0 };
+    });
+}
+
+function readRawMoves_() {
+  return dataRows_(SHEET.RAW_MOVES).map(function (r) {
+    return { date: dateStr_(r[0]), type: String(r[1]), code: String(r[2]).trim(), kg: Number(r[3]) || 0, ref: String(r[4]) };
+  }).filter(function (m) { return m.code; });
+}
+
+/** moves: [{date, type, code, kg, ref, party, note}]. Caller holds the lock. */
+function appendRawMoves_(moves, who) {
+  if (!moves.length) return;
+  var sh = sheet_(SHEET.RAW_MOVES), now = now_();
+  var rows = moves.map(function (m) { return [m.date, m.type, m.code, m.kg, m.ref, m.party, who, m.note, now]; });
+  sh.getRange(sh.getLastRow() + 1, 1, rows.length, rows[0].length).setValues(rows);
+}
+
+/** Write each material's balance into RawMaterials so the sheet itself shows it. */
+function refreshRawBalances_() {
+  var sh = sheet_(SHEET.RAW);
+  if (sh.getLastRow() < 2) return;
+  var bal = rawBalances(readRawMoves_());
+  var codes = sh.getRange(2, 1, sh.getLastRow() - 1, 1).getValues();
+  sh.getRange(2, 6, codes.length, 1).setValues(codes.map(function (r) { return [bal[String(r[0]).trim()] || 0]; }));
 }
 
 // ---------- Sheet access ----------

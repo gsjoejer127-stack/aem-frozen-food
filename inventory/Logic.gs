@@ -142,33 +142,56 @@ function normName(s) {
 }
 
 /**
- * Name -> SKU lookup built from the Products sheet. Each product answers to its
- * SKU, Name, 中文名 and every alias (separated by | , ， or ;). A name claimed by
- * two different SKUs is ambiguous and never matches - better a pending row than
- * stock booked to the wrong product.
+ * Name -> key lookup. Each entry answers to its names plus every alias
+ * (separated by | , ， ; or ；). An alias written /like this/ is a regular
+ * expression tested against the normalised name, for spellings that vary
+ * (barcodes stuck on, typos). A name claimed by two different keys is
+ * ambiguous and never matches - better a pending row than stock booked to the
+ * wrong item.
  */
-function buildProductIndex(products) {
-  var index = {};
-  products.forEach(function (p) {
-    var names = [p.sku, p.name, p.nameZh].concat(String(p.aliases || '').split(/[|,，;；]/));
+function buildNameIndex(entries) {
+  var index = { exact: {}, regex: [] };
+  entries.forEach(function (e) {
+    var names = e.names.concat(String(e.aliases || '').split(/[|,，;；]/));
     names.forEach(function (n) {
-      var k = normName(n);
+      var raw = String(n || '').trim();
+      var re = /^\/(.+)\/$/.exec(raw);
+      if (re) { index.regex.push({ re: new RegExp(re[1], 'i'), key: e.key }); return; }
+      var k = normName(raw);
       if (!k) return;
-      if (index[k] && index[k] !== p.sku) index[k] = '?';
-      else index[k] = p.sku;
+      if (index.exact[k] && index.exact[k] !== e.key) index.exact[k] = '?';
+      else index.exact[k] = e.key;
     });
   });
   return index;
 }
 
+/** Returns {key} or {reason}. Exact names win over patterns. */
+function matchName(index, raw, sheetName) {
+  var k = normName(raw);
+  if (!k) return { reason: '名称为空' };
+  var key = index.exact[k];
+  if (!key) {
+    var hits = {};
+    index.regex.forEach(function (r) { if (r.re.test(k)) hits[r.key] = true; });
+    var keys = Object.keys(hits);
+    key = keys.length > 1 ? '?' : keys[0];
+  }
+  if (key === '?') return { reason: '名称对应多个项目，请改别名: ' + raw };
+  if (!key) return { reason: '对不上，请在 ' + sheetName + ' 的别名栏加上: ' + raw };
+  return { key: key };
+}
+
+function buildProductIndex(products) {
+  return buildNameIndex(products.map(function (p) {
+    return { key: p.sku, names: [p.sku, p.name, p.nameZh], aliases: p.aliases };
+  }));
+}
+
 /** Returns {sku} or {reason}. */
 function matchProduct(index, raw) {
-  var k = normName(raw);
-  if (!k) return { reason: '产品名为空' };
-  var sku = index[k];
-  if (sku === '?') return { reason: '产品名对应多个 SKU，请改别名: ' + raw };
-  if (!sku) return { reason: '产品对不上，请在 Products 的别名栏加上: ' + raw };
-  return { sku: sku };
+  var m = matchName(index, raw, 'Products');
+  return m.reason ? { reason: m.reason.replace('名称', '产品名') } : { sku: m.key };
 }
 
 function pad2_(n) { return (n < 10 ? '0' : '') + n; }
@@ -215,19 +238,14 @@ function daysBetween_(a, b) {
  * Pull the fields we need out of a Jotform API submission. Questions are found
  * by label, so reordering or renumbering the form doesn't break the sync.
  */
-var PACKING_FIELDS = {
-  product: '产品名称', spec: '克数选择', batch: '批次号', packs: '成品入库数量',
-  date: '入库日期', location: '存储位置', operator: '操作员', kg: '原材料数量'
-};
-
-function extractPacking(sub) {
+function extractFields(sub, fields) {
   var rec = { id: String(sub.id), createdAt: String(sub.created_at || '') };
   var answers = sub.answers || {};
-  Object.keys(PACKING_FIELDS).forEach(function (field) {
+  Object.keys(fields).forEach(function (field) {
     rec[field] = '';
     Object.keys(answers).forEach(function (qid) {
       var a = answers[qid];
-      if (String(a.text || '').indexOf(PACKING_FIELDS[field]) === -1) return;
+      if (String(a.text || '').indexOf(fields[field]) === -1) return;
       var v = a.answer;
       if (field === 'date') { rec.date = v; return; }
       if (v && typeof v === 'object') v = a.prettyFormat || Object.keys(v).map(function (k) { return v[k]; }).join(' ');
@@ -236,6 +254,13 @@ function extractPacking(sub) {
   });
   return rec;
 }
+
+var PACKING_FIELDS = {
+  product: '产品名称', spec: '克数选择', batch: '批次号', packs: '成品入库数量',
+  date: '入库日期', location: '存储位置', operator: '操作员', kg: '原材料数量'
+};
+
+function extractPacking(sub) { return extractFields(sub, PACKING_FIELDS); }
 
 /**
  * One packing record -> stock-in form, or {reason} when it needs a human.
@@ -272,14 +297,81 @@ function packingToStockIn(rec, index, maxGapDays) {
   };
 }
 
+// ---------- Raw materials: kg balance only ----------
+
+var INTAKE_FIELDS = {
+  date: '收货日期', batch: '批次号', material: '原材料名称', kg: '原材料数量',
+  operator: '接收员工姓名', remark: '备注', party: '供应商名称', location: '存储位置'
+};
+var ISSUE_FIELDS = {
+  date: '领用日期', batch: '批次号', material: '原材料名称', kg: '领用数量',
+  operator: '领用员工姓名', remark: '备注', party: '领用用途'
+};
+
+/** Positive kg, rounded to grams; NaN when it isn't one. */
+function parseKg(v) {
+  var n = Number(String(v === undefined || v === null ? '' : v).replace(/kg$/i, '').trim());
+  if (String(v).trim() === '' || !isFinite(n) || n <= 0) return NaN;
+  return Math.round(n * 1000) / 1000;
+}
+
+function buildMaterialIndex(materials) {
+  return buildNameIndex(materials.map(function (m) {
+    return { key: m.code, names: [m.code, m.name], aliases: m.aliases };
+  }));
+}
+
+/**
+ * One intake (rec.kind 'IN') or issue ('OUT') submission -> a RawMoves row
+ * {date, type, code, kg (signed), ref, party, note}, or {reason}.
+ * An issue above maxOutKg is held: past ones were typos (500 for 50).
+ */
+function rawToMove(rec, index, maxOutKg) {
+  var m = matchName(index, rec.material, 'RawMaterials');
+  if (m.reason) return { reason: m.reason };
+  var kg = parseKg(rec.kg);
+  if (isNaN(kg)) return { reason: 'kg 必须是正数: ' + rec.kg };
+  if (rec.kind === 'OUT' && maxOutKg && kg > maxOutKg) {
+    return { reason: '单笔领用 ' + kg + ' kg 超过 ' + maxOutKg + ' kg，请核对' };
+  }
+  var date = parseJotformDate(rec.date) || String(rec.createdAt).slice(0, 10);
+  return {
+    move: {
+      date: date, type: rec.kind, code: m.key, kg: rec.kind === 'OUT' ? -kg : kg,
+      ref: 'JF:' + rec.id, party: rec.party || '',
+      note: [rec.material, rec.batch ? '批号 ' + rec.batch : '', rec.remark].filter(String).join(' · ')
+    }
+  };
+}
+
+/** {code: kg} from signed moves, rounded to grams. */
+function rawBalances(moves) {
+  var out = {};
+  moves.forEach(function (mv) {
+    out[mv.code] = Math.round(((out[mv.code] || 0) + Number(mv.kg || 0)) * 1000) / 1000;
+  });
+  return out;
+}
+
+/** kg to log so the balance becomes what was counted. Blank never means 0. */
+function rawCountDelta(balance, counted) {
+  var s = String(counted === undefined || counted === null ? '' : counted).trim();
+  var n = Number(s);
+  if (s === '' || !isFinite(n) || n < 0) throw new Error('盘点 kg 必须是 0 或正数 Counted kg must be 0 or more');
+  return Math.round((n - balance) * 1000) / 1000;
+}
+
 // Node test hook; ignored by Apps Script where `module` is undefined.
 if (typeof module !== 'undefined') {
   module.exports = {
     parseQty: parseQty, toBaseQty: toBaseQty, formatCartons: formatCartons,
     isExpired: isExpired, addDays: addDays, allocateFEFO: allocateFEFO,
     summarizeStock: summarizeStock, stocktakeDelta: stocktakeDelta,
-    normName: normName, buildProductIndex: buildProductIndex, matchProduct: matchProduct,
+    normName: normName, buildNameIndex: buildNameIndex, matchName: matchName,
+    buildProductIndex: buildProductIndex, matchProduct: matchProduct, extractFields: extractFields,
     parseJotformDate: parseJotformDate, addYears: addYears, extractPacking: extractPacking,
-    packingToStockIn: packingToStockIn
+    packingToStockIn: packingToStockIn, INTAKE_FIELDS: INTAKE_FIELDS, ISSUE_FIELDS: ISSUE_FIELDS,
+    parseKg: parseKg, buildMaterialIndex: buildMaterialIndex, rawToMove: rawToMove,
+    rawBalances: rawBalances, rawCountDelta: rawCountDelta
   };
 }

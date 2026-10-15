@@ -119,7 +119,7 @@ test('a name claimed by two SKUs never matches', () => {
     { sku: 'a', name: 'Claypot', nameZh: '', aliases: '' },
     { sku: 'b', name: 'Other', nameZh: '', aliases: 'claypot' },
   ]);
-  assert.match(L.matchProduct(idx, 'Claypot').reason, /多个 SKU/);
+  assert.match(L.matchProduct(idx, 'Claypot').reason, /多个/);
 });
 
 test('Jotform dates: date-field objects, ISO, and day/month/year text', () => {

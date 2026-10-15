@@ -78,6 +78,7 @@
   <button data-tab="count">盘点</button>
   <button data-tab="expiry">到期</button>
   <button data-tab="log">记录</button>
+  <button data-tab="raw">原料</button>
 </nav>
 <main>
   <!-- Dashboard -->
@@ -160,6 +161,23 @@
       <div id="logTable" class="loading" style="margin-top:12px">加载中 Loading…</div>
     </div>
   </section>
+
+  <!-- Raw materials (kg balance) -->
+  <section id="raw">
+    <div class="card">
+      <div id="rawTable" class="loading">加载中 Loading…</div>
+      <p class="muted">结余 = 入库 − 领用，每天从 Jotform 自动同步。负数通常表示还没做期初盘点，或有入库没登记。</p>
+    </div>
+    <div class="card">
+      <label>盘点原料 Count a raw material</label>
+      <select id="rawCode"></select>
+      <div class="row">
+        <div><label>实际 kg Counted</label><input id="rawCounted" type="number" min="0" step="0.001" inputmode="decimal"></div>
+        <div><label>备注 Note</label><input id="rawNote"></div>
+      </div>
+      <button class="btn" id="rawBtn">保存盘点 Save</button>
+    </div>
+  </section>
 </main>
 <div class="toast" id="toast"></div>
 
@@ -196,6 +214,7 @@ document.querySelectorAll('nav button').forEach(function (b) {
     document.querySelectorAll('section').forEach(function (s) { s.classList.toggle('on', s.id === b.dataset.tab); });
     if (b.dataset.tab === 'expiry') loadExpiry();
     if (b.dataset.tab === 'log') loadLog();
+    if (b.dataset.tab === 'raw') loadRaw();
   };
 });
 
@@ -435,6 +454,39 @@ function loadLog() {
       }).join('') + '</table>';
   }).catch(function (e) { box.className = ''; box.textContent = e.message; });
 }
+
+// ---------- Raw materials ----------
+function kg(n) { return Number(n).toLocaleString(undefined, { maximumFractionDigits: 3 }); }
+function loadRaw() {
+  var box = $('rawTable');
+  return call('apiRawSummary').then(function (rows) {
+    box.className = '';
+    if (!rows.length) { box.innerHTML = '<p class="muted">还没有原料 No raw materials - 请先运行 Setup</p>'; return; }
+    box.innerHTML = '<table><tr><th>原料 Material</th><th class="hide-sm">最近变动</th><th class="num">结余 kg</th></tr>' +
+      rows.map(function (m) {
+        var tag = m.negative ? ' <span class="tag bad">负数</span>' : m.low ? ' <span class="tag low">低库存</span>' : '';
+        return '<tr><td><b>' + esc(m.name) + '</b>' + tag + '<div class="muted">' + esc(m.code) + '</div></td>' +
+          '<td class="hide-sm muted">' + esc(m.lastMove || '-') + '</td><td class="num"><b>' + kg(m.balance) + '</b></td></tr>';
+      }).join('') + '</table>';
+    var sel = $('rawCode'), cur = sel.value;
+    sel.innerHTML = rows.map(function (m) {
+      return '<option value="' + esc(m.code) + '">' + esc(m.name) + '（系统 ' + kg(m.balance) + ' kg）</option>';
+    }).join('');
+    if (cur) sel.value = cur;
+  }).catch(function (e) { box.className = ''; box.textContent = e.message; });
+}
+$('rawBtn').onclick = function () {
+  if ($('rawCounted').value === '') return toast('请填写实际 kg Enter the counted kg', 'err');
+  var btn = $('rawBtn'); btn.disabled = true;
+  call('apiRawCount', { code: $('rawCode').value, counted: $('rawCounted').value, note: $('rawNote').value })
+    .then(function (r) {
+      toast(r.delta ? '✓ 已调整 ' + (r.delta > 0 ? '+' : '') + kg(r.delta) + ' kg' : '和系统一致，无需调整', 'ok');
+      $('rawCounted').value = ''; $('rawNote').value = '';
+      return loadRaw();
+    })
+    .catch(function (e) { toast(e.message, 'err'); })
+    .then(function () { btn.disabled = false; });
+};
 
 // ---------- Load ----------
 function refresh() {
