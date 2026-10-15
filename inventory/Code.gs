@@ -15,7 +15,7 @@ var SHEET = { PRODUCTS: 'Products', BATCHES: 'Batches', MOVES: 'Movements', SETT
 
 var HEADERS = {
   Products: ['SKU', 'Name', '中文名', 'Category 类别', 'Barcode 条码', 'Unit 单位', 'Pack size 规格',
-    'Units per carton 每箱数量', 'Reorder level 安全库存', 'Active 启用'],
+    'Units per carton 每箱数量', 'Reorder level 安全库存', 'Active 启用', 'Aliases 别名'],
   Batches: ['Batch ID', 'SKU', 'Lot no 批号', 'Expiry 有效期', 'Qty in 入库数量', 'Remaining 剩余',
     'Location 位置', 'Received 入库时间', 'Supplier 供应商'],
   Movements: ['Time 时间', 'Type 类型', 'SKU', 'Batch ID', 'Qty 数量', 'Ref 单据/客户', 'User 操作人', 'Note 备注'],
@@ -24,7 +24,8 @@ var HEADERS = {
 
 var DEFAULT_SETTINGS = [
   ['expiryWarnDays', 30, '提前多少天提醒即将过期 Days before expiry to warn'],
-  ['locations', 'Freezer A, Freezer B, Chiller', '仓位列表，逗号分隔 Comma-separated storage locations']
+  ['locations', 'Freezer A, Freezer B, Chiller', '仓位列表，逗号分隔 Comma-separated storage locations'],
+  ['jotformSyncFrom', '', 'Jotform 生产入库从哪天开始同步 (yyyy-MM-dd)，填期初盘点之后那天；空着就不同步']
 ];
 
 // ---------- Web app ----------
@@ -39,6 +40,9 @@ function doGet() {
 function onOpen() {
   SpreadsheetApp.getUi().createMenu('库存 Inventory')
     .addItem('初始化 / 修复表格 Setup', 'setup')
+    .addSeparator()
+    .addItem('立即同步 Jotform 生产入库 Sync now', 'syncJotformPacking')
+    .addItem('开启每日自动同步 Install daily sync', 'installJotformTrigger')
     .addToUi();
 }
 
@@ -52,6 +56,11 @@ function setup() {
     if (sh.getLastRow() === 0) {
       sh.getRange(1, 1, 1, HEADERS[name].length).setValues([HEADERS[name]]).setFontWeight('bold');
       sh.setFrozenRows(1);
+    } else if (sh.getLastColumn() < HEADERS[name].length) {
+      // Sheet made by an older version: add the new header cells, keep the data.
+      var from = sh.getLastColumn() + 1;
+      sh.getRange(1, from, 1, HEADERS[name].length - from + 1)
+        .setValues([HEADERS[name].slice(from - 1)]).setFontWeight('bold');
     }
   });
 
@@ -63,9 +72,11 @@ function setup() {
 
   var products = ss.getSheetByName(SHEET.PRODUCTS);
   if (products.getLastRow() === 1 && typeof SEED_PRODUCTS !== 'undefined') {
-    var rows = SEED_PRODUCTS.map(function (r) { return r.concat([true]); });
+    var rows = SEED_PRODUCTS.map(function (r) { return r.concat([true, '']); });
     products.getRange(2, 1, rows.length, rows[0].length).setValues(rows);
   }
+  seedAliases_(products);
+  pendingSheet_();
 
   var settings = ss.getSheetByName(SHEET.SETTINGS);
   var existing = readSettings_();
@@ -76,6 +87,22 @@ function setup() {
 
   var sheet1 = ss.getSheetByName('Sheet1') || ss.getSheetByName('工作表1');
   if (sheet1 && sheet1.getLastRow() === 0 && ss.getSheets().length > 1) ss.deleteSheet(sheet1);
+}
+
+/** Fill empty Aliases cells from SEED_ALIASES. Never overwrites what's in the sheet. */
+function seedAliases_(products) {
+  if (typeof SEED_ALIASES === 'undefined' || products.getLastRow() < 2) return;
+  var col = HEADERS.Products.indexOf('Aliases 别名') + 1;
+  var n = products.getLastRow() - 1;
+  var skus = products.getRange(2, 1, n, 1).getValues();
+  var cells = products.getRange(2, col, n, 1);
+  var vals = cells.getValues();
+  var changed = false;
+  skus.forEach(function (r, i) {
+    var a = SEED_ALIASES[String(r[0]).trim()];
+    if (a && !String(vals[i][0]).trim()) { vals[i][0] = a; changed = true; }
+  });
+  if (changed) cells.setValues(vals);
 }
 
 // ---------- API (called from Index.html via google.script.run) ----------
@@ -140,21 +167,34 @@ function apiMovements(sku, limit) {
 
 /** form: {sku, qty, unit, expiry, lotNo, location, supplier, ref, note} */
 function apiStockIn(form) {
-  return withLock_(function () {
-    var p = product_(form.sku);
-    var qty = toBaseQty(form.qty, form.unit, p.unitsPerCarton);
-    var expiry = String(form.expiry || '').trim();
-    if (expiry && !/^\d{4}-\d{2}-\d{2}$/.test(expiry)) throw new Error('有效期格式错误 Expiry must be yyyy-MM-dd');
-    if (expiry && isExpired(expiry, today_())) throw new Error('有效期已过，不能入库 Expiry date is in the past');
+  return withLock_(function () { return stockIn_(form, user_()); });
+}
 
-    var batchId = 'B' + Utilities.formatDate(new Date(), tz_(), 'yyMMddHHmmss') +
-      Math.floor(Math.random() * 900 + 100);
-    var now = now_();
-    sheet_(SHEET.BATCHES).appendRow([batchId, p.sku, form.lotNo || '', expiry, qty, qty,
-      form.location || '', now, form.supplier || '']);
-    logMoves_([[now, 'IN', p.sku, batchId, qty, form.ref || '', user_(), form.note || '']]);
-    return { batchId: batchId, qty: qty, text: formatCartons(qty, p.unitsPerCarton) };
-  });
+/** Caller must hold the lock. `who` goes into the Movements log. */
+function stockIn_(form, who) {
+  var p = product_(form.sku);
+  var qty = toBaseQty(form.qty, form.unit, p.unitsPerCarton);
+  var expiry = String(form.expiry || '').trim();
+  if (expiry && !/^\d{4}-\d{2}-\d{2}$/.test(expiry)) throw new Error('有效期格式错误 Expiry must be yyyy-MM-dd');
+  if (expiry && isExpired(expiry, today_())) throw new Error('有效期已过，不能入库 Expiry date is in the past');
+
+  var batchId = newBatchId_();
+  var now = now_();
+  sheet_(SHEET.BATCHES).appendRow([batchId, p.sku, form.lotNo || '', expiry, qty, qty,
+    form.location || '', now, form.supplier || '']);
+  logMoves_([[now, 'IN', p.sku, batchId, qty, form.ref || '', who, form.note || '']]);
+  return { batchId: batchId, qty: qty, text: formatCartons(qty, p.unitsPerCarton) };
+}
+
+// A sync can create many batches within one second; never hand out the same ID twice.
+var issuedBatchIds_ = {};
+function newBatchId_() {
+  var id;
+  do {
+    id = 'B' + Utilities.formatDate(new Date(), tz_(), 'yyMMddHHmmss') + Math.floor(Math.random() * 900 + 100);
+  } while (issuedBatchIds_[id]);
+  issuedBatchIds_[id] = true;
+  return id;
 }
 
 /** form: {sku, qty, unit, ref, note}. Allocates first-expiry-first-out. */
@@ -210,7 +250,8 @@ function readProducts_() {
       return {
         sku: String(r[0]).trim(), name: String(r[1]), nameZh: String(r[2]), category: String(r[3]),
         barcode: String(r[4]), unit: String(r[5] || 'unit'), packSize: String(r[6]),
-        unitsPerCarton: Number(r[7]) || 0, reorderLevel: Number(r[8]) || 0
+        unitsPerCarton: Number(r[7]) || 0, reorderLevel: Number(r[8]) || 0,
+        aliases: String(r[10] || '')
       };
     });
 }

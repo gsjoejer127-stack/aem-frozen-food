@@ -59,3 +59,20 @@ var SEED_PRODUCTS = [
   ["seasoning-bbq","Serbuk Perisa BBQ","经典风味烧烤撒料包","风味调味料","9551789218021","pkt","500g * Pkt",12,0],
   ["seasoning-mala-bbq","Serbuk Perisa Mala BBQ","秘制麻辣烧烤撒料包","风味调味料","AEM-ML-BBQ","pkt","500g * Pkt",12,0]
 ];
+
+/**
+ * Names staff type into the Jotform Production Packing Log that differ from
+ * the product names above. setup() copies these into the Products sheet's
+ * Aliases column, only where that cell is still empty. After that, add new
+ * spellings in the sheet itself.
+ */
+var SEED_ALIASES = {
+  'sate-daging-mala': 'Sate Daging Mala | 麻辣牛肉串',
+  'sate-kambing-mala': 'Sate Kambing Mala',
+  'sate-ayam-mala': 'Sate Ayam Mala',
+  'sate-ayam-classic': 'Sate AyamS',
+  'snack-ayam-goreng-krispi': 'Ayam Goreng Crispy | Ayam Goreng',
+  'snack-kuih-pulut-gula-merah': 'Kuih Pulut Goreng | KPG | 炸糯米糕 | 椰糖糯米糕 | Kuih Pulut Gula Merah',
+  'rte-ayam-cincang-terung': 'Ayam Cincang Terung',
+  'rte-daging-masak-merah': 'Masak Merah | 红烧牛肉'
+};

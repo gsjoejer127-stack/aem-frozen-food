@@ -132,11 +132,154 @@ function stocktakeDelta(systemQty, countedQty) {
   return counted - systemQty;
 }
 
+// ---------- Jotform Production Packing Log -> stock-in ----------
+
+/** Lowercase, drop brackets/punctuation, collapse spaces: "Sate  Ayam (Mala)" -> "sate ayam mala". */
+function normName(s) {
+  return String(s || '').toLowerCase()
+    .replace(/[()（）\[\]【】,，.。、\/\\_\-–—:：;；'"]+/g, ' ')
+    .replace(/\s+/g, ' ').trim();
+}
+
+/**
+ * Name -> SKU lookup built from the Products sheet. Each product answers to its
+ * SKU, Name, 中文名 and every alias (separated by | , ， or ;). A name claimed by
+ * two different SKUs is ambiguous and never matches - better a pending row than
+ * stock booked to the wrong product.
+ */
+function buildProductIndex(products) {
+  var index = {};
+  products.forEach(function (p) {
+    var names = [p.sku, p.name, p.nameZh].concat(String(p.aliases || '').split(/[|,，;；]/));
+    names.forEach(function (n) {
+      var k = normName(n);
+      if (!k) return;
+      if (index[k] && index[k] !== p.sku) index[k] = '?';
+      else index[k] = p.sku;
+    });
+  });
+  return index;
+}
+
+/** Returns {sku} or {reason}. */
+function matchProduct(index, raw) {
+  var k = normName(raw);
+  if (!k) return { reason: '产品名为空' };
+  var sku = index[k];
+  if (sku === '?') return { reason: '产品名对应多个 SKU，请改别名: ' + raw };
+  if (!sku) return { reason: '产品对不上，请在 Products 的别名栏加上: ' + raw };
+  return { sku: sku };
+}
+
+function pad2_(n) { return (n < 10 ? '0' : '') + n; }
+
+/** 'yyyy-MM-dd' if y/m/d is a real calendar date, else ''. */
+function ymd_(y, m, d) {
+  y = Number(y); m = Number(m); d = Number(d);
+  if (y < 100) y += 2000;
+  var dt = new Date(Date.UTC(y, m - 1, d));
+  if (!y || dt.getUTCFullYear() !== y || dt.getUTCMonth() !== m - 1 || dt.getUTCDate() !== d) return '';
+  return y + '-' + pad2_(m) + '-' + pad2_(d);
+}
+
+/**
+ * Jotform date answer -> 'yyyy-MM-dd' ('' if unreadable).
+ * Date fields arrive as {year, month, day}; text fields as typed by staff,
+ * which in Malaysia is day/month/year ("6/10/26").
+ */
+function parseJotformDate(v) {
+  if (v && typeof v === 'object') {
+    if (v.year && v.month && v.day) return ymd_(v.year, v.month, v.day);
+    if (v.datetime) return parseJotformDate(String(v.datetime));
+    return '';
+  }
+  var s = String(v || '').trim();
+  var m = s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);
+  if (m) return ymd_(m[1], m[2], m[3]);
+  m = s.match(/^(\d{1,2})[\/.\-](\d{1,2})[\/.\-](\d{2}|\d{4})$/);
+  if (m) return ymd_(m[3], m[2], m[1]);
+  return '';
+}
+
+/** Same day n years later; 29 Feb falls back to 28 Feb. */
+function addYears(dateStr, n) {
+  var y = Number(dateStr.slice(0, 4)) + n, m = Number(dateStr.slice(5, 7)), d = Number(dateStr.slice(8, 10));
+  return ymd_(y, m, d) || ymd_(y, m, d - 1);
+}
+
+function daysBetween_(a, b) {
+  return Math.round((Date.parse(b + 'T00:00:00Z') - Date.parse(a + 'T00:00:00Z')) / 86400000);
+}
+
+/**
+ * Pull the fields we need out of a Jotform API submission. Questions are found
+ * by label, so reordering or renumbering the form doesn't break the sync.
+ */
+var PACKING_FIELDS = {
+  product: '产品名称', spec: '克数选择', batch: '批次号', packs: '成品入库数量',
+  date: '入库日期', location: '存储位置', operator: '操作员', kg: '原材料数量'
+};
+
+function extractPacking(sub) {
+  var rec = { id: String(sub.id), createdAt: String(sub.created_at || '') };
+  var answers = sub.answers || {};
+  Object.keys(PACKING_FIELDS).forEach(function (field) {
+    rec[field] = '';
+    Object.keys(answers).forEach(function (qid) {
+      var a = answers[qid];
+      if (String(a.text || '').indexOf(PACKING_FIELDS[field]) === -1) return;
+      var v = a.answer;
+      if (field === 'date') { rec.date = v; return; }
+      if (v && typeof v === 'object') v = a.prettyFormat || Object.keys(v).map(function (k) { return v[k]; }).join(' ');
+      rec[field] = String(v === undefined || v === null ? '' : v).trim();
+    });
+  });
+  return rec;
+}
+
+/**
+ * One packing record -> stock-in form, or {reason} when it needs a human.
+ * Expiry = production date + 1 year. A production date more than maxGapDays
+ * away from the submission date is held back: it is usually day/month typed
+ * the wrong way round, which would put a wrong expiry on the batch.
+ */
+function packingToStockIn(rec, index, maxGapDays) {
+  var match = matchProduct(index, rec.product);
+  if (match.reason) return { reason: match.reason };
+
+  var packs = Number(rec.packs);
+  if (!isFinite(packs) || packs <= 0 || Math.floor(packs) !== packs) {
+    return { reason: '包数必须是正整数: ' + rec.packs };
+  }
+
+  var prod = parseJotformDate(rec.date);
+  if (!prod) return { reason: '日期看不懂: ' + JSON.stringify(rec.date) };
+  var submitted = String(rec.createdAt).slice(0, 10);
+  if (/^\d{4}-\d{2}-\d{2}$/.test(submitted)) {
+    var gap = daysBetween_(prod, submitted);
+    if (gap < -1 || gap > maxGapDays) {
+      return { reason: '日期 ' + prod + ' 和提交日 ' + submitted + ' 相差 ' + gap + ' 天，请核对' };
+    }
+  }
+
+  var note = ['Jotform 生产', prod, rec.spec, rec.product].filter(String).join(' · ');
+  return {
+    form: {
+      sku: match.sku, qty: packs, unit: 'base', expiry: addYears(prod, 1),
+      lotNo: rec.batch, location: rec.location, supplier: '',
+      ref: 'JF:' + rec.id, note: note
+    }
+  };
+}
+
 // Node test hook; ignored by Apps Script where `module` is undefined.
 if (typeof module !== 'undefined') {
   module.exports = {
     parseQty: parseQty, toBaseQty: toBaseQty, formatCartons: formatCartons,
     isExpired: isExpired, addDays: addDays, allocateFEFO: allocateFEFO,
-    summarizeStock: summarizeStock, stocktakeDelta: stocktakeDelta
+    summarizeStock: summarizeStock, stocktakeDelta: stocktakeDelta,
+    normName: normName, buildProductIndex: buildProductIndex, matchProduct: matchProduct,
+    parseJotformDate: parseJotformDate, addYears: addYears, extractPacking: extractPacking,
+    packingToStockIn: packingToStockIn
   };
 }
