@@ -31,8 +31,8 @@ var HEADERS = {
 var DEFAULT_SETTINGS = [
   ['expiryWarnDays', 30, '提前多少天提醒即将过期 Days before expiry to warn'],
   ['locations', 'Freezer A, Freezer B, Chiller', '仓位列表，逗号分隔 Comma-separated storage locations'],
-  ['jotformSyncFrom', '', 'Jotform 生产入库从哪天开始同步 (yyyy-MM-dd)，填期初盘点之后那天；空着就不同步'],
-  ['rawSyncFrom', '', 'Jotform 原材料入库/领用从哪天开始同步 (yyyy-MM-dd)，填原料期初盘点之后那天；空着就不同步'],
+  ['jotformSyncFrom', '2026-10-01', 'Jotform 生产入库从哪天开始同步 (yyyy-MM-dd)；空着就不同步'],
+  ['rawSyncFrom', '2026-10-01', 'Jotform 原材料入库/领用从哪天开始同步 (yyyy-MM-dd)；空着就不同步'],
   ['rawMaxIssueKg', 500, '单笔领用超过多少 kg 先放待处理核对 Hold issues above this many kg']
 ];
 

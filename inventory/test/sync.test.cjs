@@ -127,9 +127,13 @@ function configure(env) {
 const rows = (sh) => sh.data.slice(1);
 const sum = (xs) => Math.round(xs.reduce((a, b) => a + b, 0) * 1000) / 1000;
 
-test('nothing syncs until a start date is set', () => {
+test('tracking starts 2026-10-01 by default; a blank start date turns a form off', () => {
   const env = makeEnv(RESPONSES);
   env.props.JOTFORM_API_KEY = 'k';
+  const from = Object.fromEntries(env.sheets.Settings.data.map((r) => [r[0], r[1]]));
+  assert.equal(from.jotformSyncFrom, '2026-10-01');
+  assert.equal(from.rawSyncFrom, '2026-10-01');
+  env.sheets.Settings.data.forEach((r) => { if (/SyncFrom$/.test(r[0])) r[1] = ''; });
   const r = env.ctx.syncJotform();
   assert.match(r.packing, /未开启/);
   assert.equal(env.fetched.length, 0);
