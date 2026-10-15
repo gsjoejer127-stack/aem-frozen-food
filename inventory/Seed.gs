@@ -47,7 +47,7 @@ var SEED_PRODUCTS = [
   ["sauce-minyak-cili","Minyak Cili Merah","特级秘制红辣椒油","火锅底料 & 酱料","9556789876875","pkt","500g * Pkt",12,0],
   ["sauce-sos-bawang-putih","Sos Bawang Putih","黄金蒜蓉蘸酱","火锅底料 & 酱料","9556789876868","pkt","500g * Pkt",12,0],
   ["diperap-isi-ikan","Isi Ikan Diperap","秘制腌制鱼片","秘制腌制肉片","9556321012303","pck","250g * pck",40,0],
-  ["diperap-daging","Daging Diperap","秘制腌制牛肉片","秘制腌制肉片","9556321012334","pck","2kg * pck","",0],
+  ["diperap-daging","Daging Diperap","秘制腌制牛肉片","秘制腌制肉片","9556321012334","pck","2kg * pck",10,0],
   ["diperap-kambing","Kambing Diperap","秘制腌制羊肉片","秘制腌制肉片","9556321012327","pck","500g * pck","",0],
   ["tea-ba-bao","Daun Teh Ba Bao","经典八宝茶","花茶","9551045275607","pck","25g * pck",30,0],
   ["tea-wolfberry","Daun Teh Wolfberry","润燥美目茶","花茶","9551045275638","pck","25g * pck",30,0],
