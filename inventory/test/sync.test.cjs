@@ -71,8 +71,11 @@ function makeEnv(responses) {
     UrlFetchApp: {
       fetch(url, opts) {
         fetched.push({ url, opts });
-        const formId = /\/form\/(\d+)\//.exec(url)[1];
-        const content = responses[formId] || [];
+        const m = /\/form\/(\d+)\//.exec(url);
+        const since = JSON.parse(decodeURIComponent(/filter=([^&]+)/.exec(url)[1]))['created_at:gt'];
+        const content = (m ? responses[m[1]] || []
+          : Object.entries(responses).flatMap(([id, subs]) => subs.map((s) => ({ ...s, form_id: id }))))
+          .filter((s) => s.created_at > since);
         return { getResponseCode: () => 200,
           getContentText: () => JSON.stringify({ responseCode: 200, content }) };
       },
@@ -171,6 +174,28 @@ test('a real week syncs all three forms; problems go to pending, not into stock'
   assert.ok(env.fetched.every((f) => !/test-key/.test(f.url) && f.opts.headers.APIKEY === 'test-key'));
 });
 
+test('the 5-minute sync makes one API call and books the same as the full sync', () => {
+  const quick = makeEnv(RESPONSES);
+  configure(quick);
+  const r = quick.ctx.syncJotformQuick();
+  assert.equal(quick.fetched.length, 1);
+  assert.match(quick.fetched[0].url, /\/user\/submissions\?/);
+  assert.equal(r.packing.booked, 25);
+  assert.equal(r.intake.booked + r.issue.booked, WEEK.intake.length + WEEK.issue.length);
+
+  // A new submission arrives: the next quick run books just that one.
+  RESPONSES['262208014416043'].push(sub('2026-10-12 09:00', {
+    '原材料名称': '67Beef', '领用数量': '40', '领用员工姓名': 'Saad', '领用用途': 'BBQ' }));
+  try {
+    const next = quick.ctx.syncJotformQuick();
+    assert.equal(next.issue.booked, 1);
+    assert.equal(next.packing.booked, 0);
+    assert.equal(rows(quick.sheets.RawMoves).length, WEEK.intake.length + WEEK.issue.length + 1);
+  } finally {
+    RESPONSES['262208014416043'].pop();
+  }
+});
+
 test('running again books nothing twice; fixing an alias books the held rows', () => {
   const env = makeEnv(RESPONSES);
   configure(env);
@@ -181,7 +206,7 @@ test('running again books nothing twice; fixing an alias books the held rows', (
   env.ctx.syncJotform();
   const again = env.ctx.syncJotform();
   assert.equal(again.packing.booked, 0);
-  assert.equal(again.packing.skipped, 25);
+  assert.ok(again.packing.skipped > 0); // the 3-day overlap is re-read and skipped
   assert.equal(again.intake.booked + again.issue.booked, 0);
   assert.equal(rows(env.sheets.Batches).length, 22);
   assert.equal(rows(env.sheets['Jotform待处理']).length, 3);

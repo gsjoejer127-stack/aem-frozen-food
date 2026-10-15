@@ -1,11 +1,11 @@
 /**
- * Jotform -> inventory, once a day.
+ * Jotform -> inventory, every 5 minutes (plus a full daily pass).
  *
  *   Production Packing Log 生产入库登记  -> finished-goods stock-in batches
  *   Raw Material Intake 原材料入库登记   -> RawMoves IN  (+kg)
  *   原材料领用登记 Raw Material Issue     -> RawMoves OUT (-kg)
  *
- * Runs from a daily time trigger as the Sheet owner. Every submission is
+ * Runs from time triggers as the Sheet owner. Every submission is
  * booked at most once: its row carries Ref "JF:<submission id>". Anything that
  * can't be booked safely (unknown name, odd date, bad quantity) goes to a
  * pending sheet instead - "Jotform待处理" for packing, "原料待处理" for raw
@@ -39,21 +39,54 @@ var WATERMARK_OVERLAP_DAYS = 3;
 function installJotformTrigger() {
   ScriptApp.getProjectTriggers().forEach(function (t) {
     var fn = t.getHandlerFunction();
-    if (fn === 'syncJotform' || fn === 'syncJotformPacking') ScriptApp.deleteTrigger(t);
+    if (/^syncJotform/.test(fn)) ScriptApp.deleteTrigger(t);
   });
-  // 06:00 MYT: after the night shift's entries, before the day starts.
+  // Every 5 minutes: one API call for all three forms, so a submission shows
+  // up in stock within minutes (~290 Jotform API calls a day).
+  ScriptApp.newTrigger('syncJotformQuick').timeBased().everyMinutes(5).create();
+  // 06:00 MYT: full per-form sync as a safety net (e.g. forms shared from a
+  // team, which the account-wide submissions call may not include).
   ScriptApp.newTrigger('syncJotform').timeBased().everyDays(1).atHour(6).inTimezone(tz_()).create();
 }
 
-/** Syncs every form whose start date is set. One form failing doesn't stop the others. */
+/** Full sync: one API call per form. Menu "Sync now" and the daily trigger. */
 function syncJotform() {
+  return runSync_(function (name, since, props, key) {
+    var cfg = JOTFORM_FORMS[name];
+    return fetchSubmissions_(props, key, '/form/' + (props.getProperty(cfg.prop) || cfg.id) + '/submissions', since);
+  });
+}
+
+/** Quick sync every 5 minutes: one account-wide call, split by form. */
+function syncJotformQuick() {
+  var all = null, allSince = null;
+  return runSync_(function (name, since, props, key) {
+    if (!all) {
+      // Fetch once from the earliest point any form needs.
+      allSince = earliestSince_(props);
+      all = fetchSubmissions_(props, key, '/user/submissions', allSince);
+    }
+    var cfg = JOTFORM_FORMS[name];
+    var id = String(props.getProperty(cfg.prop) || cfg.id);
+    return all.filter(function (s) { return String(s.form_id) === id && s.created_at > since; });
+  });
+}
+
+/** Kept so a trigger installed by the first version still runs. */
+function syncJotformPacking() { return syncJotform(); }
+
+/** Runs every form whose start date is set. One form failing doesn't stop the others. */
+function runSync_(fetch) {
   var settings = readSettings_();
+  var props = PropertiesService.getScriptProperties();
+  var key = props.getProperty('JOTFORM_API_KEY');
+  if (!key) throw new Error('缺少 Script Property JOTFORM_API_KEY');
   var results = {}, errors = [];
   Object.keys(JOTFORM_FORMS).forEach(function (name) {
-    var from = dateStr_(settings[JOTFORM_FORMS[name].from]);
-    if (!/^\d{4}-\d{2}-\d{2}$/.test(from)) { results[name] = '未开启 (Settings ' + JOTFORM_FORMS[name].from + ')'; return; }
+    var since = sinceFor_(name, settings, props);
+    if (!since) { results[name] = '未开启 (Settings ' + JOTFORM_FORMS[name].from + ')'; return; }
     try {
-      results[name] = syncForm_(name, from, settings);
+      results[name] = syncForm_(name, fetch(name, since, props, key), settings, props);
     } catch (e) {
       results[name] = 'ERROR ' + e.message;
       errors.push(name + ': ' + e.message);
@@ -65,34 +98,40 @@ function syncJotform() {
   return results;
 }
 
-/** Kept so a trigger installed by the first version still runs. */
-function syncJotformPacking() { return syncJotform(); }
+function markProp_(name) { return 'JOTFORM_WATERMARK_' + name.toUpperCase(); }
 
-function syncForm_(name, from, settings) {
-  var props = PropertiesService.getScriptProperties();
-  var key = props.getProperty('JOTFORM_API_KEY');
-  if (!key) throw new Error('缺少 Script Property JOTFORM_API_KEY');
-  var cfg = JOTFORM_FORMS[name];
-  var markProp = 'JOTFORM_WATERMARK_' + name.toUpperCase();
-
-  // Re-read a few days before the last submission seen, so late entries and
-  // timezone differences can't slip through; duplicates are skipped by Ref.
-  var mark = props.getProperty(markProp) || '';
+/**
+ * Where to start reading for one form, or '' when its start date isn't set.
+ * Re-reads a few days before the last submission seen, so late entries and
+ * timezone differences can't slip through; duplicates are skipped by Ref.
+ */
+function sinceFor_(name, settings, props) {
+  var from = dateStr_(settings[JOTFORM_FORMS[name].from]);
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(from)) return '';
   var since = from + ' 00:00:00';
+  var mark = props.getProperty(markProp_(name)) || '';
   if (mark) {
     var back = addDays(mark.slice(0, 10), -WATERMARK_OVERLAP_DAYS) + ' 00:00:00';
     if (back > since) since = back;
   }
-  var subs = fetchSubmissions_(props, key, props.getProperty(cfg.prop) || cfg.id, since);
+  return since;
+}
 
+function earliestSince_(props) {
+  var settings = readSettings_();
+  return Object.keys(JOTFORM_FORMS).map(function (n) { return sinceFor_(n, settings, props); })
+    .filter(String).sort()[0] || '';
+}
+
+function syncForm_(name, subs, settings, props) {
   var stats = withLock_(function () {
     return name === 'packing' ? syncPacking_(subs)
       : syncRaw_(RAW_KIND[name], subs, name === 'intake' ? INTAKE_FIELDS : ISSUE_FIELDS,
         Number(settings.rawMaxIssueKg) || 0);
   });
-
+  var mark = props.getProperty(markProp_(name)) || '';
   var newest = subs.reduce(function (m, s) { return s.created_at > m ? s.created_at : m; }, mark);
-  if (newest) props.setProperty(markProp, newest);
+  if (newest !== mark) props.setProperty(markProp_(name), newest);
   return stats;
 }
 
@@ -113,7 +152,7 @@ function syncPacking_(subs) {
       booked[p.rec.id] = true;
       pend.getRange(p.row, 10, 1, 2).setValues([['', '已入库 ' + out.batchId]]);
       stats.retried++;
-    } else {
+    } else if (out.reason !== p.reason) {
       pend.getRange(p.row, 10).setValue(out.reason);
     }
   });
@@ -152,7 +191,7 @@ function pendingSheet_() {
 function readPending_(sh) {
   return pendingRows_(sh, PENDING_HEADERS.length).map(function (r, i) {
     return {
-      row: i + 2, status: String(r[10]).trim(),
+      row: i + 2, status: String(r[10]).trim(), reason: r[9],
       rec: { id: r[0], createdAt: r[1], product: r[2], spec: r[3], batch: r[4], packs: r[5],
         date: parseDateText_(r[6]), location: r[7], operator: r[8] }
     };
@@ -178,7 +217,7 @@ function syncRaw_(kind, subs, fields, maxOutKg) {
       moves.push(r.move); whos.push(p.rec.operator);
       pend.getRange(p.row, 11, 1, 2).setValues([['', '已记账']]);
       stats.retried++;
-    } else {
+    } else if (r.reason !== p.reason) {
       pend.getRange(p.row, 11).setValue(r.reason);
     }
   });
@@ -200,7 +239,8 @@ function syncRaw_(kind, subs, fields, maxOutKg) {
   // Each row names the employee who filled in the form.
   moves.forEach(function (m, i) { appendRawMoves_([m], 'Jotform/' + (whos[i] || '?')); });
   appendRows_(pend, rows);
-  refreshRawBalances_();
+  // Runs every 5 minutes: only touch the sheet when something was booked.
+  if (moves.length) refreshRawBalances_();
   return stats;
 }
 
@@ -212,7 +252,7 @@ function readRawPending_(sh) {
   var kindOf = { '入库': 'IN', '领用': 'OUT' };
   return pendingRows_(sh, RAW_PENDING_HEADERS.length).map(function (r, i) {
     return {
-      row: i + 2, status: String(r[11]).trim(),
+      row: i + 2, status: String(r[11]).trim(), reason: r[10],
       rec: { id: r[0], kind: kindOf[r[1]] || r[1], createdAt: r[2], material: r[3], kg: r[4], party: r[5],
         batch: r[6], date: parseDateText_(r[7]), operator: r[8], remark: r[9] }
     };
@@ -221,19 +261,19 @@ function readRawPending_(sh) {
 
 // ---------- Shared ----------
 
-function fetchSubmissions_(props, key, formId, since) {
+function fetchSubmissions_(props, key, path, since) {
   var base = props.getProperty('JOTFORM_API_BASE') || 'https://api.jotform.com';
   var filter = encodeURIComponent(JSON.stringify({ 'created_at:gt': since }));
   var out = [], limit = 1000;
   for (var offset = 0; ; offset += limit) {
-    var url = base + '/form/' + formId + '/submissions?limit=' + limit + '&offset=' + offset + '&filter=' + filter;
+    var url = base + path + '?limit=' + limit + '&offset=' + offset + '&filter=' + filter;
     // Key goes in a header, not the URL, so it never shows up in logs.
     var res = UrlFetchApp.fetch(url, { headers: { APIKEY: key }, muteHttpExceptions: true });
     var text = res.getContentText() || '{}';
     var body;
     try { body = JSON.parse(text); } catch (e) { body = {}; }
     if (res.getResponseCode() !== 200 || body.responseCode !== 200) {
-      throw new Error('Jotform API ' + res.getResponseCode() + ' (form ' + formId + '): ' +
+      throw new Error('Jotform API ' + res.getResponseCode() + ' (' + path + '): ' +
         String(body.message || text).slice(0, 200));
     }
     var page = body.content || [];

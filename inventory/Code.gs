@@ -50,7 +50,7 @@ function onOpen() {
     .addItem('初始化 / 修复表格 Setup', 'setup')
     .addSeparator()
     .addItem('立即同步 Jotform Sync now', 'syncJotform')
-    .addItem('开启每日自动同步 Install daily sync', 'installJotformTrigger')
+    .addItem('开启自动同步（每 5 分钟）Install auto sync', 'installJotformTrigger')
     .addToUi();
 }
 
