@@ -47,12 +47,12 @@ MATERIAL = [
 ]
 PRODUCT = [
     (r"kepak", "鸡翅串"), (r"pedal", "鸡胗串"),
-    (r"sate\s*ayam\s*mala|麻辣鸡肉串", "麻辣鸡肉串"),
+    (r"sate\s*ayam\s*mala|mala\s*ayam|麻辣鸡肉串", "麻辣鸡肉串"),
     (r"sate\s*ayam|鸡肉串", "鸡肉串"),
-    (r"sate\s*daging\s*mala|麻辣牛肉串", "麻辣牛肉串"),
+    (r"sate\s*daging\s*mala|mala\s*daging|麻辣牛肉串", "麻辣牛肉串"),
     (r"sate\s*daging\s*nenas", "黄梨牛肉串"),
     (r"sate\s*daging|牛肉串", "牛肉串"),
-    (r"sate\s*kambing\s*mala|麻辣羊肉串", "麻辣羊肉串"),
+    (r"sate\s*kambing\s*mala|mala\s*kambing|麻辣羊肉串", "麻辣羊肉串"),
     (r"sate\s*kambing|羊肉串", "羊肉串"),
     (r"bbq\s*marinated|bmb|daging\s*di\s*?perap|marinated\s*beef|腌制", "腌制牛肉"),
     (r"masak\s*merah|红烧牛肉", "红烧牛肉"),
