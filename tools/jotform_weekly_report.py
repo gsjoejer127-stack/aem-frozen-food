@@ -43,7 +43,9 @@ MATERIAL = [
     (r"sesame", "麻油"),
     (r"木薯|tepung\s*ubi", "木薯粉"),
     (r"sayur|telur|veg", "蔬菜鸡蛋"),
-    (r"盐|味精|鸡精|鲜味|胡椒|辣椒|孜然|花椒|芝麻|花生|黄豆|软化剂|撒粉|tepung\s*uli", "调味料"),
+    (r"brown\s*sugar\s*syrup|黑糖浆|椰糖浆", "黑糖浆"),
+    (r"盐|味精|鸡精|鲜味|胡椒|辣椒|孜然|花椒|芝麻|花生|黄豆|软化剂|撒粉|tepung\s*uli"
+     r"|garlic\s*powder|chil[li]*\s*powder|pepper\s*powder|serbuk\s*(bawang|cili|lada)", "调味料"),
 ]
 PRODUCT = [
     (r"kepak", "鸡翅串"), (r"pedal", "鸡胗串"),

@@ -91,3 +91,25 @@ cron `0 1 * * 1` UTC = 周一 09:00 MYT，绑定在固定 session 上跑
 - **单笔出库金额变大。** 67 号牛肉从单笔 40 kg 涨到 100–180 kg。
   数字目前和生产对得上，但建议 100 kg 以上加一道复核。
 - 领用表的物料名偶尔混入条码（如 `67Beef004246005067`），脚本会标记。
+
+## 月度完整记录
+
+周报只给总结；月度记录要的是**全量台账**，所以保留每一笔并写明提交人。
+两个生成器共用 `jotform_weekly_report.py` 里的别名表和异常判定：
+
+- `jotform_monthly_record.py month.json out.pdf [body.txt]` — A4 横版 PDF，
+  总览 / 入库汇总 / 出库汇总 / 产出汇总 / 需核对 / 三张表的逐笔明细。
+- `jotform_record_page.py month.json out.html` — 同样内容的静态网页，
+  每张明细表带搜索框，适合发布成 Artifact 给人看。
+
+2026-09（254 笔）跑出来是 14 页 PDF / 约 60 KB 网页。
+
+### 大附件发不出去
+
+Gmail 附件要把 base64 贴进工具参数，而 Read 在约 22,000 字符处截断，
+手工拼接必然出错（试过两次，两次都坏）。所以：
+
+- base64 超过约 20,000 字符（PDF 约 15 KB）就**不要走邮件附件**。
+- 改成发布 Artifact（`Artifact` 工具按路径读文件，不需要转抄），
+  PDF 作为 `files` 一起发布，邮件里只放链接。
+- 2026-09 的记录在 https://claude.ai/artifact/FrvfAayY8gQLsU5PkTAYNe
