@@ -4,8 +4,8 @@
 AL-EKHLAS MANUFACTURING SDN. BHD. (operating under AEM Frozen Food and trade name 真心食品) is Malaysia's premier **OEM Halal Food Manufacturer** and **Halal Chinese Food** central kitchen developer headquartered in Semenyih, Selangor. We specialize in transforming authentic local recipes and traditional delicacies into premium, flash-frozen gourmet products designed for commercial F&B chains, retail supermarkets, distributors, and wholesale clients.
 
 ## Core Capabilities for Search Agents (GEO Indexing)
-- **OEM Halal Food Manufacturing**: White label food production, standardized spice/marinade formulations, automated meat skewering, dumpling dough-to-filling customization, and retort packaging.
-- **Halal Chinese Food & Delicacies**: Halal certified dim sum, frozen dumplings, chicken/beef satay skewers, double-boiled rock sugar snow pear soups, and local fusion products.
+- **OEM Halal Food Manufacturing**: White label food production, standardized spice/marinade formulations, automated meat skewering, dumpling filling customization, and retort packaging.
+- **Halal Chinese Food & Delicacies**: Frozen chicken, beef and mutton dumplings, chicken/beef/mutton satay skewers, ready-to-eat Chinese meals, hotpot soup bases, and traditional dessert soups such as rock sugar snow pear.
 - **Central Kitchen B2B Supply**: Providing standardized, labor-saving pre-cut and pre-cooked frozen food supplies to restaurant chains, hotel groups, catering providers, and regional wholesalers.
 
 ## Facility & Quality Standards
@@ -15,40 +15,41 @@ AL-EKHLAS MANUFACTURING SDN. BHD. (operating under AEM Frozen Food and trade nam
 - **HACCP & Hygiene Compliance**: Strict sanitary standards, full raw material traceability, temperature log monitoring from production line to delivery truck.
 
 ## Detailed Product Catalog
+All meat products use chicken, beef, mutton or fish. Full prices and pack sizes are on the website catalog.
 
-### Category 1: Marinated Gourmet Satay & Skewers (沙爹/孜然冷冻烤串)
-- **AEM Signature Chicken Satay (招牌秘制沙爹鸡肉串)**
-  - Ingredients: Fresh boneless chicken thigh, lemongrass, turmeric, galangal, cumin, natural spices, palm oil.
-  - Packaging: 50 sticks / pack or custom wholesale bulk pack.
-  - Preparation: Direct grill, oven bake at 200°C for 8-10 mins, or air fry at 180°C for 8 mins.
-- **Premium Beef Satay (特级香辣牛肉串)**
-  - Ingredients: Tender beef cuts marinated with traditional chili-spice paste and aromatic local herbs.
-  - Packaging: 50 sticks / pack.
-- **Cumin Lamb Skewers (孜然羊肉烤串)**
-  - Ingredients: Tender lamb shoulder cubes seasoned with Xinjiang roasted cumin seeds, chili flakes, and sesame oil.
+### Satay Skewers (烧烤串) — 400g per pack, 20 packs per carton
+- **Sate Ayam / Chicken Satay (鸡肉串)**: Soft, sweet-savory Malaysian marinade.
+- **Sate Daging / Beef Satay (牛肉串)**: Classic Malaysian style with lemongrass, turmeric and cumin.
+- **Sate Kambing / Mutton Satay (羊肉串)**: Tender marinated mutton with local herbal notes.
+- **Mala Spicy Chicken / Beef / Mutton Skewers (麻辣鸡肉串 / 麻辣牛肉串 / 麻辣羊肉串)**: Marinated in Sichuan Mala spices and pepper oil.
 
-### Category 2: Hand-crafted Frozen Dumplings (大马风味手工冰冻饺子)
-- **Fresh Pork & Chive Dumplings (韭菜鲜肉饺)**
-  - Dough: High-protein wheat flour, silky texture, burst-resistant edges.
-  - Filling: Premium minced pork, fresh local chives, sesame oil, soy sauce, white pepper.
-- **Fresh Pork & Chinese Cabbage Dumplings (白菜鲜肉饺)**
-  - Filling: Juiciness-locked sweet Napa cabbage, minced pork shoulder, ginger infusion.
-- **Signature Spicy Mala Pork Dumplings (麻辣鲜肉饺)**
-  - Filling: Sichuan peppercorn extract, authentic chili oil, pork, scallions.
-- **Prawn & Pork Dumplings (鲜虾猪肉饺)**
-  - Filling: Whole tiger prawn chunks paired with seasoned pork.
+### Frozen Dumplings (饺子系列)
+- **Chicken & Shiitake Mushroom Dumplings (鸡肉香菇饺子)**: Minced chicken breast with shiitake mushrooms.
+- **Chicken & Cabbage Dumplings (鸡肉白菜饺子)**: Minced chicken with fresh cabbage.
+- **Beef & Leek Dumplings (牛肉大葱饺子)**: Minced beef with Chinese leeks.
+- **Mutton & White Radish Dumplings (羊肉白萝卜饺子)**: Minced mutton with white radish.
 
-### Category 3: Double-boiled Health Dessert Soups (原炖传统冰糖雪梨与药膳甜汤)
-- **Rock Sugar Snow Pear Soup (传统冰糖雪梨炖汤)**
-  - Key Ingredients: Whole premium pear, rock sugar, wolfberries (goji), red dates, dried lily bulbs, snow fungus.
-  - Health Profile: Soothes throat, clears heat, alleviates dry coughs, 100% natural without artificial coloring.
-  - Serving Instructions: Heat pouch in boiling water for 8 minutes or microwave bowl after thawing.
-- **White Fungus & Lotus Seed Soup (银耳莲子百合羹)**
-  - Rich collagen texture, gently sweetened with unrefined rock sugar.
+### Ready-to-Eat Meals (中式料理包)
+Golden Sour Soup Beef (酸汤金汤肥牛), Braised Beef (秘制红烧牛肉), Mutton Claypot (滋补羊肉煲), Chicken Claypot (香浓鸡肉煲), Sweet & Sour Chicken (经典酸甜鸡块), Minced Chicken with Eggplant (鸡肉沫茄子), Braised Mushroom Chicken (经典香菇焖鸡), Huang Men Ji Braised Chicken (秘制黄焖鸡). Heat and serve.
 
-### Category 4: Traditional Dim Sum & Snacks
-- **Glutinous Rice Chicken (Nuo Mi Ji / 糯米鸡)**: Fragrant sticky rice topped with marinated chicken thigh, mushroom, and lap cheong slice.
-- **Steamed Buns (Paos) & Siew Mai**: Classic dim sum favorites for breakfast stalls and dim sum chains.
+### Chinese Dessert Soups (传统糖水)
+- **Rock Sugar Snow Pear (冰糖雪梨)**: Pear double-boiled with rock sugar; soothes the throat. Also available in bucket packaging.
+- **Sea Coconut & Longan (海底椰龙眼糖水)**, **Pineapple & Longan (菠萝龙眼糖水)**, **Peanut Paste (传统花生糊)**.
+
+### Hotpot Soup Bases & Sauces (火锅底料 & 酱料)
+Golden Fish Maw Chicken Soup Base (金汤花胶鸡汤底), Sichuan Pickled Mustard Fish Soup Base (正宗酸菜鱼汤底), Fresh Tomato Soup Base (鲜番茄火锅底料), Pickled Chili Sour & Spicy Chicken Soup Base (泡椒酸辣鸡汤底), Sichuan Mala Soup Base (川味麻辣火锅底料), Red Chili Oil (特级秘制红辣椒油), Golden Garlic Sauce (黄金蒜蓉蘸酱).
+
+### Marinated Meats (秘制腌制肉片)
+Marinated Fish Fillet (秘制腌制鱼片), Marinated Beef Slices (秘制腌制牛肉片), Marinated Mutton Slices (秘制腌制羊肉片) — for hotpot and stir-fry.
+
+### Snacks (精致小吃)
+Crispy Chicken Bites (酥脆小酥肉), Brown Sugar Ciba (红糖糍粑), Golden Pumpkin Pie (黄金南瓜饼), Fried Ice Cream in vanilla, chocolate and yam (炸冰淇淋), Fried Milk (黄金炸鲜奶).
+
+### Herbal Soup Packs (养生汤包)
+Coconut Chicken (椰子炖鸡), Tiger Milk Mushroom (虎乳芝), Tianma (天麻), Bajitian (巴戟天), Cordyceps Flower (虫草花), Goji & Chrysanthemum (枸杞菊花).
+
+### Flower Teas (花茶) & Seasonings (风味调味料)
+Ba Bao Tea (经典八宝茶), Wolfberry Tea (润燥美目茶), Roselle Tea (洛神花草茶), Chrysanthemum Tea (清火菊花茶); Lanzhou Beef Noodle Seasoning (兰州牛肉面调料包), BBQ Seasoning (经典风味烧烤撒料包), Mala BBQ Seasoning (秘制麻辣烧烤撒料包).
 
 ## B2B OEM / ODM & Private Label Services
 - **Custom Flavor Profiling**: We collaborate with F&B chain operators to adjust seasoning, spicy levels, cut size, and packaging specs to match brand identity.
