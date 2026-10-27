@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<title>AEM Frozen Food — Company Profile 公司简介</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Serif+SC:wght@700;900&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  /*
+   * Facts in this file are kept conservative on purpose: only what the
+   * website's legal page (src/legal.ts) and catalog (src/data.ts) state.
+   * Regenerate the PDF with: node docs/company-profile/build.mjs
+   */
+  @page { size: A4; margin: 0; }
+  :root {
+    --green: #005A36;
+    --green-dark: #00331E;
+    --green-soft: #E8F2EC;
+    --gold: #F9C513;
+    --gold-deep: #C99A00;
+    --ink: #17241D;
+    --muted: #5B6B62;
+    --line: #D7E2DB;
+    --sans: 'Inter', 'Noto Sans SC', 'WenQuanYi Zen Hei', sans-serif;
+    --serif: 'Playfair Display', 'Noto Serif SC', 'WenQuanYi Zen Hei', serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #fff; color: var(--ink); font-family: var(--sans); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .page { width: 210mm; height: 297mm; position: relative; overflow: hidden; page-break-after: always; padding: 22mm 20mm 20mm; }
+  .page:last-child { page-break-after: auto; }
+
+  /* running header / footer */
+  .run-head { position: absolute; top: 10mm; left: 20mm; right: 20mm; display: flex; justify-content: space-between; font-size: 7.5pt; color: var(--muted); letter-spacing: .08em; text-transform: uppercase; }
+  .run-foot { position: absolute; bottom: 10mm; left: 20mm; right: 20mm; display: flex; justify-content: space-between; font-size: 7.5pt; color: var(--muted); border-top: .5pt solid var(--line); padding-top: 3mm; }
+  .run-foot b { color: var(--green); }
+
+  .kicker { font-size: 8pt; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--gold-deep); margin-bottom: 3mm; }
+  h1.sec { font-family: var(--serif); font-size: 26pt; font-weight: 900; color: var(--green); line-height: 1.15; }
+  h1.sec small { display: block; font-family: var(--sans); font-size: 11pt; font-weight: 500; color: var(--muted); margin-top: 2mm; letter-spacing: .02em; }
+  .rule { width: 18mm; height: 1.2mm; background: var(--gold); border-radius: 1mm; margin: 6mm 0 8mm; }
+  p { font-size: 10pt; line-height: 1.7; }
+  p.en { font-size: 9pt; color: var(--muted); line-height: 1.6; }
+  h3 { font-size: 11.5pt; font-weight: 700; color: var(--green-dark); margin-bottom: 1.5mm; }
+  h3 .en { display: block; font-size: 8.5pt; font-weight: 600; color: var(--gold-deep); letter-spacing: .06em; text-transform: uppercase; margin-top: .5mm; }
+
+  /* ---------- COVER ---------- */
+  .cover { background: linear-gradient(155deg, #004B2D 0%, var(--green) 45%, var(--green-dark) 100%); color: #fff; padding: 0; }
+  .cover .band { position: absolute; left: 0; right: 0; top: 0; height: 6mm; background: var(--gold); }
+  .cover .deco1 { position: absolute; width: 140mm; height: 140mm; border: 1.2pt solid rgba(249,197,19,.25); border-radius: 50%; right: -55mm; top: 30mm; }
+  .cover .deco2 { position: absolute; width: 100mm; height: 100mm; border: 1.2pt solid rgba(249,197,19,.15); border-radius: 50%; right: -35mm; top: 50mm; }
+  .cover .inner { position: absolute; left: 22mm; right: 22mm; top: 34mm; }
+  .cover .logo { width: 34mm; height: 34mm; }
+  .cover .tag { margin-top: 20mm; font-size: 9pt; letter-spacing: .3em; color: var(--gold); font-weight: 700; }
+  .cover .title-zh { font-family: var(--serif); font-size: 46pt; font-weight: 900; margin-top: 5mm; line-height: 1.1; }
+  .cover .title-en { font-family: var(--serif); font-size: 24pt; font-weight: 800; margin-top: 4mm; color: #F3E6B5; }
+  .cover .sub { margin-top: 10mm; font-size: 12pt; line-height: 1.7; max-width: 135mm; color: #E3F1E8; }
+  .cover .bottom { position: absolute; left: 22mm; right: 22mm; bottom: 20mm; display: flex; justify-content: space-between; align-items: flex-end; border-top: .6pt solid rgba(255,255,255,.3); padding-top: 6mm; }
+  .cover .bottom .co { font-size: 10pt; font-weight: 700; letter-spacing: .04em; }
+  .cover .bottom .co span { display: block; font-size: 8pt; font-weight: 400; color: #B9D6C5; margin-top: 1.5mm; letter-spacing: .02em; }
+  .cover .bottom .web { font-size: 10pt; color: var(--gold); font-weight: 700; }
+
+  /* ---------- ABOUT ---------- */
+  .about-grid { display: grid; grid-template-columns: 1.35fr 1fr; gap: 12mm; }
+  .about-grid p + p { margin-top: 4mm; }
+  .quote { margin-top: 8mm; border-left: 1.2mm solid var(--gold); padding: 3mm 0 3mm 6mm; font-family: var(--serif); font-size: 12.5pt; line-height: 1.55; color: var(--green-dark); }
+  .quote span { display: block; font-family: var(--sans); font-size: 8.5pt; color: var(--muted); margin-top: 2mm; font-style: italic; }
+  .facts { background: var(--green-soft); border-radius: 3mm; padding: 7mm 7mm 5mm; }
+  .facts h4 { font-size: 8pt; letter-spacing: .16em; text-transform: uppercase; color: var(--green); margin-bottom: 4mm; }
+  .facts dl { display: grid; grid-template-columns: 1fr; gap: 3.2mm; }
+  .facts dt { font-size: 7.5pt; color: var(--muted); letter-spacing: .03em; }
+  .facts dd { font-size: 9.5pt; font-weight: 600; color: var(--ink); line-height: 1.45; margin-top: .5mm; }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5mm; margin-top: 12mm; }
+  .stat { border-top: .8mm solid var(--green); padding-top: 4mm; }
+  .stat .v { font-family: var(--serif); font-size: 26pt; font-weight: 900; color: var(--green); line-height: 1; }
+  .stat .l { font-size: 9.5pt; font-weight: 700; margin-top: 2.5mm; }
+  .stat .le { font-size: 8pt; color: var(--muted); margin-top: .5mm; }
+
+  /* ---------- BUSINESS ---------- */
+  .biz { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6mm; }
+  .card { border: .6pt solid var(--line); border-radius: 3mm; padding: 7mm 6mm; background: #fff; }
+  .card .num { font-family: var(--serif); font-size: 22pt; font-weight: 900; color: var(--gold); line-height: 1; margin-bottom: 4mm; }
+  .card p { font-size: 9pt; line-height: 1.65; margin-top: 3mm; }
+  .card p.en { font-size: 8pt; margin-top: 2mm; }
+  .card ul { margin-top: 3mm; padding-left: 4mm; font-size: 8.5pt; line-height: 1.6; color: var(--ink); }
+  .serve { margin-top: 12mm; }
+  .serve h2 { font-size: 13pt; color: var(--green); font-weight: 700; margin-bottom: 4mm; }
+  .serve h2 span { font-size: 9pt; color: var(--muted); font-weight: 500; margin-left: 2mm; }
+  .chips { display: flex; flex-wrap: wrap; gap: 3mm; }
+  .chip { background: var(--green-soft); color: var(--green-dark); font-size: 9pt; font-weight: 600; padding: 2.4mm 4.5mm; border-radius: 10mm; }
+  .chip i { font-style: normal; font-weight: 400; color: var(--muted); font-size: 8pt; margin-left: 1.5mm; }
+  .oem { margin-top: 12mm; background: var(--green); color: #fff; border-radius: 3mm; padding: 8mm 9mm; display: grid; grid-template-columns: 1fr 1.4fr; gap: 8mm; }
+  .oem h3 { color: var(--gold); font-size: 13pt; }
+  .oem h3 .en { color: #CFE5D8; }
+  .oem ol { list-style: none; counter-reset: s; display: grid; gap: 2.6mm; }
+  .oem li { counter-increment: s; font-size: 9pt; line-height: 1.5; padding-left: 8mm; position: relative; }
+  .oem li::before { content: counter(s); position: absolute; left: 0; top: 0; width: 5mm; height: 5mm; border-radius: 50%; background: var(--gold); color: var(--green-dark); font-size: 7.5pt; font-weight: 800; display: flex; align-items: center; justify-content: center; }
+  .oem li span { color: #B9D6C5; font-size: 8pt; display: block; }
+
+  /* ---------- PRODUCTS ---------- */
+  .prod { display: grid; grid-template-columns: 1fr 1fr; gap: 7.5mm 8mm; }
+  .pc { border-bottom: .6pt solid var(--line); padding-bottom: 5mm; }
+  .pc .hd { display: flex; justify-content: space-between; align-items: baseline; }
+  .pc .hd b { font-size: 11pt; color: var(--green-dark); }
+  .pc .hd b span { font-size: 8pt; font-weight: 600; color: var(--gold-deep); margin-left: 2mm; letter-spacing: .04em; text-transform: uppercase; }
+  .pc .hd em { font-style: normal; font-size: 7.5pt; color: var(--muted); background: var(--green-soft); padding: .6mm 2.2mm; border-radius: 3mm; white-space: nowrap; }
+  .pc p { font-size: 9.4pt; line-height: 1.65; margin-top: 2.2mm; color: #2B3A32; }
+  .note { margin-top: 7mm; font-size: 8.5pt; color: var(--muted); line-height: 1.6; background: #FBF6E2; border-radius: 2mm; padding: 4mm 5mm; }
+
+  /* ---------- QUALITY & LOGISTICS ---------- */
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 10mm; }
+  .q { display: grid; gap: 6mm; }
+  .qi { display: grid; grid-template-columns: 11mm 1fr; gap: 4mm; align-items: start; }
+  .qi .ic { width: 11mm; height: 11mm; border-radius: 2.5mm; background: var(--green); color: var(--gold); display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 11pt; font-family: var(--serif); }
+  .qi p { font-size: 9pt; line-height: 1.6; margin-top: 1mm; }
+  .qi p.en { font-size: 8pt; }
+  table.ship { width: 100%; border-collapse: collapse; font-size: 9pt; margin-top: 2mm; }
+  table.ship th { text-align: left; font-size: 7.5pt; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); font-weight: 600; padding: 2.5mm 2mm; border-bottom: .8pt solid var(--green); }
+  table.ship td { padding: 3.2mm 2mm; border-bottom: .5pt solid var(--line); vertical-align: top; line-height: 1.5; }
+  table.ship td b { color: var(--green-dark); }
+  table.ship td small { display: block; color: var(--muted); font-size: 7.8pt; }
+  .flow { margin-top: 16mm; }
+  .flow h2 { font-size: 13pt; color: var(--green); font-weight: 700; margin-bottom: 5mm; }
+  .flow h2 span { font-size: 9pt; color: var(--muted); font-weight: 500; margin-left: 2mm; }
+  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4mm; }
+  .step { background: var(--green-soft); border-radius: 2.5mm; padding: 5mm 4.5mm; position: relative; }
+  .step .n { font-family: var(--serif); font-size: 18pt; font-weight: 900; color: var(--green); line-height: 1; }
+  .step b { display: block; font-size: 9.5pt; margin-top: 3mm; }
+  .step p { font-size: 8pt; line-height: 1.5; margin-top: 1.5mm; color: #2B3A32; }
+
+  /* ---------- CONTACT ---------- */
+  .contact { background: linear-gradient(160deg, var(--green) 0%, var(--green-dark) 100%); color: #fff; }
+  .contact .run-head, .contact .run-foot { color: #9FC2AE; border-color: rgba(255,255,255,.18); }
+  .contact .run-foot b { color: var(--gold); }
+  .contact h1.sec { color: var(--gold); }
+  .contact h1.sec small { color: #CFE5D8; }
+  .why { display: grid; grid-template-columns: 1fr 1fr; gap: 5mm 8mm; margin-top: 2mm; }
+  .why div { border-top: .6pt solid rgba(255,255,255,.25); padding-top: 3.5mm; }
+  .why b { font-size: 10.5pt; color: #fff; }
+  .why p { font-size: 8.6pt; color: #CFE5D8; line-height: 1.55; margin-top: 1.2mm; }
+  .cbox { margin-top: 14mm; background: #fff; color: var(--ink); border-radius: 3mm; padding: 9mm; display: grid; grid-template-columns: 1.2fr 1fr; gap: 8mm; }
+  .cbox h3 { font-size: 13pt; }
+  .cbox dl { display: grid; grid-template-columns: 22mm 1fr; gap: 3mm 3mm; margin-top: 5mm; font-size: 9.3pt; line-height: 1.5; }
+  .cbox dt { color: var(--muted); font-size: 8pt; padding-top: .6mm; }
+  .cbox dd { font-weight: 600; }
+  .cta { background: var(--green-soft); border-radius: 2.5mm; padding: 6mm; }
+  .cta b { display: block; font-size: 10.5pt; color: var(--green-dark); }
+  .cta ul { list-style: none; margin-top: 3.5mm; display: grid; gap: 2.4mm; font-size: 8.8pt; }
+  .cta li::before { content: '→ '; color: var(--gold-deep); font-weight: 800; }
+  .cta .wa { margin-top: 5mm; background: var(--green); color: #fff; border-radius: 2mm; padding: 3.5mm; text-align: center; font-weight: 700; font-size: 9.5pt; white-space: nowrap; }
+  .cta .wa span { display: block; font-size: 7.5pt; font-weight: 400; color: #CFE5D8; margin-top: .8mm; }
+</style>
+</head>
+<body>
+
+<!-- ============ 1. COVER ============ -->
+<section class="page cover">
+  <div class="band"></div>
+  <div class="deco1"></div><div class="deco2"></div>
+  <div class="inner">
+    <svg class="logo" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+      <rect x="20" y="20" width="460" height="460" rx="100" fill="#fff" fill-opacity=".08" stroke="#F9C513" stroke-width="6"/>
+      <path d="M100 180 C200 110, 300 110, 450 120 C400 150, 250 145, 100 180 Z" fill="#F9C513"/>
+      <text x="250" y="320" font-family="'Playfair Display',Georgia,serif" font-weight="800" font-size="150" fill="#FFFFFF" text-anchor="middle">AEM</text>
+      <text x="250" y="410" font-family="Inter,sans-serif" font-weight="700" font-size="42" fill="#FFFFFF" text-anchor="middle" letter-spacing="4">FROZEN FOOD</text>
+    </svg>
+    <div class="tag">COMPANY PROFILE · 公司简介</div>
+    <div class="title-zh">中国风味<br>清真标准</div>
+    <div class="title-en">Authentic Chinese Flavours, Made Halal</div>
+    <p class="sub">清真中华速冻食品制造商 —— 为连锁餐厅、酒店、超市及批发商提供标准化、可复制的稳定供应。<br><span style="font-size:10pt;color:#B9D6C5">Halal Chinese frozen food manufacturer supplying F&amp;B chains, hotels, retailers and wholesalers with consistent, ready-to-cook products.</span></p>
+  </div>
+  <div class="bottom">
+    <div class="co">AL-EKHLAS MANUFACTURING SDN. BHD.<span>真心食品 · Reg. No. 202401022253 (1568102-T) · Semenyih, Selangor, Malaysia</span></div>
+    <div class="web">alekhlasfood.com</div>
+  </div>
+</section>
+
+<!-- ============ 2. ABOUT ============ -->
+<section class="page">
+  <div class="run-head"><span>AEM Frozen Food</span><span>Company Profile</span></div>
+  <div class="kicker">01 · 关于我们 About Us</div>
+  <h1 class="sec">地道中华风味<br>清真标准化速冻<small>Turning authentic Chinese recipes into halal, standardised frozen products</small></h1>
+  <div class="rule"></div>
+
+  <div class="about-grid">
+    <div>
+      <p>AL-EKHLAS MANUFACTURING SDN. BHD.（品牌 AEM Frozen Food / 真心食品）是一家位于马来西亚雪兰莪州 Semenyih 的清真中华食品制造商。我们的产品涵盖烧烤串、饺子、中式料理包、火锅汤底与酱料、腌制肉片、小吃、养生汤包、传统糖水、花茶及调味料。</p>
+      <p>每一款产品均采用优质原料，结合传统中式烹饪工艺与现代速冻技术，在保留地道风味的同时，确保品质稳定、食品安全，并符合清真要求。</p>
+      <p class="en" style="margin-top:5mm">AL-EKHLAS MANUFACTURING SDN. BHD. (AEM Frozen Food / 真心食品) is a halal Chinese food manufacturer based in Semenyih, Selangor. Our range covers satay skewers, dumplings, ready-to-eat meals, hotpot soup bases and sauces, marinated meats, snacks, herbal soup packs, dessert soups, flower teas and seasonings — made with quality ingredients and modern flash-freezing to deliver authentic flavour with consistent quality.</p>
+      <div class="quote">“一个真正强大的餐饮品牌，不能只靠一位好厨师，而需要一套标准化、可复制的系统。”<span>A truly strong F&amp;B brand cannot rely on one great chef alone — it needs a standardised, replicable system.</span></div>
+    </div>
+    <aside class="facts">
+      <h4>公司概况 · At a Glance</h4>
+      <dl>
+        <div><dt>公司名称 Company</dt><dd>AL-EKHLAS MANUFACTURING SDN. BHD.</dd></div>
+        <div><dt>注册号 SSM Reg. No.</dt><dd>202401022253 (1568102-T)</dd></div>
+        <div><dt>品牌 Brands</dt><dd>AEM Frozen Food · 真心食品</dd></div>
+        <div><dt>工厂地址 Factory</dt><dd>No 27, Jalan P4/5, Bandar Teknologi Kajang, 43500 Semenyih, Selangor</dd></div>
+        <div><dt>业务类型 Business</dt><dd>制造 · 批发 · OEM/ODM 代工<br><span style="font-weight:400;color:var(--muted)">Manufacturing · Wholesale · OEM/ODM</span></dd></div>
+        <div><dt>供应范围 Coverage</dt><dd>马来西亚半岛 Peninsular Malaysia</dd></div>
+      </dl>
+    </aside>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="v">51</div><div class="l">款在售产品</div><div class="le">products in current catalogue</div></div>
+    <div class="stat"><div class="v">10</div><div class="l">大产品系列</div><div class="le">product categories</div></div>
+    <div class="stat"><div class="v">−35°C</div><div class="l">急速冷冻锁鲜</div><div class="le">flash freezing, −35°C to −40°C</div></div>
+  </div>
+
+  <div class="run-foot"><span><b>AL-EKHLAS MANUFACTURING SDN. BHD.</b> · 202401022253 (1568102-T)</span><span>02</span></div>
+</section>
+
+<!-- ============ 3. WHAT WE DO ============ -->
+<section class="page">
+  <div class="run-head"><span>AEM Frozen Food</span><span>Company Profile</span></div>
+  <div class="kicker">02 · 核心业务 What We Do</div>
+  <h1 class="sec">三大核心业务<small>Three ways we work with your business</small></h1>
+  <div class="rule"></div>
+
+  <div class="biz">
+    <div class="card">
+      <div class="num">01</div>
+      <h3>批发供应<span class="en">Bulk Wholesale</span></h3>
+      <p>为连锁火锅店、中西餐厅、茶餐室、食堂及超市供应标准化速冻产品，提供商用大规格包装，降低采购与仓储成本。</p>
+      <p class="en">Standardised frozen products in commercial pack sizes for restaurant chains, canteens and retailers.</p>
+    </div>
+    <div class="card">
+      <div class="num">02</div>
+      <h3>OEM / ODM 代工<span class="en">Private Label</span></h3>
+      <p>根据您的品牌需求调整配方、辣度、切配规格与包装，以您的品牌名称生产。</p>
+      <p class="en">We adjust recipe, spice level, cut size and packaging to your specification and produce under your brand.</p>
+    </div>
+    <div class="card">
+      <div class="num">03</div>
+      <h3>中央厨房供应<span class="en">Central Kitchen Supply</span></h3>
+      <p>预制、预切、预调味的半成品与成品，帮助连锁门店减少对熟练厨师的依赖、节省厨房空间，确保各分店出品一致。</p>
+      <p class="en">Pre-cut, pre-marinated and ready-to-heat items that reduce skilled labour and keep every outlet consistent.</p>
+    </div>
+  </div>
+
+  <div class="serve">
+    <h2>我们服务的客户<span>Who we serve</span></h2>
+    <div class="chips">
+      <span class="chip">连锁餐厅<i>F&amp;B chains</i></span>
+      <span class="chip">火锅店<i>Hotpot restaurants</i></span>
+      <span class="chip">酒店<i>Hotels</i></span>
+      <span class="chip">餐饮承办<i>Caterers</i></span>
+      <span class="chip">茶餐室 / 食堂<i>Cafés &amp; canteens</i></span>
+      <span class="chip">超市零售<i>Supermarkets</i></span>
+      <span class="chip">批发商 / 经销商<i>Wholesalers &amp; distributors</i></span>
+    </div>
+  </div>
+
+  <div class="oem">
+    <div>
+      <h3>OEM 合作流程<span class="en">How private label works</span></h3>
+      <p style="font-size:9pt;line-height:1.6;color:#CFE5D8;margin-top:4mm">从口味沟通到批量出货，我们与您的团队一起把配方标准化。<br><br>From the first tasting to repeat production, we standardise the recipe together with your team.</p>
+    </div>
+    <ol>
+      <li>需求沟通：产品、口味、用量、包装<span>Brief — product, taste profile, volume, packaging</span></li>
+      <li>配方调整与样品试吃<span>Recipe adjustment and sample tasting</span></li>
+      <li>确认规格、包装设计与报价<span>Confirm spec, packaging and quotation</span></li>
+      <li>批量生产，冷链配送<span>Production run and cold-chain delivery</span></li>
+    </ol>
+  </div>
+
+  <div class="run-foot"><span><b>AL-EKHLAS MANUFACTURING SDN. BHD.</b> · 202401022253 (1568102-T)</span><span>03</span></div>
+</section>
+
+<!-- ============ 4. PRODUCTS ============ -->
+<section class="page">
+  <div class="run-head"><span>AEM Frozen Food</span><span>Company Profile</span></div>
+  <div class="kicker">03 · 产品系列 Product Range</div>
+  <h1 class="sec">10 大系列 · 51 款产品<small>10 categories · 51 products — chicken, beef, mutton and fish only</small></h1>
+  <div class="rule"></div>
+
+  <div class="prod">
+    <div class="pc"><div class="hd"><b>烧烤串<span>Satay Skewers</span></b><em>6 款</em></div>
+      <p>鸡肉串、牛肉串、羊肉串，以及麻辣鸡 / 牛 / 羊肉串。每包 400g，每箱 20 包。</p></div>
+    <div class="pc"><div class="hd"><b>饺子系列<span>Dumplings</span></b><em>4 款</em></div>
+      <p>鸡肉香菇、鸡肉白菜、牛肉大葱、羊肉白萝卜饺子。</p></div>
+    <div class="pc"><div class="hd"><b>中式料理包<span>Ready-to-Eat Meals</span></b><em>8 款</em></div>
+      <p>酸汤金汤肥牛、秘制红烧牛肉、滋补羊肉煲、香浓鸡肉煲、经典酸甜鸡块、鸡肉沫茄子、香菇焖鸡、秘制黄焖鸡。加热即食。</p></div>
+    <div class="pc"><div class="hd"><b>火锅底料 &amp; 酱料<span>Hotpot Bases &amp; Sauces</span></b><em>7 款</em></div>
+      <p>金汤花胶鸡、酸菜鱼、鲜番茄、泡椒酸辣鸡、川味麻辣汤底；特级红辣椒油、黄金蒜蓉蘸酱。</p></div>
+    <div class="pc"><div class="hd"><b>秘制腌制肉片<span>Marinated Meats</span></b><em>3 款</em></div>
+      <p>腌制鱼片、牛肉片、羊肉片，适合火锅与快炒。</p></div>
+    <div class="pc"><div class="hd"><b>精致小吃<span>Snacks</span></b><em>5 款</em></div>
+      <p>酥脆小酥肉、红糖糍粑、黄金南瓜饼、炸冰淇淋（香草 / 巧克力 / 芋头）、黄金炸鲜奶。</p></div>
+    <div class="pc"><div class="hd"><b>传统糖水<span>Dessert Soups</span></b><em>5 款</em></div>
+      <p>冰糖雪梨（另有桶装）、海底椰龙眼、菠萝龙眼、传统花生糊。</p></div>
+    <div class="pc"><div class="hd"><b>养生汤包<span>Herbal Soup Packs</span></b><em>6 款</em></div>
+      <p>椰子炖鸡、虎乳芝、天麻、巴戟天、虫草花、枸杞菊花。</p></div>
+    <div class="pc"><div class="hd"><b>花茶<span>Flower Teas</span></b><em>4 款</em></div>
+      <p>经典八宝茶、润燥美目茶、洛神花草茶、清火菊花茶。</p></div>
+    <div class="pc"><div class="hd"><b>风味调味料<span>Seasonings</span></b><em>3 款</em></div>
+      <p>兰州牛肉面调料包、经典烧烤撒料包、秘制麻辣烧烤撒料包。</p></div>
+  </div>
+
+  <div class="note">完整价目表、包装规格与条码请见官网目录或向销售团队索取。产品可按 OEM 需求调整配方与包装。<br>Full price list, pack sizes and barcodes are on the website catalogue or available from our sales team. Most items can be customised for OEM.</div>
+
+  <div class="run-foot"><span><b>AL-EKHLAS MANUFACTURING SDN. BHD.</b> · 202401022253 (1568102-T)</span><span>04</span></div>
+</section>
+
+<!-- ============ 5. QUALITY & LOGISTICS ============ -->
+<section class="page">
+  <div class="run-head"><span>AEM Frozen Food</span><span>Company Profile</span></div>
+  <div class="kicker">04 · 品质与物流 Quality &amp; Logistics</div>
+  <h1 class="sec">从生产线到您的冷库<small>From our production line to your cold room</small></h1>
+  <div class="rule"></div>
+
+  <div class="two">
+    <div class="q">
+      <div class="qi"><div class="ic">清</div><div><h3>清真生产<span class="en">Halal Production</span></h3>
+        <p>只使用鸡、牛、羊、鱼等清真肉类，生产流程依清真要求执行。</p>
+        <p class="en">Chicken, beef, mutton and fish only, produced in line with halal requirements.</p></div></div>
+      <div class="qi"><div class="ic">冻</div><div><h3>急速锁鲜<span class="en">Flash Freezing</span></h3>
+        <p>−35°C 至 −40°C 急速冷冻，锁住肉质水分与原汁原味。</p>
+        <p class="en">Flash-frozen at −35°C to −40°C to lock in moisture, texture and flavour.</p></div></div>
+      <div class="qi"><div class="ic">准</div><div><h3>标准化配方<span class="en">Standardised Recipes</span></h3>
+        <p>统一配方与调味，每一批次口味稳定，适合多门店连锁出品。</p>
+        <p class="en">Fixed formulations so every batch — and every outlet — tastes the same.</p></div></div>
+      <div class="qi"><div class="ic">溯</div><div><h3>卫生与追溯<span class="en">Hygiene &amp; Traceability</span></h3>
+        <p>原料可追溯，从生产到配送全程记录温度。</p>
+        <p class="en">Traceable raw materials and temperature records from production to delivery.</p></div></div>
+    </div>
+
+    <div>
+      <h3>冷链配送<span class="en">Cold-Chain Delivery</span></h3>
+      <table class="ship">
+        <thead><tr><th>地区 Region</th><th>免运费 Free delivery</th><th>未达门槛 Below</th></tr></thead>
+        <tbody>
+          <tr><td><b>巴生谷 / 雪兰莪</b><small>Klang Valley &amp; Selangor</small></td><td>RM1,000 以上<small>orders ≥ RM1,000</small></td><td>RM40</td></tr>
+          <tr><td><b>半岛其他州属</b><small>Peninsular outstation</small></td><td>RM1,500 以上<small>orders ≥ RM1,500</small></td><td>RM40</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:8.6pt;margin-top:4mm;line-height:1.6">冷藏车配送，2–5 个工作日送达。请确保收货时有人在场并备好冷冻储存空间。</p>
+      <p class="en" style="font-size:8pt">Refrigerated-truck delivery in 2–5 working days. Please have someone present with frozen storage ready.</p>
+    </div>
+  </div>
+
+  <div class="flow">
+    <h2>下单流程<span>How to order</span></h2>
+    <div class="steps">
+      <div class="step"><div class="n">1</div><b>浏览目录</b><p>在官网挑选产品与数量。<br>Browse the online catalogue.</p></div>
+      <div class="step"><div class="n">2</div><b>WhatsApp 询价</b><p>系统生成订单清单发送给销售。<br>Send your list via WhatsApp.</p></div>
+      <div class="step"><div class="n">3</div><b>确认报价</b><p>销售确认库存、价格与配送。<br>We confirm stock, price, delivery.</p></div>
+      <div class="step"><div class="n">4</div><b>冷链送达</b><p>冷藏车配送至您的门店或仓库。<br>Cold-chain delivery to your door.</p></div>
+    </div>
+  </div>
+
+  <div class="run-foot"><span><b>AL-EKHLAS MANUFACTURING SDN. BHD.</b> · 202401022253 (1568102-T)</span><span>05</span></div>
+</section>
+
+<!-- ============ 6. WHY US + CONTACT ============ -->
+<section class="page contact">
+  <div class="run-head"><span>AEM Frozen Food</span><span>Company Profile</span></div>
+  <div class="kicker" style="color:var(--gold)">05 · 合作 Partner With Us</div>
+  <h1 class="sec">成为您最稳定的供应链伙伴<small>Your steady supply-chain partner on the way to a successful F&amp;B chain</small></h1>
+  <div class="rule"></div>
+
+  <div class="why">
+    <div><b>工厂直供</b><p>没有中间商，价格更具竞争力，沟通更直接。<br>Factory-direct pricing and communication.</p></div>
+    <div><b>清真中华风味</b><p>中华口味与清真要求兼顾，覆盖更广的客群。<br>Chinese flavours your Muslim and non-Muslim customers can both enjoy.</p></div>
+    <div><b>出品稳定</b><p>标准化配方，每家分店同一个味道。<br>Standardised recipes, same taste at every outlet.</p></div>
+    <div><b>省人力、省空间</b><p>预制产品缩短备餐时间，降低对熟练厨师的依赖。<br>Ready-to-cook items cut prep time and skilled-labour needs.</p></div>
+    <div><b>可定制</b><p>口味、规格、包装均可按您的品牌定制。<br>Taste, cut and packaging tailored to your brand.</p></div>
+    <div><b>冷链覆盖半岛</b><p>巴生谷定期冷藏车配送，半岛各主要城市均可送达。<br>Cold-chain delivery across Peninsular Malaysia.</p></div>
+  </div>
+
+  <div class="cbox">
+    <div>
+      <h3>联系我们<span class="en">Contact Us</span></h3>
+      <dl>
+        <dt>公司</dt><dd>AL-EKHLAS MANUFACTURING SDN. BHD.<br><span style="font-weight:400;color:var(--muted);font-size:8.3pt">202401022253 (1568102-T)</span></dd>
+        <dt>地址 Address</dt><dd>No 27, Jalan P4/5, Bandar Teknologi Kajang, 43500 Semenyih, Selangor, Malaysia</dd>
+        <dt>电话 / WhatsApp</dt><dd>+6014-941 3545</dd>
+        <dt>电邮 Email</dt><dd>alekhlas.sales@gmail.com</dd>
+        <dt>官网 Website</dt><dd>alekhlasfood.com</dd>
+        <dt>营业时间 Hours</dt><dd>周一至周六 9:00 – 18:00<br><span style="font-weight:400;color:var(--muted);font-size:8.3pt">Mon–Sat · Closed Sundays &amp; public holidays</span></dd>
+      </dl>
+    </div>
+    <div class="cta">
+      <b>欢迎联系我们 · Talk to us about</b>
+      <ul>
+        <li>批发价目表 Wholesale price list</li>
+        <li>免费样品试吃 Free sample kit</li>
+        <li>OEM / 自有品牌代工 Private label</li>
+        <li>工厂参观（需预约） Factory visit by appointment</li>
+      </ul>
+      <div class="wa">WhatsApp +6014-941 3545<span>wa.me/60149413545</span></div>
+    </div>
+  </div>
+
+  <div class="run-foot"><span><b>AL-EKHLAS MANUFACTURING SDN. BHD.</b> · alekhlasfood.com</span><span>06</span></div>
+</section>
+
+</body>
+</html>
