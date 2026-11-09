@@ -71,6 +71,7 @@ PURPOSE = [
     (r"bbq|烧烤", "烧烤 BBQ"),
     (r"kuih\s*pulut\s*goreng|pulut\s*goreng|炸糯米", "炸糯米糕"),
     (r"kuih\s*pulut|kpg|糯米|糍粑", "糯米糕"),
+    (r"mochi|麻糬|麻薯", "麻糬 Mochi"),
     (r"masak", "红烧 Masak"),
     (r"料包|腌料|腌制", "腌料 / 腌制"),
 ]
