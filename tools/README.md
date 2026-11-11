@@ -16,6 +16,10 @@ python3 tools/jotform_weekly_report.py tools/sample_week.json /tmp/out.pdf /tmp/
 
 脚本把邮件正文打印到 stdout，同时写进第三个参数。
 
+**月报**用同一个脚本：在 JSON 的 `period` 里加上 `"title": "10月出库总结"`。
+报告期超过 7 天时，会自动多出"按周"和"原材料入库"两张表。
+`data/2026-10.json` 是 10 月的完整数据（入库 17 笔、领用 73 笔、生产 81 笔）。
+
 ## 报告的定位
 
 这份报告**只要总结**。老板明确说过：重点不是哪个员工做了什么，是上周出库的总量。

@@ -71,17 +71,19 @@ var SEED_PRODUCTS = [
  * spellings in the sheet itself.
  */
 var SEED_ALIASES = {
-  'sate-daging-mala': 'Sate Daging Mala | 麻辣牛肉串',
-  'sate-kambing-mala': 'Sate Kambing Mala',
-  'sate-ayam-mala': 'Sate Ayam Mala',
+  'sate-daging-mala': 'Sate Daging Mala | Sate Mala Daging | Sate Daging Pedas Mala | 麻辣牛肉串',
+  'sate-kambing-mala': 'Sate Kambing Mala | Sate Mala Kambing',
+  'sate-ayam-mala': 'Sate Ayam Mala | Sate Mala Ayam | Sate Ayam Pedas Mala',
   'sate-ayam-classic': 'Sate AyamS',
   'snack-ayam-goreng-krispi': 'Ayam Goreng Crispy | Ayam Goreng',
   'snack-kuih-pulut-gula-merah': 'Kuih Pulut Goreng | KPG | 炸糯米糕 | 椰糖糯米糕 | Kuih Pulut Gula Merah',
   'rte-ayam-cincang-terung': 'Ayam Cincang Terung',
   'rte-daging-masak-merah': 'Masak Merah | 红烧牛肉',
-  'sate-ayam-kepak': 'Sate Kepak | Kepak | Chicken Wing Satay',
+  'sate-ayam-kepak': 'Sate Kepak | Kepak | Chicken Wing Satay | Chicken wing skewers',
   'sate-pedal-ayam': 'Sate Pedal | Pedal Ayam | Gizzard Satay',
-  'diperap-daging': 'Marinated Beef | Daging diperap marinated beef | BBQ Marinated Beef | 腌制牛肉'
+  'diperap-daging': 'Marinated Beef | Daging diperap marinated beef | BBQ Marinated Beef | Beef marinated BBQ | 腌制牛肉',
+  'rte-claypot-kambing': 'Claypot kambing',
+  'rte-claypot-ayam': 'Claypot ayam | Claypoy ayam'
 };
 
 /**

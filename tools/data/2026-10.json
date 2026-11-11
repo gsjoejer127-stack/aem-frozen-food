@@ -1,0 +1,1698 @@
+{
+ "period": {
+  "start": "2026-10-01",
+  "end": "2026-10-31",
+  "generated": "2026-11-11",
+  "title": "10月出库总结"
+ },
+ "intake": [
+  {
+   "time": "2026-10-04 21:19",
+   "material": "MAGGI CUKUP RASA",
+   "kg": 20.0,
+   "supplier": "Ben Mart 天马",
+   "receiver": "shuhada",
+   "remark": "exp: 03082027 2 CTN- 20 PACK"
+  },
+  {
+   "time": "2026-10-04 21:22",
+   "material": "SOY SAUCE HADAY",
+   "kg": 9.8,
+   "supplier": "Ben Mart 天马",
+   "receiver": "shuhada",
+   "remark": "EXP: 12122027 INBMS60069"
+  },
+  {
+   "time": "2026-10-04 21:23",
+   "material": "SOY BEAN PASTE HADAY",
+   "kg": 12.0,
+   "supplier": "Ben Mart 天马",
+   "receiver": "shuhada",
+   "remark": "16062027"
+  },
+  {
+   "time": "2026-10-04 21:24",
+   "material": "SESAME OIL",
+   "kg": 2.0,
+   "supplier": "Ben Mart 天马",
+   "receiver": "shuhada",
+   "remark": "05092027"
+  },
+  {
+   "time": "2026-10-04 21:26",
+   "material": "OYSTER SAUCE",
+   "kg": 1.0,
+   "supplier": "Ben Mart 天马",
+   "receiver": "shuhada",
+   "remark": "EXP:20082027"
+  },
+  {
+   "time": "2026-10-05 23:17",
+   "material": "breadcrumb",
+   "kg": 10.0,
+   "supplier": "bidfood",
+   "receiver": "shuhada",
+   "remark": "BC05102026"
+  },
+  {
+   "time": "2026-10-07 21:19",
+   "material": "sup sichuan mala yihai",
+   "kg": 500.0,
+   "supplier": "yihai(M)",
+   "receiver": "shuhada",
+   "remark": "exp:121127 2111313897"
+  },
+  {
+   "time": "2026-10-07 21:20",
+   "material": "sup tomato yihai",
+   "kg": 100.0,
+   "supplier": "yihai(M)",
+   "receiver": "shuhada",
+   "remark": "exp:150827"
+  },
+  {
+   "time": "2026-10-07 21:23",
+   "material": "sup sichuan mala aem",
+   "kg": 500.0,
+   "supplier": "Chongqing Huiyouyuan Food Co",
+   "receiver": "shuhada",
+   "remark": "exp: 05/2027"
+  },
+  {
+   "time": "2026-10-20 03:07",
+   "material": "beef 67",
+   "kg": 100.0,
+   "supplier": "Zest Frozen 冷冻店Zest",
+   "receiver": "shuhada",
+   "remark": "30062027 KJ01-271895"
+  },
+  {
+   "time": "2026-10-23 03:14",
+   "material": "chicken wing",
+   "kg": 96.0,
+   "supplier": "KLFC",
+   "receiver": "shuhada",
+   "remark": "inv: 00670715 8 BAG"
+  },
+  {
+   "time": "2026-10-23 03:17",
+   "material": "MUTTON BL",
+   "kg": 120.0,
+   "supplier": "Lucky Frozen 幸运冷冻",
+   "receiver": "shuhada",
+   "remark": "exp; 19/5/27 do-02615"
+  },
+  {
+   "time": "2026-10-23 03:27",
+   "material": "beef 67",
+   "kg": 200.0,
+   "supplier": "Lucky Frozen 幸运冷冻",
+   "receiver": "shuhada",
+   "remark": "exp:30/06/2027 DO-02615"
+  },
+  {
+   "time": "2026-10-23 03:28",
+   "material": "chicken fillet",
+   "kg": 24.0,
+   "supplier": "Lucky Frozen 幸运冷冻",
+   "receiver": "shuhada",
+   "remark": "exp:1/5/2028 do-02615"
+  },
+  {
+   "time": "2026-10-23 03:30",
+   "material": "chicken bil",
+   "kg": 360.0,
+   "supplier": "Lucky Frozen 幸运冷冻",
+   "receiver": "shuhada",
+   "remark": "exp: 26/6/28 do-02615 30 ctn x 12kg"
+  },
+  {
+   "time": "2026-10-23 03:34",
+   "material": "sup sichuan mala",
+   "kg": 497.0,
+   "supplier": "yihai(M)",
+   "receiver": "shuhada",
+   "remark": "exp:20/11/27 2111324945 50 ctn"
+  },
+  {
+   "time": "2026-10-23 03:35",
+   "material": "sup tomato yihai",
+   "kg": 50.0,
+   "supplier": "yihai(M)",
+   "receiver": "shuhada",
+   "remark": "exp:21/8/27"
+  }
+ ],
+ "issue": [
+  {
+   "time": "2026-10-01 05:47",
+   "material": "67Beef",
+   "kg": 40.0,
+   "batch": "1/7/27",
+   "purpose": "Satay",
+   "requester": "Saad",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-01 05:47",
+   "material": "Ayam",
+   "kg": 24.0,
+   "batch": "13/5/28",
+   "purpose": "Satay",
+   "requester": "Saad",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-02 05:42",
+   "material": "Ayam",
+   "kg": 12.0,
+   "batch": "13/5/28",
+   "purpose": "Satay",
+   "requester": "Saad",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-02 05:43",
+   "material": "67Beef",
+   "kg": 180.0,
+   "batch": "1/8/27",
+   "purpose": "BBQ",
+   "requester": "Saad",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-02 06:05",
+   "material": "Kuih tepung pulut goreng",
+   "kg": 3.0,
+   "batch": "26112154243",
+   "purpose": "Pembuatan kuih pulut goreng",
+   "requester": "John",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-05 00:25",
+   "material": "CHICKEN wing",
+   "kg": 36.0,
+   "batch": "29/9/27",
+   "purpose": "Satay",
+   "requester": "Saad",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-05 06:09",
+   "material": "67Beef",
+   "kg": 100.0,
+   "batch": "31/5/27",
+   "purpose": "BBQ",
+   "requester": "Saad",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-05 06:10",
+   "material": "Kabamg",
+   "kg": 44.02,
+   "batch": "10/ApR/27",
+   "purpose": "Satay",
+   "requester": "Saad",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-06 06:24",
+   "material": "Gula",
+   "kg": 6.0,
+   "batch": "P1-50-002",
+   "purpose": "Pembuatan kuih pulut goreng",
+   "requester": "John",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-06 06:26",
+   "material": "Tepung pulut goreng",
+   "kg": 3.0,
+   "batch": "26112112742",
+   "purpose": "Pembuatan kuih pulut goreng",
+   "requester": "John",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-06 06:27",
+   "material": "Miyak goreng",
+   "kg": 3.0,
+   "batch": "260900081-1",
+   "purpose": "Pembuatan kuih pulut goreng",
+   "requester": "John",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-06 08:11",
+   "material": "Kabamg",
+   "kg": 23.85,
+   "batch": "9/ApR/27",
+   "purpose": "Satay",
+   "requester": "Saad",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-06 08:12",
+   "material": "Ayam Gizard",
+   "kg": 12.1,
+   "batch": "9/8/27",
+   "purpose": "Satay",
+   "requester": "Saad",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-06 08:15",
+   "material": "Ayam",
+   "kg": 24.0,
+   "batch": "23/9/27",
+   "purpose": "Masak",
+   "requester": "Saad",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-07 05:34",
+   "material": "Gula",
+   "kg": 2.0,
+   "batch": "P1-50-002",
+   "purpose": "Pembuatan kuih pulut goreng",
+   "requester": "John",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-07 05:36",
+   "material": "Miyak masak goreng",
+   "kg": 2.0,
+   "batch": "260900081-1",
+   "purpose": "Pembuatan kuih pulut goreng",
+   "requester": "John",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-07 05:38",
+   "material": "Tepung pulut",
+   "kg": 2.0,
+   "batch": "26112131545",
+   "purpose": "Pembuatan kuih pulut goreng",
+   "requester": "John",
+   "remark": "Tepung pulut goreng 2.5 kg setegah"
+  },
+  {
+   "time": "2026-10-07 05:43",
+   "material": "67Beef",
+   "kg": 20.0,
+   "batch": "1/8/27",
+   "purpose": "BBQ",
+   "requester": "Saad",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-07 05:43",
+   "material": "Ayam",
+   "kg": 60.0,
+   "batch": "13/5/28",
+   "purpose": "Satay",
+   "requester": "Saad",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-07 05:44",
+   "material": "CHICKEN wing",
+   "kg": 36.0,
+   "batch": "20/9/27",
+   "purpose": "Satay",
+   "requester": "Saad",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-08 05:40",
+   "material": "67Beef",
+   "kg": 40.0,
+   "batch": "3/5/27",
+   "purpose": "Satay",
+   "requester": "Saad",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-08 05:40",
+   "material": "Ayam",
+   "kg": 36.0,
+   "batch": "13/5/28",
+   "purpose": "Masak",
+   "requester": "Saad",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-09 06:03",
+   "material": "Kabamg",
+   "kg": 23.8,
+   "batch": "9/ApR/27",
+   "purpose": "Satay",
+   "requester": "Saad",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-09 06:03",
+   "material": "Ayam",
+   "kg": 48.0,
+   "batch": "13/5/28",
+   "purpose": "Satay",
+   "requester": "Saad",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-10 02:56",
+   "material": "CHICKEN wing",
+   "kg": 24.0,
+   "batch": "25/8/27",
+   "purpose": "Satay",
+   "requester": "Saad",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-11 06:01",
+   "material": "67Beef",
+   "kg": 60.0,
+   "batch": "1/8/27",
+   "purpose": "BBQ",
+   "requester": "Saad",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-11 06:02",
+   "material": "67Beef",
+   "kg": 10.0,
+   "batch": "1/8/27",
+   "purpose": "Satay",
+   "requester": "Saad",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-12 06:01",
+   "material": "Ayam",
+   "kg": 72.0,
+   "batch": "13/5/28",
+   "purpose": "Satay",
+   "requester": "Saad",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-12 21:04",
+   "material": "Kabamg",
+   "kg": 22.3,
+   "batch": "9/ApR/27",
+   "purpose": "Satay",
+   "requester": "Saad",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-12 21:05",
+   "material": "Kabamg",
+   "kg": 22.3,
+   "batch": "9/ApR/27",
+   "purpose": "Satay",
+   "requester": "Saad",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-13 05:22",
+   "material": "Kabamg",
+   "kg": 26.0,
+   "batch": "10 ApR 2027",
+   "purpose": "Satay",
+   "requester": "Saad",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-13 05:23",
+   "material": "Tepung pulut",
+   "kg": 20.0,
+   "batch": "26168020942",
+   "purpose": "Pembuatan Kuih pulut goreng",
+   "requester": "Jenn",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-13 05:26",
+   "material": "Minyak masak",
+   "kg": 1.0,
+   "batch": "13:26090008-1",
+   "purpose": "Pembuatan Kuih pulut goreng",
+   "requester": "Jenn",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-13 05:28",
+   "material": "Gula",
+   "kg": 2.0,
+   "batch": "P1-50-002",
+   "purpose": "Pembuatan Kuih pulut goreng",
+   "requester": "Jenn",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-13 05:29",
+   "material": "Gula",
+   "kg": 2.0,
+   "batch": "P1-50-002",
+   "purpose": "Pembuatan Kuih pulut goreng",
+   "requester": "Jenn",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-13 05:32",
+   "material": "Tepung pulut",
+   "kg": 20.0,
+   "batch": "26168020142/26168020942",
+   "purpose": "Pembuatan Kuih pulut goreng",
+   "requester": "Jenn",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-13 05:33",
+   "material": "Minyak masak",
+   "kg": 1.0,
+   "batch": "13:260900081-1",
+   "purpose": "Pembuatan Kuih pulut goreng",
+   "requester": "Jenn",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-14 05:59",
+   "material": "67Beef",
+   "kg": 60.0,
+   "batch": "1/7/27",
+   "purpose": "BBQ",
+   "requester": "Saad",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-14 05:59",
+   "material": "67Beef",
+   "kg": 20.0,
+   "batch": "1/7/27",
+   "purpose": "Satay",
+   "requester": "Saad",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-15 05:40",
+   "material": "Kabamg",
+   "kg": 19.71,
+   "batch": "8/APR/27",
+   "purpose": "Satay",
+   "requester": "Saad",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-15 05:41",
+   "material": "CHICKEN wing",
+   "kg": 36.0,
+   "batch": "9/10/27",
+   "purpose": "Satay",
+   "requester": "Saad",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-15 05:42",
+   "material": "Ayam Gizard",
+   "kg": 12.11,
+   "batch": "19/8/27",
+   "purpose": "Satay",
+   "requester": "Saad",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-16 05:42",
+   "material": "67Beef",
+   "kg": 20.0,
+   "batch": "9/8/27",
+   "purpose": "Satay",
+   "requester": "Saad",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-17 05:19",
+   "material": "Gula",
+   "kg": 8.0,
+   "batch": "P1-50-002",
+   "purpose": "Pembuatan kuih pulut goreng",
+   "requester": "John",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-17 05:21",
+   "material": "Miyak masak",
+   "kg": 3.0,
+   "batch": "260900081-1",
+   "purpose": "Pembuatan kuih pulut goreng",
+   "requester": "John",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-17 05:22",
+   "material": "Tepung pulut goreng",
+   "kg": 3.0,
+   "batch": "26128214137",
+   "purpose": "Pembuatan kuih pulut goreng",
+   "requester": "John",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-21 03:19",
+   "material": "Tepung pulut goreng",
+   "kg": 2.0,
+   "batch": "26168022143",
+   "purpose": "Tepung kuih pulut goreng",
+   "requester": "Mas",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-21 03:20",
+   "material": "Tepung pulut goreng",
+   "kg": 2.0,
+   "batch": "26168022143",
+   "purpose": "Tepung kuih pulut goreng",
+   "requester": "Mas",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-21 03:22",
+   "material": "Minyak goreng",
+   "kg": 2.0,
+   "batch": "260900081-1",
+   "purpose": "Minyak goreng",
+   "requester": "Mas",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-21 03:23",
+   "material": "Gula",
+   "kg": 4.0,
+   "batch": "P1-50-002",
+   "purpose": "Gula",
+   "requester": "Mas",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-21 05:55",
+   "material": "CHICKEN wing",
+   "kg": 36.0,
+   "batch": "11/10/27",
+   "purpose": "Satay",
+   "requester": "Saad",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-21 05:55",
+   "material": "67Beef",
+   "kg": 40.0,
+   "batch": "30/6/27",
+   "purpose": "Satay",
+   "requester": "Saad",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-21 05:56",
+   "material": "67Beef",
+   "kg": 40.0,
+   "batch": "30/6/27",
+   "purpose": "BBQ",
+   "requester": "Saad",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-22 06:01",
+   "material": "67Beef",
+   "kg": 40.0,
+   "batch": "30/6/27",
+   "purpose": "BBQ",
+   "requester": "Saad",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-22 06:02",
+   "material": "Ayam",
+   "kg": 36.0,
+   "batch": "26/6/28",
+   "purpose": "Satay",
+   "requester": "Saad",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-22 06:03",
+   "material": "Kabamg",
+   "kg": 25.3,
+   "batch": "16/may/27",
+   "purpose": "Satay",
+   "requester": "Saad",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-23 05:48",
+   "material": "Ayam",
+   "kg": 36.0,
+   "batch": "26/6/28",
+   "purpose": "Satay",
+   "requester": "Saad",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-23 05:49",
+   "material": "Kabamg",
+   "kg": 24.6,
+   "batch": "19/may/27",
+   "purpose": "Satay",
+   "requester": "Saad",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-24 05:35",
+   "material": "67Beef",
+   "kg": 60.0,
+   "batch": "30/6/27",
+   "purpose": "BBQ",
+   "requester": "Saad",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-24 05:35",
+   "material": "67Beef",
+   "kg": 40.0,
+   "batch": "30/6/27",
+   "purpose": "Satay",
+   "requester": "Saad",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-25 05:51",
+   "material": "Kabamg",
+   "kg": 48.21,
+   "batch": "19/may/27",
+   "purpose": "Satay",
+   "requester": "Saad",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-26 05:26",
+   "material": "Ayam",
+   "kg": 72.0,
+   "batch": "26/8/27",
+   "purpose": "Satay",
+   "requester": "Saad",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-26 05:27",
+   "material": "45Beef",
+   "kg": 40.0,
+   "batch": "31/8/27",
+   "purpose": "Masak",
+   "requester": "Saad",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-27 03:44",
+   "material": "67Beef",
+   "kg": 40.0,
+   "batch": "1/8/27",
+   "purpose": "Satay",
+   "requester": "Saad",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-27 03:45",
+   "material": "Ayam",
+   "kg": 36.0,
+   "batch": "6/9/28",
+   "purpose": "Masak",
+   "requester": "Saad",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-27 03:53",
+   "material": "Minyak goreng",
+   "kg": 1.0,
+   "batch": "260900081-1",
+   "purpose": "Minyak goreng",
+   "requester": "Mas",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-27 03:55",
+   "material": "Tepung pulut goreng",
+   "kg": 1.0,
+   "batch": "26168054744",
+   "purpose": "Tepung kuih pulut goreng",
+   "requester": "Mas",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-27 03:55",
+   "material": "Tepung pulut goreng",
+   "kg": 1.0,
+   "batch": "26168054744",
+   "purpose": "Tepung kuih pulut goreng",
+   "requester": "Mas",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-28 05:42",
+   "material": "67Beef",
+   "kg": 60.0,
+   "batch": "1/8/27",
+   "purpose": "BBQ",
+   "requester": "Saad",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-28 05:43",
+   "material": "Ayam",
+   "kg": 72.0,
+   "batch": "26/6/28",
+   "purpose": "Satay",
+   "requester": "Saad",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-28 05:45",
+   "material": "CHICKEN wing",
+   "kg": 36.0,
+   "batch": "19/10/27",
+   "purpose": "Satay",
+   "requester": "Saad",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-29 05:14",
+   "material": "Kabamg",
+   "kg": 46.56,
+   "batch": "19/may/27",
+   "purpose": "Satay",
+   "requester": "Saad",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-29 05:15",
+   "material": "CHICKEN wing",
+   "kg": 36.0,
+   "batch": "16/10/27",
+   "purpose": "Satay",
+   "requester": "Saad",
+   "remark": ""
+  }
+ ],
+ "packing": [
+  {
+   "time": "2026-10-02 05:29",
+   "product": "Sate Ayam",
+   "spec": "400gm",
+   "batch": "SA011026",
+   "packs": 26.0,
+   "kg": 11.0,
+   "prod_date": "02/10/2026",
+   "operator": "Ling He Le",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-02 05:30",
+   "product": "Sate Kambing",
+   "spec": "400gm",
+   "batch": "SK011026",
+   "packs": 102.0,
+   "kg": 38.0,
+   "prod_date": "02/10/2026",
+   "operator": "Ling He Le",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-02 05:31",
+   "product": "Sate Ayam Kepak",
+   "spec": "其他",
+   "batch": "SAK011026",
+   "packs": 64.0,
+   "kg": 36.0,
+   "prod_date": "02/10/2026",
+   "operator": "Ling He Le",
+   "remark": "SAK500g(stick串)"
+  },
+  {
+   "time": "2026-10-04 04:08",
+   "product": "Sate ayam",
+   "spec": "400gm",
+   "batch": "SA021026",
+   "packs": 44.0,
+   "kg": 18.0,
+   "prod_date": "3/10/26",
+   "operator": "Jenn",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-04 04:09",
+   "product": "Sate daging nenas",
+   "spec": "400gm",
+   "batch": "SDN",
+   "packs": 10.0,
+   "kg": 5.0,
+   "prod_date": "3/10/26",
+   "operator": "Jenn",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-05 23:25",
+   "product": "Sate ayam",
+   "spec": "400gm",
+   "batch": "SA051026",
+   "packs": 49.0,
+   "kg": 20.0,
+   "prod_date": "6/10/26",
+   "operator": "Jenn",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-05 23:26",
+   "product": "Sate daging mala",
+   "spec": "400gm",
+   "batch": "SDM051026",
+   "packs": 26.0,
+   "kg": 8.0,
+   "prod_date": "6/10/26",
+   "operator": "Jenn",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-05 23:32",
+   "product": "Kuih pulut goreng",
+   "spec": "其他",
+   "batch": "KPG021026",
+   "packs": 200.0,
+   "kg": 17.5,
+   "prod_date": "5/10/26",
+   "operator": "Jenn",
+   "remark": "Kuih pulut goreng 14 x 40"
+  },
+  {
+   "time": "2026-10-07 00:44",
+   "product": "Marinated Beef",
+   "spec": "2kg",
+   "batch": "DD061026",
+   "packs": 75.0,
+   "kg": 100.0,
+   "prod_date": "07/10/2026",
+   "operator": "Ling He Le",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-07 00:47",
+   "product": "Sate Kambing Mala",
+   "spec": "400gm",
+   "batch": "SKM061026",
+   "packs": 9.0,
+   "kg": 3.0,
+   "prod_date": "07/10/2026",
+   "operator": "Ling He Le",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-07 00:48",
+   "product": "Sate Daging Mala",
+   "spec": "400gm",
+   "batch": "SDM061026",
+   "packs": 43.0,
+   "kg": 11.0,
+   "prod_date": "07/10/2026",
+   "operator": "Ling He Le",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-07 00:49",
+   "product": "Sate Daging",
+   "spec": "400gm",
+   "batch": "SD061026",
+   "packs": 57.0,
+   "kg": 20.0,
+   "prod_date": "07/10/2026",
+   "operator": "Ling He Le",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-07 00:50",
+   "product": "Sate Ayam Kepak",
+   "spec": "1kg",
+   "batch": "SAK061026",
+   "packs": 32.0,
+   "kg": 36.0,
+   "prod_date": "07/10/2026",
+   "operator": "Ling He Le",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-07 23:25",
+   "product": "Daging diperap (marinated beef)",
+   "spec": "2kg",
+   "batch": "DD071026",
+   "packs": 16.0,
+   "kg": 20.0,
+   "prod_date": "8/10/26",
+   "operator": "Jenn",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-07 23:26",
+   "product": "Sate daging mala",
+   "spec": "400gm",
+   "batch": "SDM071026",
+   "packs": 17.0,
+   "kg": 9.0,
+   "prod_date": "8/10/26",
+   "operator": "Jenn",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-07 23:27",
+   "product": "Sate kambing",
+   "spec": "400gm",
+   "batch": "SK071026",
+   "packs": 28.0,
+   "kg": 10.0,
+   "prod_date": "8/10/26",
+   "operator": "Jenn",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-07 23:28",
+   "product": "Sate kambing mala",
+   "spec": "400gm",
+   "batch": "SKM071026",
+   "packs": 47.0,
+   "kg": 11.0,
+   "prod_date": "8/10/26",
+   "operator": "Jenn",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-09 04:53",
+   "product": "Sate Kambing Mala",
+   "spec": "400gm",
+   "batch": "SKM081026",
+   "packs": 33.0,
+   "kg": 13.0,
+   "prod_date": "09/10/2026",
+   "operator": "Ling He Le",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-09 04:54",
+   "product": "Sate Kambing",
+   "spec": "400gm",
+   "batch": "SK081026",
+   "packs": 52.0,
+   "kg": 18.0,
+   "prod_date": "09/10/2026",
+   "operator": "Ling He Le",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-09 04:56",
+   "product": "Sate Pedal Ayam",
+   "spec": "400gm",
+   "batch": "SPA081026",
+   "packs": 28.0,
+   "kg": 9.0,
+   "prod_date": "09/10/2026",
+   "operator": "Ling He Le",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-09 04:57",
+   "product": "Sate Ayam",
+   "spec": "400gm",
+   "batch": "SA081026",
+   "packs": 36.0,
+   "kg": 17.0,
+   "prod_date": "09/10/2026",
+   "operator": "Ling He Le",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-09 05:01",
+   "product": "Ayam Goreng Crispy",
+   "spec": "1kg",
+   "batch": "AGK081026",
+   "packs": 42.0,
+   "kg": 24.0,
+   "prod_date": "09/10/2026",
+   "operator": "Ling He Le",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-11 03:55",
+   "product": "Sate Ayam",
+   "spec": "400gm",
+   "batch": "SA091026",
+   "packs": 54.0,
+   "kg": 20.0,
+   "prod_date": "10/10/2026",
+   "operator": "Ling He Le",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-11 03:56",
+   "product": "Sate AyamS",
+   "spec": "400gm",
+   "batch": "SA101026",
+   "packs": 31.0,
+   "kg": 12.0,
+   "prod_date": "11/10/2026",
+   "operator": "Ling He Le",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-11 03:57",
+   "product": "Sate Kambing",
+   "spec": "400gm",
+   "batch": "SK101026",
+   "packs": 46.0,
+   "kg": 12.0,
+   "prod_date": "11/10/2026",
+   "operator": "Ling He Le",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-11 03:58",
+   "product": "Sate Daging",
+   "spec": "400gm",
+   "batch": "SD101026",
+   "packs": 90.0,
+   "kg": 37.0,
+   "prod_date": "11/10/2026",
+   "operator": "Ling He Le",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-11 04:00",
+   "product": "Sate Ayam Kepak",
+   "spec": "其他",
+   "batch": "SAK101026",
+   "packs": 21.0,
+   "kg": 12.0,
+   "prod_date": "11/10/2026",
+   "operator": "Ling He Le",
+   "remark": "stick串(500g)"
+  },
+  {
+   "time": "2026-10-11 04:00",
+   "product": "Marinated Beef",
+   "spec": "2kg",
+   "batch": "DD101026",
+   "packs": 28.0,
+   "kg": 38.0,
+   "prod_date": "11/10/2026",
+   "operator": "Ling He Le",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-11 04:01",
+   "product": "Ayam Goreng Crispy",
+   "spec": "1kg",
+   "batch": "AGK101026",
+   "packs": 41.0,
+   "kg": 30.0,
+   "prod_date": "11/10/2026",
+   "operator": "Ling He Le",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-11 04:15",
+   "product": "Kuih Pulut Dengan Gula Merah",
+   "spec": "200gm",
+   "batch": "KPG101026",
+   "packs": 323.0,
+   "kg": 21.0,
+   "prod_date": "11/10/2026",
+   "operator": "Ling He Le",
+   "remark": "KPG(200×30)pink box"
+  },
+  {
+   "time": "2026-10-17 04:55",
+   "product": "Sate Kambing",
+   "spec": "400gm",
+   "batch": "SK111026",
+   "packs": 82.0,
+   "kg": 31.0,
+   "prod_date": "12/10/2026",
+   "operator": "Ling He Le",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-17 04:56",
+   "product": "Sate Ayam",
+   "spec": "400gm",
+   "batch": "SA111026",
+   "packs": 43.0,
+   "kg": 18.0,
+   "prod_date": "12/10/2026",
+   "operator": "Ling He Le",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-17 04:57",
+   "product": "Sate Mala Ayam",
+   "spec": "400gm",
+   "batch": "SMA111026",
+   "packs": 49.0,
+   "kg": 20.0,
+   "prod_date": "12/10/2026",
+   "operator": "Ling He Le",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-17 04:58",
+   "product": "Sate Kambing",
+   "spec": "400gm",
+   "batch": "SK121026",
+   "packs": 60.0,
+   "kg": 28.0,
+   "prod_date": "13/10/2026",
+   "operator": "Ling He Le",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-17 04:58",
+   "product": "Sate Daging",
+   "spec": "400gm",
+   "batch": "SD131026",
+   "packs": 83.0,
+   "kg": 30.0,
+   "prod_date": "13/10/2026",
+   "operator": "Ling He Le",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-17 05:00",
+   "product": "Kuih Pulut Dengan Gula Merah",
+   "spec": "其他",
+   "batch": "KPG131026",
+   "packs": 150.0,
+   "kg": 9.0,
+   "prod_date": "13/10/2026",
+   "operator": "Ling He Le",
+   "remark": "KPG(230×50)12biji"
+  },
+  {
+   "time": "2026-10-17 05:02",
+   "product": "Sate Ayam Kepak",
+   "spec": "1kg",
+   "batch": "SAP131026",
+   "packs": 33.0,
+   "kg": 36.0,
+   "prod_date": "13/10/2026",
+   "operator": "Ling He Le",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-17 05:03",
+   "product": "Sate Daging",
+   "spec": "400gm",
+   "batch": "SD131026",
+   "packs": 29.0,
+   "kg": 10.0,
+   "prod_date": "14/10/2026",
+   "operator": "Ling He Le",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-17 05:03",
+   "product": "Sate Ayam",
+   "spec": "400gm",
+   "batch": "SA131026",
+   "packs": 22.0,
+   "kg": 10.0,
+   "prod_date": "14/10/2026",
+   "operator": "Ling He Le",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-17 05:04",
+   "product": "Marinated Beef",
+   "spec": "2kg",
+   "batch": "DD131026",
+   "packs": 28.0,
+   "kg": 37.0,
+   "prod_date": "14/10/2026",
+   "operator": "Ling He Le",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-17 05:05",
+   "product": "Ayam Goreng Crispy",
+   "spec": "1kg",
+   "batch": "AGK131026",
+   "packs": 41.0,
+   "kg": 37.0,
+   "prod_date": "14/10/2026",
+   "operator": "Ling He Le",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-17 05:05",
+   "product": "Sate Ayam",
+   "spec": "400gm",
+   "batch": "SA141026",
+   "packs": 27.0,
+   "kg": 10.0,
+   "prod_date": "15/10/2026",
+   "operator": "Ling He Le",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-17 05:06",
+   "product": "Sate Daging",
+   "spec": "400gm",
+   "batch": "SD141026",
+   "packs": 51.0,
+   "kg": 20.0,
+   "prod_date": "15/10/2026",
+   "operator": "Ling He Le",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-17 05:07",
+   "product": "Sate Kambing",
+   "spec": "400gm",
+   "batch": "SK141026",
+   "packs": 10.0,
+   "kg": 4.0,
+   "prod_date": "15/10/2026",
+   "operator": "Ling He Le",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-17 05:08",
+   "product": "Sate Ayam Kepak",
+   "spec": "其他",
+   "batch": "SAK141026",
+   "packs": 8.0,
+   "kg": 4.0,
+   "prod_date": "15/10/2026",
+   "operator": "Ling He Le",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-17 05:09",
+   "product": "Sate Ayam Kepak",
+   "spec": "其他",
+   "batch": "SAK141026",
+   "packs": 11.0,
+   "kg": 10.0,
+   "prod_date": "15/10/2026",
+   "operator": "Ling He Le",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-17 05:10",
+   "product": "Marinated Beef",
+   "spec": "2kg",
+   "batch": "DD151026",
+   "packs": 41.0,
+   "kg": 57.0,
+   "prod_date": "16/10/2026",
+   "operator": "Ling He Le",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-17 05:11",
+   "product": "Sate Kambing",
+   "spec": "400gm",
+   "batch": "SK151026",
+   "packs": 41.0,
+   "kg": 16.0,
+   "prod_date": "16/10/2026",
+   "operator": "Ling He Le",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-17 05:11",
+   "product": "Sate Ayam",
+   "spec": "400gm",
+   "batch": "SA151026",
+   "packs": 35.0,
+   "kg": 15.0,
+   "prod_date": "16/10/2026",
+   "operator": "Ling He Le",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-17 05:12",
+   "product": "Sate Ayam",
+   "spec": "400gm",
+   "batch": "SA161026",
+   "packs": 56.0,
+   "kg": 14.0,
+   "prod_date": "17/10/2026",
+   "operator": "Ling He Le",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-17 05:13",
+   "product": "Sate Mala Daging",
+   "spec": "400gm",
+   "batch": "SMD161026",
+   "packs": 51.0,
+   "kg": 18.0,
+   "prod_date": "17/10/2026",
+   "operator": "Ling He Le",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-21 02:09",
+   "product": "Sate daging",
+   "spec": "400gm",
+   "batch": "SD191026",
+   "packs": 30.0,
+   "kg": 17.0,
+   "prod_date": "20/10/26",
+   "operator": "Jenn",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-21 02:11",
+   "product": "Sate kambing",
+   "spec": "400gm",
+   "batch": "SK191026",
+   "packs": 99.0,
+   "kg": 32.0,
+   "prod_date": "20/10/26",
+   "operator": "Jenn",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-21 02:13",
+   "product": "Chicken wings (no skewers)",
+   "spec": "1kg",
+   "batch": "CW191026",
+   "packs": 6.0,
+   "kg": 3.0,
+   "prod_date": "20/10/26",
+   "operator": "Jenn",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-21 02:24",
+   "product": "Sate ayam pedas mala",
+   "spec": "400gm",
+   "batch": "SAM201026",
+   "packs": 111.0,
+   "kg": 44.0,
+   "prod_date": "21/10/26",
+   "operator": "Jenn",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-25 19:44",
+   "product": "Sate daging nenas",
+   "spec": "400gm",
+   "batch": "SDN221026",
+   "packs": 10.0,
+   "kg": 5.0,
+   "prod_date": "231026",
+   "operator": "Jenn",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-25 19:46",
+   "product": "Beef marinated (BBQ)",
+   "spec": "2kg",
+   "batch": "BBQ221026",
+   "packs": 99.0,
+   "kg": 59.0,
+   "prod_date": "23/10/26",
+   "operator": "Jenn",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-25 19:49",
+   "product": "Chicken wing (skewers)",
+   "spec": "其他",
+   "batch": "CW231026",
+   "packs": 23.0,
+   "kg": 36.0,
+   "prod_date": "25/10/26",
+   "operator": "Jenn",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-25 19:51",
+   "product": "Ayam terung",
+   "spec": "350gm",
+   "batch": "AT221026",
+   "packs": 74.0,
+   "kg": 18.0,
+   "prod_date": "23/10/26",
+   "operator": "Jenn",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-25 19:53",
+   "product": "Ayam terung",
+   "spec": "350gm",
+   "batch": "AT231026",
+   "packs": 99.0,
+   "kg": 18.0,
+   "prod_date": "24/10/26",
+   "operator": "Jenn",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-25 19:55",
+   "product": "Sate daging",
+   "spec": "400gm",
+   "batch": "SD231026",
+   "packs": 79.0,
+   "kg": 30.0,
+   "prod_date": "24/10/26",
+   "operator": "Jenn",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-25 19:57",
+   "product": "Claypot kambing",
+   "spec": "350gm",
+   "batch": "CK241026",
+   "packs": 156.0,
+   "kg": 40.0,
+   "prod_date": "25/10/26",
+   "operator": "Jenn",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-25 19:58",
+   "product": "Sate daging",
+   "spec": "400gm",
+   "batch": "SD241026",
+   "packs": 13.0,
+   "kg": 4.0,
+   "prod_date": "25/10/26",
+   "operator": "Jenn",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-25 20:00",
+   "product": "Sate kambing",
+   "spec": "400gm",
+   "batch": "SK241026",
+   "packs": 59.0,
+   "kg": 20.0,
+   "prod_date": "25/10/26",
+   "operator": "Jenn",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-25 20:01",
+   "product": "Sate ayam",
+   "spec": "400gm",
+   "batch": "SA241026",
+   "packs": 44.0,
+   "kg": 19.0,
+   "prod_date": "25/10/26",
+   "operator": "Jenb",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-25 20:04",
+   "product": "Chicken wings (no skewers)",
+   "spec": "1kg",
+   "batch": "CW241026",
+   "packs": 35.0,
+   "kg": 27.0,
+   "prod_date": "25/10/26",
+   "operator": "Jenn",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-29 02:48",
+   "product": "Marinated Beef",
+   "spec": "2kg",
+   "batch": "DD251026",
+   "packs": 70.0,
+   "kg": 95.0,
+   "prod_date": "26/10/2026",
+   "operator": "Ling He Le",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-29 02:48",
+   "product": "Sate Ayam",
+   "spec": "400gm",
+   "batch": "SA251026",
+   "packs": 90.0,
+   "kg": 40.0,
+   "prod_date": "26/10/2026",
+   "operator": "Ling He Le",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-29 02:49",
+   "product": "Sate Kambing",
+   "spec": "400gm",
+   "batch": "SK251026",
+   "packs": 21.0,
+   "kg": 10.0,
+   "prod_date": "26/10/2026",
+   "operator": "Ling He Le",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-29 02:50",
+   "product": "Sate Kambing",
+   "spec": "400gm",
+   "batch": "SK261026",
+   "packs": 24.0,
+   "kg": 10.0,
+   "prod_date": "27/10/2026",
+   "operator": "Ling He Le",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-29 02:52",
+   "product": "Sate Daging Nenes",
+   "spec": "400gm",
+   "batch": "SDN261026",
+   "packs": 11.0,
+   "kg": 5.0,
+   "prod_date": "27/10/2026",
+   "operator": "Ling He Le",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-29 02:53",
+   "product": "Sate Daging",
+   "spec": "400gm",
+   "batch": "SD261026",
+   "packs": 41.0,
+   "kg": 15.0,
+   "prod_date": "27/10/2026",
+   "operator": "Ling He Le",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-29 02:53",
+   "product": "Sate Kambing",
+   "spec": "400gm",
+   "batch": "SK261026",
+   "packs": 64.0,
+   "kg": 15.0,
+   "prod_date": "27/10/2026",
+   "operator": "Ling He Le",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-29 02:54",
+   "product": "Sate Kambing",
+   "spec": "400gm",
+   "batch": "SK271026",
+   "packs": 16.0,
+   "kg": 5.0,
+   "prod_date": "28/10/2026",
+   "operator": "Ling He Le",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-29 02:55",
+   "product": "Sate Daging Mala",
+   "spec": "400gm",
+   "batch": "SDM271026",
+   "packs": 49.0,
+   "kg": 20.0,
+   "prod_date": "28/10/2026",
+   "operator": "Ling He Le",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-29 02:57",
+   "product": "Sate Ayam Mala",
+   "spec": "400gm",
+   "batch": "SAM271026",
+   "packs": 64.0,
+   "kg": 10.0,
+   "prod_date": "28/10/2026",
+   "operator": "Ling He Le",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-29 02:58",
+   "product": "Daging Masar Merah",
+   "spec": "400gm",
+   "batch": "SMM271026",
+   "packs": 59.0,
+   "kg": 40.0,
+   "prod_date": "28/10/2026",
+   "operator": "Ling He Le",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-29 02:59",
+   "product": "Sate Ayam Mala",
+   "spec": "400gm",
+   "batch": "SAM281026",
+   "packs": 85.0,
+   "kg": 40.0,
+   "prod_date": "29/10/2026",
+   "operator": "Ling He Le",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-29 03:01",
+   "product": "Sate Kambing",
+   "spec": "400gm",
+   "batch": "SK281026",
+   "packs": 76.0,
+   "kg": 4.0,
+   "prod_date": "29/10/2026",
+   "operator": "Ling He Le",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-29 03:02",
+   "product": "Claypoy Ayam",
+   "spec": "350gm",
+   "batch": "CA281026",
+   "packs": 160.0,
+   "kg": 36.0,
+   "prod_date": "29/10/2026",
+   "operator": "Ling He Le",
+   "remark": ""
+  },
+  {
+   "time": "2026-10-29 04:12",
+   "product": "Sate Daging",
+   "spec": "400gm",
+   "batch": "SD291026",
+   "packs": 3.0,
+   "kg": 1.0,
+   "prod_date": "29/10/2026",
+   "operator": "Ling He Le",
+   "remark": ""
+  }
+ ]
+}

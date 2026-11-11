@@ -15,7 +15,7 @@ JSON 结构（数量为数字，时间 "YYYY-MM-DD HH:MM"）：
 """
 import json, re, sys
 from collections import OrderedDict
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import A4
@@ -29,7 +29,7 @@ from reportlab.platypus import Paragraph, SimpleDocTemplate, Spacer, Table, Tabl
 MATERIAL = [
     (r"^67\s*beef|67号?\s*牛肉|beef\s*67|cube\s*roll", "牛肉 67"),
     (r"^45\s*beef|4\.5\s*beef|beef\s*45|rump", "牛肉 45"),
-    (r"^ayam\s*bl|无骨鸡腿|^ayam$", "鸡腿肉"),
+    (r"^ayam\s*bl|无骨鸡腿|^ayam$|chicken\s*b[il]l?$", "鸡腿肉"),
     (r"gizard|gizzard|鸡胗", "鸡胗"),
     (r"chicken\s*wing|鸡翅|kepak|mid\s*joint", "鸡翅"),
     (r"minced\s*chicken|chicken\s*fillet|鸡碎", "鸡碎肉"),
@@ -43,22 +43,26 @@ MATERIAL = [
     (r"sesame", "麻油"),
     (r"木薯|tepung\s*ubi", "木薯粉"),
     (r"sayur|telur|veg", "蔬菜鸡蛋"),
+    (r"soy|oyster|haday|maggi|cukup\s*rasa|酱油|蚝油", "酱料"),
     (r"盐|味精|鸡精|鲜味|胡椒|辣椒|孜然|花椒|芝麻|花生|黄豆|软化剂|撒粉|tepung\s*uli", "调味料"),
 ]
+# 顺序有意义：先匹配更具体的写法。(?=.*x) 让 "Sate Mala Ayam" 和 "Sate Ayam Mala" 归到同一类。
 PRODUCT = [
-    (r"kepak", "鸡翅串"), (r"pedal", "鸡胗串"),
-    (r"sate\s*ayam\s*mala|麻辣鸡肉串", "麻辣鸡肉串"),
+    (r"no\s*skewer", "鸡翅（无签）"),
+    (r"kepak|chicken\s*wings?.*skewer", "鸡翅串"), (r"pedal", "鸡胗串"),
+    (r"(?=.*sate)(?=.*ayam)(?=.*mala)|麻辣鸡肉串", "麻辣鸡肉串"),
+    (r"(?=.*sate)(?=.*daging)(?=.*mala)|麻辣牛肉串", "麻辣牛肉串"),
+    (r"(?=.*sate)(?=.*kambing)(?=.*mala)|麻辣羊肉串", "麻辣羊肉串"),
+    (r"sate\s*daging\s*nen[ae]s", "黄梨牛肉串"),
     (r"sate\s*ayam|鸡肉串", "鸡肉串"),
-    (r"sate\s*daging\s*mala|麻辣牛肉串", "麻辣牛肉串"),
-    (r"sate\s*daging\s*nenas", "黄梨牛肉串"),
     (r"sate\s*daging|牛肉串", "牛肉串"),
-    (r"sate\s*kambing\s*mala|麻辣羊肉串", "麻辣羊肉串"),
     (r"sate\s*kambing|羊肉串", "羊肉串"),
-    (r"bbq\s*marinated|bmb|daging\s*di\s*?perap|marinated\s*beef|腌制", "腌制牛肉"),
-    (r"masak\s*merah|红烧牛肉", "红烧牛肉"),
+    (r"marinated|diperap|bmb|腌制", "腌制牛肉"),
+    (r"masa[kr]\s*merah|红烧牛肉", "红烧牛肉"),
     (r"mala\s*bbq", "麻辣烧烤"), (r"^bbq$", "烧烤"),
-    (r"gula\s*merah", "椰糖糯米糕"), (r"pulut\s*goreng|kpg", "炸糯米糕"),
-    (r"claypot|clay\s*pot", "砂锅鸡"), (r"chicken\s*wing", "鸡翅"),
+    (r"gula\s*merah|pulut\s*goreng|kpg", "红糖糍粑"),
+    (r"clay\s*po[ty]\s*kambing", "羊肉煲"), (r"clay\s*po[ty]\s*ayam", "鸡肉煲"), (r"clay\s*po[ty]", "砂锅"),
+    (r"chicken\s*wing", "鸡翅"),
     (r"cincang|terung", "茄子鸡"),
     (r"ayam\s*goreng", "炸鸡"),
     (r"minyak\s*bawang", "蒜油"),
@@ -90,12 +94,15 @@ def wd(d): return WD[datetime.strptime(d, "%Y-%m-%d").weekday()]
 def flag_intake(r):
     rem = str(r.get("remark", "")).lower()
     if re.search(r"no\s*exp|tiada\s*tarikh|tanpa\s*exp|无到期|没有到期", rem): return "无到期日"
-    return "" if re.search(r"exp|luput|到期|\d{1,2}/\d{1,2}/\d{2,4}", rem) else "无到期日"
+    # 也认没写 exp 的 8 位日期，如 "16062027"（日月年）
+    return "" if re.search(r"exp|luput|到期|\d{1,2}/\d{1,2}/\d{2,4}|(?<!\w)[0-3]\d[01]\d20\d\d(?!\w)", rem) else "无到期日"
 def flag_issue(r):
     f = []
     if not str(r.get("batch", "")).strip(): f.append("缺批次号")
     if n(r.get("kg")) >= 500: f.append(f"数量 {fmt(r['kg'])} kg 异常")
     if re.search(r"\d{8,}", str(r.get("material", ""))): f.append("物料名混入条码")
+    pur = str(r.get("purpose", "")).strip()
+    if pur and canon(pur, PURPOSE) == pur and canon(pur, MATERIAL) != pur: f.append("用途填成了物料名")
     return "；".join(f)
 DMY = re.compile(r"^(\d{1,2})[/-](\d{1,2})[/-](\d{2,4})$")
 def flag_pack(r):
@@ -123,6 +130,9 @@ def build(data, out_pdf, out_txt=None):
     P0 = data["period"]
     start, end = P0["start"], P0["end"]
     gen = P0.get("generated", datetime.now().strftime("%Y-%m-%d"))
+    title = P0.get("title", "上周出库总结")
+    d0, d1 = (datetime.strptime(x, "%Y-%m-%d") for x in (start, end))
+    monthly = (d1 - d0).days > 7
     IN = data.get("intake", []); IS = data.get("issue", []); PK = data.get("packing", [])
     for r in IN: r["_f"] = flag_intake(r)
     for r in IS: r["_f"] = flag_issue(r)
@@ -181,7 +191,7 @@ def build(data, out_pdf, out_txt=None):
     pct = lambda v, tot: f"{v / tot * 100:.0f}%" if tot else "—"
     W = 188  # 可用宽度 mm
 
-    story = [P("上周出库总结", "h1"),
+    story = [P(title, "h1"),
              P(f"{start}（周{wd(start)}） 至 {end}（周{wd(end)}） &nbsp;·&nbsp; 生成日期 {gen}", "sub"),
              Spacer(1, 10)]
 
@@ -195,6 +205,23 @@ def build(data, out_pdf, out_txt=None):
                            ("TOPPADDING", (0, 1), (-1, 1), 1), ("BOTTOMPADDING", (0, 1), (-1, 1), 7),
                            ("LEFTPADDING", (0, 0), (-1, -1), 9)]))
     story.append(k)
+
+    if monthly:
+        # 按周（周一到周日，首尾按报告期截断）
+        weeks, cur = [], d0
+        while cur <= d1:
+            stop = min(d1, cur + timedelta(days=6 - cur.weekday()))
+            weeks.append((cur.strftime("%Y-%m-%d"), stop.strftime("%Y-%m-%d")))
+            cur = stop + timedelta(days=1)
+        inwk = lambda rows, a, b: [r for r in rows if a <= r["time"][:10] <= b]
+        wrows = [[f"{a[5:]} – {b[5:]}",
+                  fmt(sum(n(r["kg"]) for r in inwk(IS, a, b) if ok(r))) or "0",
+                  f"{int(sum(n(r['packs']) for r in inwk(PK, a, b))):,}",
+                  fmt(sum(n(r["kg"]) for r in inwk(IN, a, b))) or "0"] for a, b in weeks]
+        story.append(P("按周", "h2"))
+        story.append(table(["周", "原材料出库 kg", "生产产出 packs", "原材料入库 kg"], wrows,
+                           [52, 46, 46, 44], {1, 2, 3},
+                           ["合计", fmt(is_t), f"{int(pk_t):,}", fmt(in_t)]))
 
     # 出库物料
     story.append(P("出库物料", "h2"))
@@ -216,6 +243,13 @@ def build(data, out_pdf, out_txt=None):
                        [88, 24, 40, 36], {1, 2, 3},
                        ["合计", str(len(PK)), f"{int(pk_t):,}", fmt(pk_kg)]))
 
+    if monthly:
+        inm = roll(IN, "material", MATERIAL, "kg", guard=False)
+        story.append(P("原材料入库", "h2"))
+        story.append(table(["物料", "笔数", "数量 kg", "占比"],
+                           [[a, str(v[0]), fmt(v[1]), pct(v[1], in_t)] for a, v in inm],
+                           [88, 24, 40, 36], {1, 2, 3}, ["合计", str(len(IN)), fmt(in_t), "100%"]))
+
     # 需核对
     issues = ([("入库", r["time"][5:16], r["material"], f"{fmt(r['kg'])} kg", r["_f"]) for r in IN if r["_f"]]
               + [("出库", r["time"][5:16], r["material"], f"{fmt(r['kg'])} kg", r["_f"]) for r in IS if r["_f"]]
@@ -235,10 +269,10 @@ def build(data, out_pdf, out_txt=None):
         c.restoreState()
     SimpleDocTemplate(out_pdf, pagesize=A4, leftMargin=14 * mm, rightMargin=14 * mm,
                       topMargin=14 * mm, bottomMargin=14 * mm,
-                      title=f"上周出库总结 {start} – {end}", author="AEM Frozen Food"
+                      title=f"{title} {start} – {end}", author="AEM Frozen Food"
                       ).build(story, onFirstPage=footer, onLaterPages=footer)
 
-    lines = [f"上周出库总结  {start} 至 {end}", "",
+    lines = [f"{title}  {start} 至 {end}", "",
              f"原材料出库   {fmt(is_t)} kg（{len(IS)} 笔）",
              f"生产产出     {int(pk_t):,} packs（投入原料 {fmt(pk_kg)} kg）",
              f"原材料入库   {fmt(in_t)} kg（{len(IN)} 笔）", "",
