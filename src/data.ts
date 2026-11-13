@@ -107,8 +107,8 @@ export const PRODUCTS: Product[] = [
     description: 'Tender mutton chunks marinated with bold Mala spices. Rich, spicy, and perfectly savory.',
     descriptionZh: '严选优质羊肉，麻辣鲜香，肥而不腻，烤后香气扑鼻。',
     variants: [
-      { id: 'skm-pkt', size: '400g * Pkt', price: 33.00, type: 'pkt' },
-      { id: 'skm-ctn', size: '400g * 20Pkt * Ctn', price: 660.00, type: 'ctn' }
+      { id: 'skm-pkt', size: '400g * Pkt', price: 35.00, type: 'pkt' },
+      { id: 'skm-ctn', size: '400g * 20Pkt * Ctn', price: 700.00, type: 'ctn' }
     ]
   },
   {
