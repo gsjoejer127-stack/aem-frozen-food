@@ -150,8 +150,8 @@ export const PRODUCTS: Product[] = [
     description: 'Traditional marinated mutton skewers. Incredibly tender, rich, and juicy with local herbal notes.',
     descriptionZh: '古法风味羊肉串，去腥留鲜，肉质滑嫩，汁水丰盈。',
     variants: [
-      { id: 'skc-pkt', size: '400g * Pkt', price: 30.00, type: 'pkt' },
-      { id: 'skc-ctn', size: '400g * 20Pkt * Ctn', price: 600.00, type: 'ctn' }
+      { id: 'skc-pkt', size: '400g * Pkt', price: 32.00, type: 'pkt' },
+      { id: 'skc-ctn', size: '400g * 20Pkt * Ctn', price: 640.00, type: 'ctn' }
     ]
   },
   {
