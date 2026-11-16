@@ -104,12 +104,31 @@ cron `0 1 * * 1` UTC = 周一 09:00 MYT，绑定在固定 session 上跑
 
 2026-09（254 笔）跑出来是 14 页 PDF / 约 60 KB 网页。
 
-### 大附件发不出去
+### 附件：用文件引用，不要手抄 base64
 
-Gmail 附件要把 base64 贴进工具参数，而 Read 在约 22,000 字符处截断，
-手工拼接必然出错（试过两次，两次都坏）。所以：
+Gmail 连接器支持**文件引用**，直接按路径取文件，不用把 base64 贴进参数：
 
-- base64 超过约 20,000 字符（PDF 约 15 KB）就**不要走邮件附件**。
-- 改成发布 Artifact（`Artifact` 工具按路径读文件，不需要转抄），
-  PDF 作为 `files` 一起发布，邮件里只放链接。
-- 2026-09 的记录在 https://claude.ai/artifact/FrvfAayY8gQLsU5PkTAYNe
+```
+sha256sum <pdf 的绝对路径>
+# attachments: [{"filename": "...", "mimeType": "application/pdf",
+#                "content": "sha256:<64 位十六进制>:<绝对路径>"}]
+```
+
+一定要用这个。手抄 base64 试过两次，两次都抄坏了 —— Read 在约 22,000
+字符处截断，而且就算没截断，上万字符也复制不准。
+
+超大文件（几十页的月度记录）仍然建议发布成 Artifact（`Artifact` 工具同样
+按路径读文件），邮件里放链接。2026-09 的记录在
+https://claude.ai/artifact/FrvfAayY8gQLsU5PkTAYNe
+
+## 别名表要一直补
+
+产品名和物料名是手打的，每周都有新错法。到目前为止补过的：
+`Sate Mala Ayam`（语序颠倒）、`Beef marinated`（语序颠倒）、
+`Sate Daging Nenes` / `Nenas` / `Nanas`（三种拼法）、
+`Daging Masar Merah`（masak）、`Claypoy Ayam`（claypot）、
+`chicken bil`（boneless）、`Mochi`、`Goreng`。
+`Claypot kambing` 那次是真算错：原来的 claypot 规则不分鸡羊，
+156 packs 羊肉记到了鸡的账上。改规则时要想清楚会不会吞掉别的品类。
+
+根治办法是把 Jotform 的产品名改成下拉选单。已经跟老板提过多次。
